@@ -28,6 +28,10 @@ The master plan. Platform as source of truth, Webflow as rendering layer, 6-phas
 
 Updates are listed newest-first.
 
+**2026-03-14 — Phase 1 scope refinements & design decisions**
+- Added email subscription / RSS publish workflow to Phase 1 scope
+- Expanded Key Design Decisions: content entry format trade-offs (markdown vs structured JSON), email-based auth for Phase 1, Webflow locale confirmation action item for Sis. Hinkle
+
 **2026-03-14 — Integration strategy major update**
 - Added stakeholder engagement section (ITAC, Publishing Team, HQ leadership)
 - Added approval chain with action items and owners

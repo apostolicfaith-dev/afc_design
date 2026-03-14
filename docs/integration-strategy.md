@@ -116,7 +116,7 @@ This section is specifically for the Publishing Team to understand what the plat
 **After (with platform):**
 1. Enter devotional content in the platform (similar editor, but purpose-built)
 2. Click "Publish"
-3. Platform automatically: translates to 3 languages, generates TTS audio in all 4 languages (including English), creates/updates Webflow pages, publishes
+3. Platform automatically: translates to 3 languages, generates TTS audio in all 4 languages (including English), creates/updates Webflow pages, publishes to email subscription and RSS feed
 4. **Time: ~15-20 minutes per devotional** (content entry only — everything else is automated)
 
 **What stays the same:**
@@ -448,6 +448,7 @@ Scope:
 - Content ↔ Webflow mapping table
 - Translation pipeline (English → ES, FR, KO) with beta auto-approve
 - TTS audio generation for all 4 languages (including English)
+- Email subscription / RSS publish workflow migration: current devotionals are distributed daily via email subscription and RSS feed — the platform must generate and publish to these channels as part of the pipeline (not just Webflow)
 - Change detection: content update → re-translate → re-generate audio → re-sync Webflow
 - Admin dashboard: pipeline status, sync status per entry
 
@@ -457,7 +458,7 @@ Explicitly out of scope for Phase 1:
 - Historical content backfill — only new devotionals going forward
 
 Success criteria:
-- Editor types devotional once → it appears on apostolicfaith.org in 4 languages with TTS audio
+- Editor types devotional once → it appears on apostolicfaith.org in 4 languages with TTS audio, and is distributed via email subscription and RSS feed
 - Content update triggers automatic re-processing and Webflow update
 - Both Daily and Daybreak handled through the same workflow
 
@@ -567,22 +568,22 @@ Additional scope:
    - Webflow supports multi-locale CMS items
    - But AFC may have language-specific pages in different URL structures
    - Need to audit current Webflow setup for foreign language content
+   - **Action item:** Sis. Catey Hinkle should confirm how foreign language content is currently structured in Webflow (locale-based or separate collections). This decision affects the API integration approach.
 
 3. **Where does the platform run?**
    - Vercel (current TGV setup) — good for Next.js, serverless
    - AWS (already using S3) — more control, could consolidate
    - Hybrid: Vercel for app, AWS for storage/processing
 
-4. **Content entry format**
-   - Rich text editor (TipTap, already in TGV)
-   - Markdown
-   - Structured JSON (for curriculum with fixed sections)
-   - Recommendation: Rich text for devotionals/articles, structured for curriculum
+4. **Content entry format — trade-offs**
+   - **Markdown / rich text editor** (TipTap, already in TGV): Free-form text input gives flexibility, but the person entering content owns the risk of formatting errors, missing fields, or structural inconsistencies. Rendering requires a markdown-to-HTML pipeline, which is straightforward but adds a layer. Best for long-form prose content (devotionals, articles).
+   - **Structured JSON** (form-based entry): Each field is a discrete input (title, scripture, body, etc.), reducing data entry errors. But every content type needs a purpose-built form, which means more UI development and maintenance. Rendering is more predictable since the structure is enforced. Best for content with fixed sections (curriculum, Daybreak devotional sections).
+   - **Recommendation:** Rich text for devotionals/articles, structured forms for curriculum. The Daybreak Devotional (with its fixed sections: Overview, Background, Amplified Outline, Closer Look, Conclusion) may benefit from a hybrid approach — structured fields for section labels, rich text within each section.
 
-5. **Authentication unification**
+5. **Authentication**
    - TGV has its own auth (NextAuth)
-   - Webflow has minister login system
-   - Long-term: single SSO for all AFC digital services
+   - For Phase 1, use email-based authentication: user enters email, receives a passcode, logs in. Session persists for 30 days. Simple, no third-party dependency.
+   - Long-term: evaluate single SSO for all AFC digital services (platform, minister portal, app)
 
 ---
 
