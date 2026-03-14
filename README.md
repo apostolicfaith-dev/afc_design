@@ -11,7 +11,7 @@ This repository documents the design and strategy for building an **AFC Platform
 ## Related Repositories
 
 - [`apostolicfaith-dev/the-global-voice`](https://github.com/apostolicfaith-dev/the-global-voice) — Translation pipeline prototype (Next.js + Gemini AI + TTS)
-- [`apostolicfaith-dev/afcgeomap`](https://github.com/apostolicfaith-dev/afcgeomap) — Church location map demo
+- [`apostolicfaith-dev/afcgeomap`](https://github.com/apostolicfaith-dev/afcgeomap) — Interactive map of AFC magazine articles by geographic location ([live site](https://apostolicfaith-dev.github.io/afcgeomap/))
 
 ## Documents
 

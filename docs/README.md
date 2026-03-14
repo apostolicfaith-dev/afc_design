@@ -19,4 +19,4 @@ This site documents the design and strategy for building an **AFC Platform** —
 ## Related Projects
 
 - [the-global-voice](https://github.com/apostolicfaith-dev/the-global-voice) — Translation pipeline prototype
-- [afcgeomap](https://github.com/apostolicfaith-dev/afcgeomap) — Church location map demo
+- [afcgeomap](https://github.com/apostolicfaith-dev/afcgeomap) — Interactive map of AFC magazine articles by geographic location ([live site](https://apostolicfaith-dev.github.io/afcgeomap/))

@@ -273,6 +273,6 @@ Additional scope:
 ## Reference
 
 - the-global-voice repo: `apostolicfaith-dev/the-global-voice` (translation pipeline prototype)
-- afcgeomap repo: `apostolicfaith-dev/afcgeomap` (church location demo)
+- afcgeomap repo: `apostolicfaith-dev/afcgeomap` (magazine article geographic map)
 - Webflow CMS API: https://developers.webflow.com/data/reference/cms
 - Current website: https://apostolicfaith.org/
