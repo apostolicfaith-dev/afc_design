@@ -18,5 +18,5 @@ This site documents the design and strategy for building an **AFC Platform** —
 
 ## Related Projects
 
-- [the-global-voice](https://github.com/twpark/the-global-voice) — Translation pipeline prototype
-- [afcgeomap](https://github.com/twpark/afcgeomap) — Church location map demo
+- [the-global-voice](https://github.com/apostolicfaith-dev/the-global-voice) — Translation pipeline prototype
+- [afcgeomap](https://github.com/apostolicfaith-dev/afcgeomap) — Church location map demo

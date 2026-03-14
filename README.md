@@ -10,8 +10,8 @@ This repository documents the design and strategy for building an **AFC Platform
 
 ## Related Repositories
 
-- [`twpark/the-global-voice`](https://github.com/twpark/the-global-voice) — Translation pipeline prototype (Next.js + Gemini AI + TTS)
-- [`twpark/afcgeomap`](https://github.com/twpark/afcgeomap) — Church location map demo
+- [`apostolicfaith-dev/the-global-voice`](https://github.com/apostolicfaith-dev/the-global-voice) — Translation pipeline prototype (Next.js + Gemini AI + TTS)
+- [`apostolicfaith-dev/afcgeomap`](https://github.com/apostolicfaith-dev/afcgeomap) — Church location map demo
 
 ## Documents
 
