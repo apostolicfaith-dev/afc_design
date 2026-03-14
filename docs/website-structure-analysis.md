@@ -1,8 +1,8 @@
 # apostolicfaith.org — Website Structure Analysis
 
-> Analyzed: 2026-03-14
-> Platform: Webflow CMS
-> Domain: https://apostolicfaith.org/
+> - Analyzed: 2026-03-14
+> - Platform: Webflow CMS
+> - Domain: https://apostolicfaith.org/
 
 ## Summary
 

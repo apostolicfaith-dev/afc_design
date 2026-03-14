@@ -1,9 +1,9 @@
 # AFC Platform — Incremental Integration Strategy
 
-> Created: 2026-03-14
-> Last Updated: 2026-03-14
-> Status: Draft — Pending ITAC Review
-> Related: [website-structure-analysis.md](./website-structure-analysis.md), [maintenance-use-cases.md](./maintenance-use-cases.md)
+> - Created: 2026-03-14
+> - Last Updated: 2026-03-14
+> - Status: Draft — Pending ITAC Review
+> - Related: [website-structure-analysis.md](./website-structure-analysis.md), [maintenance-use-cases.md](./maintenance-use-cases.md)
 
 ## Summary
 

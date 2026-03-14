@@ -1,8 +1,8 @@
 # AFC Website & Content — Maintenance Use Cases
 
-> Created: 2026-03-14
-> Status: Draft (high-level)
-> Purpose: Map who does what, how often, and where automation can reduce manual effort
+> - Created: 2026-03-14
+> - Status: Draft (high-level)
+> - Purpose: Map who does what, how often, and where automation can reduce manual effort
 
 ## Summary
 
