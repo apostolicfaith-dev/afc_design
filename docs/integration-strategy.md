@@ -1,12 +1,133 @@
 # AFC Platform — Incremental Integration Strategy
 
 > Created: 2026-03-14
-> Status: Draft
+> Last Updated: 2026-03-14
+> Status: Draft — Pending ITAC Review
 > Related: [website-structure-analysis.md](./website-structure-analysis.md), [maintenance-use-cases.md](./maintenance-use-cases.md)
 
-## TL;DR
+## Summary
 
-Instead of replacing the entire AFC website at once (risky and slow), we're building a behind-the-scenes platform where content goes in once and automatically gets translated into 3 languages, turned into audio, and published to the current Webflow website via API. We start with just the Daily Devotional, prove it works, then expand to Daybreak, Sunday school, magazine, and so on. Each new feature goes through a release process — first only the team can see it (Shadow), then a small group tests it (Dogfood), then it goes out with a "beta" label, and finally it becomes the official way. Eventually, the platform replaces Webflow entirely.
+Instead of replacing the entire AFC website at once (risky and slow), we're building a behind-the-scenes platform where content goes in once and automatically gets translated into 3 languages, turned into audio, and published to the current Webflow website via API. We start with just the Daily Devotional — targeting Beta by mid-June 2026 — then expand to Daybreak, Sunday school, magazine, and so on. Each new feature goes through a release process: first only the team can see it (Shadow), then a small group tests it (Dogfood), then it goes out with a "beta" label, and finally it becomes the official way. This document needs alignment from ITAC, the Publishing Team, and HQ leadership before development begins.
+
+---
+
+## Stakeholders & Approval Chain
+
+This strategy requires alignment and approval before implementation can proceed. The following action items must be completed in order.
+
+### Key Stakeholders
+
+- **Bro. Sola Adosope** — Superintendent General, AF HQ Portland. Final approval authority.
+- **Bro. John Musgrave** — Director of Finance, AF HQ Portland. Budget and resource approval.
+- **Sis. Catey Hinkle** — Publishing Team Lead, AF HQ Portland. Content workflow owner. Her team will be the primary daily users of the platform.
+- **ITAC** (Apostolic Faith IT Advancement Committee) — Provides IT direction and recommendations to HQ. This project's scope is co-owned by ITAC.
+
+### Action Items
+
+```
+Step 1: ITAC Strategic Review
+   │  - Review this document for technical feasibility, risks, and priorities
+   │  - Align on Phase 1 scope and timeline
+   │  - Identify resource needs (dev, infrastructure, API access)
+   │  - Produce recommendation memo for HQ
+   │  - Owner: ITAC
+   │  - Target: By end of March 2026
+   │
+   ▼
+Step 2: Publishing Team Workflow Review
+   │  - Present current-vs-future workflow comparison to Publishing Team
+   │  - Sis. Hinkle and team review what changes for their daily work
+   │  - Collect feedback: pain points we missed, concerns, must-haves
+   │  - Document agreed workflow changes
+   │  - Owner: ITAC + Publishing Team
+   │  - Target: First two weeks of April 2026
+   │
+   ▼
+Step 3: HQ Leadership Approval
+   │  - Present strategy + ITAC recommendation + Publishing Team feedback
+   │  - Bro. Adosope: strategic alignment approval
+   │  - Bro. Musgrave: budget/resource approval (hosting costs, API services, dev time)
+   │  - Owner: ITAC
+   │  - Target: Mid-April 2026
+   │
+   ▼
+Step 4: Development Begins
+   │  - Webflow API access secured (see Webflow Setup section below)
+   │  - Development environment stood up
+   │  - Phase 1 implementation starts
+   │  - Owner: ITAC (development)
+   │  - Target: Late April 2026
+   │
+   ▼
+Step 5: Shadow + Dogfood Validation
+   │  - Publishing Team validates output quality
+   │  - Bilingual volunteers test translations
+   │  - Owner: ITAC + Publishing Team
+   │  - Target: May–June 2026
+   │
+   ▼
+Step 6: Beta Launch (Phase 1)
+     - Daily Devotional goes live with platform-generated content
+     - Translated content marked "Beta Translation"
+     - Owner: ITAC + Publishing Team
+     - Target: Mid-June 2026
+```
+
+### What Each Stakeholder Needs to Do
+
+**ITAC:**
+- Review and refine this strategy document
+- Assess technical risks (Webflow API limitations, translation quality, TTS reliability)
+- Provide recommendation to HQ with risk assessment
+- Lead development and integration work
+- Support Publishing Team during transition
+
+**Publishing Team (Sis. Hinkle):**
+- Review the "What Changes for the Publishing Team" section below
+- Provide feedback on workflow gaps or concerns
+- Designate 1-2 team members for Dogfood testing
+- Continue current manual workflow during Shadow/Dogfood (no disruption until Beta)
+
+**HQ Leadership (Bro. Adosope, Bro. Musgrave):**
+- Review ITAC recommendation and Publishing Team feedback
+- Approve strategic direction
+- Approve budget for infrastructure (estimated: hosting, AI API costs, cloud storage)
+- No action needed until Step 3
+
+---
+
+## What Changes for the Publishing Team
+
+This section is specifically for the Publishing Team to understand what the platform means for their daily work.
+
+### Daily Devotional — Before vs. After
+
+**Before (current manual process):**
+1. Receive devotional content from editorial
+2. Open Webflow, create a new CMS item
+3. Copy-paste title, scripture reference, body content
+4. Format the content (headings, paragraphs, pull quotes)
+5. Upload images and attach study material links
+6. Record or generate audio, upload to hosting, link to page
+7. Publish the page
+8. Repeat for each foreign language version (if translated)
+9. **Time: ~45-80 minutes per devotional, 1.5-2.5 hours/day for both devotionals**
+
+**After (with platform):**
+1. Enter devotional content in the platform (similar editor, but purpose-built)
+2. Click "Publish"
+3. Platform automatically: translates to 3 languages, generates audio in all languages, creates/updates Webflow pages, publishes
+4. **Time: ~15-20 minutes per devotional** (content entry only — everything else is automated)
+
+**What stays the same:**
+- The editorial process for writing devotionals doesn't change
+- The apostolicfaith.org website looks the same to visitors
+- The Publishing Team still controls what gets published and when
+
+**What's new:**
+- A dashboard showing pipeline status (translation progress, sync status)
+- Ability to update content and have changes automatically propagate
+- Audio generated automatically (no manual recording/upload for translated versions)
 
 ---
 
@@ -47,6 +168,76 @@ Build an internal content management platform ("AFC Platform") that becomes the 
 4. **Change detection triggers pipeline** — When source content changes, re-run translation → audio → publish
 5. **Incremental rollout** — One content type at a time, starting with Daily Devotional
 6. **Translation: beta mode first** — 3 languages, auto-approve with beta label, expand later
+
+---
+
+## Phase 1 Timeline — Daily Devotional (Target: Mid-June 2026)
+
+Working backward from a Beta launch target of June 15, 2026.
+
+### Week 1–2: Mar 17 – Mar 28 — Stakeholder Alignment
+
+- [ ] ITAC reviews this strategy document
+- [ ] ITAC produces risk assessment and recommendation memo
+- [ ] Webflow API access requested (see Webflow Setup below)
+- [ ] Audit existing Webflow CMS collections for Daily Devotional structure
+- **Gate:** ITAC alignment complete before proceeding
+
+### Week 3–4: Mar 31 – Apr 11 — Publishing Team Review + HQ Approval
+
+- [ ] Present strategy and workflow changes to Sis. Hinkle and Publishing Team
+- [ ] Collect and incorporate Publishing Team feedback
+- [ ] Present to Bro. Adosope and Bro. Musgrave for approval
+- [ ] Finalize Phase 1 scope based on all feedback
+- **Gate:** HQ approval before development begins
+
+### Week 5–6: Apr 14 – Apr 25 — Architecture & Foundation
+
+- [ ] Finalize data model (devotional schema, Webflow mapping, translation records)
+- [ ] Set up development environment (database, hosting, CI/CD)
+- [ ] Implement Webflow API client (auth, create/update/publish items)
+- [ ] Build content entry UI for Daily Devotional (adapt from the-global-voice)
+- [ ] Verify Webflow API can create devotional pages matching current site format
+
+### Week 7–8: Apr 28 – May 9 — Core Pipeline
+
+- [ ] Integrate translation pipeline (Gemini AI, English → ES/FR/KO)
+- [ ] Integrate TTS generation (ElevenLabs/Gemini, per language)
+- [ ] Implement content ↔ Webflow mapping and sync
+- [ ] Implement change detection (content hash → re-translate → re-generate → re-sync)
+- [ ] Build admin dashboard (pipeline status, sync status per entry)
+
+### Week 9–10: May 12 – May 23 — Shadow Deployment
+
+- [ ] Deploy to staging environment
+- [ ] Process 1-2 weeks of daily devotionals through full pipeline
+- [ ] ITAC reviews: translation quality, audio quality, Webflow page accuracy
+- [ ] Publishing Team compares platform output vs. manually published pages
+- [ ] Fix issues, iterate
+- **Gate:** Team confident in output quality
+
+### Week 11–12: May 26 – Jun 6 — Dogfood
+
+- [ ] Expand access to Publishing Team + select bilingual volunteers
+- [ ] Side-by-side comparison with current manual process
+- [ ] Collect feedback via simple form
+- [ ] Address critical feedback
+- **Gate:** Publishing Team signs off on quality
+
+### Week 13: Jun 9 – Jun 15 — Beta Launch
+
+- [ ] Switch Daily Devotional publishing to platform-generated
+- [ ] Translated content displays "Beta Translation" label
+- [ ] Feedback link visible on translated pages
+- [ ] Publishing Team monitors daily
+- [ ] Rollback plan ready (revert to manual if critical issues)
+
+### Post-Beta: Jun 16+ — Monitoring & GA Transition
+
+- [ ] Monitor quality metrics (reported issues, translation accuracy)
+- [ ] Iterate on translation prompts based on feedback
+- [ ] When stable (<2% reported issues): remove Beta label → GA
+- [ ] Begin Phase 2 (Daybreak Devotional) planning
 
 ---
 
@@ -101,7 +292,9 @@ Shadow ──→ Dogfood ──→ Beta ──→ GA
 
 ---
 
-## Webflow CMS API — What We Can Do
+## Webflow CMS API — Setup & Integration
+
+### What the API Can Do
 
 Based on Webflow's Data API:
 
@@ -117,6 +310,41 @@ Key capabilities for our use:
 - Update existing pages when content changes
 - Publish/unpublish programmatically
 - Handle multilingual versions via Webflow's locale system or separate collections per language
+
+### Who Needs to Do What
+
+**Step 1: Get Webflow API Access (Owner: Publishing Team / Site Admin)**
+- Someone with Webflow admin access to apostolicfaith.org must generate an API token
+- Go to Webflow Dashboard → Site Settings → Integrations → API Access → Generate API Token
+- The token needs CMS read/write permissions at minimum
+- Share the token securely with ITAC (not via email — use a password manager or secure channel)
+
+**Step 2: Audit Existing Collections (Owner: ITAC)**
+- Using the API token, list all CMS collections on the site
+- Identify the collection used for Daily Devotionals (fields, structure, slugs)
+- Document the field mapping: which Webflow fields map to which platform fields
+- Check if Webflow multi-locale is enabled on the site
+- Check if foreign-language devotionals use separate collections or locale variants
+
+**Step 3: Set Up Staging (Owner: ITAC)**
+- Option A: Create a hidden/draft collection in the live Webflow site for shadow testing
+- Option B: Duplicate the Webflow site to a staging subdomain (preferred if Webflow plan allows)
+- Test creating, updating, and publishing a devotional page via API
+
+**Step 4: Validate Field Mapping (Owner: ITAC + Publishing Team)**
+- Create a test devotional page via API
+- Publishing Team compares it against a manually created page
+- Confirm: formatting matches, audio player works, images display, links are correct
+- Iterate until API-created pages are indistinguishable from manual ones
+
+### API Rate Limits & Costs
+
+- Webflow CMS API: 60 requests/minute on standard plans
+- For Daily Devotional (1 entry × 4 languages = 4 API calls + publish): well within limits
+- Webflow plan must include CMS API access — verify current plan supports this
+- AI translation (Gemini): minimal cost per devotional (~$0.01-0.05 per translation)
+- TTS (ElevenLabs): ~$0.30-1.00 per devotional per language depending on length and plan
+- S3 storage: negligible (~$0.023/GB/month)
 
 ---
 
@@ -175,6 +403,8 @@ Scope:
 Success criteria:
 - Editor types devotional once → it appears on apostolicfaith.org in 4 languages with audio
 - Content update triggers automatic re-processing and Webflow update
+
+See **Phase 1 Timeline** section above for detailed schedule.
 
 ### Phase 2: Daybreak Devotional
 **Goal:** Same pipeline for Daybreak (more structured content with Overview, Background, Outline, etc.)
@@ -240,6 +470,28 @@ Additional scope:
 
 ---
 
+## Risk Assessment
+
+### Technical Risks
+
+- **Webflow API limitations:** Rate limits, field type restrictions, or plan-level feature gates could block integration. Mitigation: audit API early (Week 1-2), confirm capabilities before committing.
+- **Translation quality:** AI translations may have theological inaccuracies. Mitigation: theological guardrail catches major issues; beta label sets expectations; feedback loop improves quality over time.
+- **TTS voice quality:** Generated audio may sound unnatural in certain languages. Mitigation: test multiple TTS providers; offer fallback to human recording for high-priority content.
+- **Webflow site structure changes:** If the Publishing Team changes Webflow page structure, sync may break. Mitigation: mapping table makes dependencies explicit; monitoring alerts on sync failures.
+
+### Operational Risks
+
+- **Publishing Team adoption:** Team may resist workflow change or find the platform harder to use. Mitigation: involve them early (Step 2), dogfood period for hands-on experience, ensure the platform is genuinely easier than Webflow.
+- **Dual workflow burden:** During transition, team may need to maintain both manual and platform processes. Mitigation: Shadow/Dogfood phases run in parallel without requiring Publishing Team to change anything; switch only at Beta.
+- **Scope creep:** Pressure to add more content types before Phase 1 is solid. Mitigation: strict phase gates; Phase 1 must reach GA before expanding scope.
+
+### Resource Risks
+
+- **Development capacity:** ITAC members have other responsibilities. Mitigation: realistic timeline with buffer; Phase 1 scoped tightly.
+- **API costs:** Translation and TTS have per-use costs. Mitigation: costs are low for Phase 1 volume (1 devotional/day × 3 languages); monitor and project before scaling.
+
+---
+
 ## Key Design Decisions to Make
 
 1. **Evolve the-global-voice or build new?**
@@ -276,3 +528,4 @@ Additional scope:
 - afcgeomap repo: `apostolicfaith-dev/afcgeomap` (magazine article geographic map)
 - Webflow CMS API: https://developers.webflow.com/data/reference/cms
 - Current website: https://apostolicfaith.org/
+- Design docs site: https://apostolicfaith-dev.github.io/afc_design/

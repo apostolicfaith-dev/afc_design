@@ -22,11 +22,20 @@ Full breakdown of apostolicfaith.org — navigation, content sections (devotiona
 Who does what, how often. Maps 8 roles across daily/weekly/monthly/annual tasks. Identifies translation (~10,000 items/year) and audio production as the highest-effort workflows. Lists 8 automation opportunities.
 
 ### [Integration Strategy](docs/integration-strategy.md)
-The master plan. Platform as source of truth, Webflow as rendering layer, 6-phase incremental rollout from Daily Devotional to full Webflow replacement. Includes release process (Shadow → Dogfood → Beta → GA), translation beta strategy, and key architectural decisions.
+The master plan. Platform as source of truth, Webflow as rendering layer, 6-phase incremental rollout from Daily Devotional to full Webflow replacement. Includes stakeholder approval chain, Phase 1 timeline (target Beta by mid-June 2026), Webflow API setup guide, release process (Shadow → Dogfood → Beta → GA), risk assessment, and key architectural decisions.
 
 ## Update Log
 
 Updates are listed newest-first.
+
+**2026-03-14 — Integration strategy major update**
+- Added stakeholder engagement section (ITAC, Publishing Team, HQ leadership)
+- Added approval chain with action items and owners
+- Added "What Changes for the Publishing Team" before/after comparison
+- Added Phase 1 detailed timeline (13 weeks, target Beta mid-June 2026)
+- Added Webflow API setup guide (who does what, step by step)
+- Added risk assessment (technical, operational, resource)
+- Migrated repos and project board to `apostolicfaith-dev` GitHub org
 
 **2026-03-14 — Initial design documents**
 - Created website structure analysis from apostolicfaith.org crawl
