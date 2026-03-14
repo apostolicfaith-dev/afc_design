@@ -293,11 +293,11 @@ Shadow ──→ Dogfood ──→ Beta ──→ GA
 ### Per-Phase Release Targets
 
 - **Phase 1 (Daily + Daybreak Devotionals):** Shadow → Dogfood → Beta → GA
+- **Phase 1.5 (Content Backfill):** Optional after Phase 1 GA — batch-migrate historical devotionals (cost-dependent)
 - **Phase 2 (Curriculum):** Shadow → Dogfood → Beta → GA (new content model, needs full cycle)
 - **Phase 3 (Magazine):** Shadow → Dogfood → Beta → GA (high-visibility, quarterly cadence)
 - **Phase 4 (World Report & Events):** Shadow → Beta → GA (less translation-dependent, simpler cycle)
-- **Phase 5 (Content Backfill):** Migrate historical content (past devotionals, archived articles) into the platform
-- **Phase 6 (Full Replacement):** Extended Beta with A/B testing before full DNS cutover
+- **Phase 5 (Full Replacement):** Extended Beta with A/B testing before full DNS cutover
 
 ---
 
@@ -343,7 +343,7 @@ CMS API access requires **Webflow CMS plan ($23/mo) or higher**. The Starter and
 
 **Step 2: Audit Existing Collections (Owner: ITAC)**
 - Using the API token, list all CMS collections on the site
-- Identify the collection used for Daily Devotionals (fields, structure, slugs)
+- Identify the collections used for both Daily and Daybreak Devotionals (fields, structure, slugs)
 - Document the field mapping: which Webflow fields map to which platform fields
 - Check if Webflow multi-locale is enabled on the site
 - Check if foreign-language devotionals use separate collections or locale variants
@@ -361,11 +361,40 @@ CMS API access requires **Webflow CMS plan ($23/mo) or higher**. The Starter and
 
 ### API Rate Limits & Costs
 
-- Webflow CMS API: 60 RPM on CMS plan, 120 RPM on Business plan
-- For Phase 1 (2 devotionals/day × 4 languages = 8 items + publish calls): well within limits even on CMS plan
-- AI translation (Gemini): minimal cost per devotional (~$0.01-0.05 per translation)
-- TTS (ElevenLabs): ~$0.30-1.00 per devotional per language depending on length and plan
-- S3 storage: negligible (~$0.023/GB/month)
+**Webflow CMS API:**
+- 60 RPM on CMS plan, 120 RPM on Business plan
+- For Phase 1 (2 devotionals/day × 4 languages = 8 items + publish calls): well within limits
+
+**AI Translation (Gemini):**
+- ~$0.01-0.05 per translation — negligible at Phase 1 volume
+
+**TTS — Provider Cost Comparison (per 1 million characters):**
+
+- **AWS Polly Standard:** $4.00/M chars (free tier: 5M chars/month for 12 months)
+- **AWS Polly Neural:** $16.00/M chars (free tier: 1M chars/month for 12 months)
+- **Google Cloud TTS Standard:** $4.00/M chars (free tier: 4M chars/month)
+- **Google Cloud TTS WaveNet:** $16.00/M chars (free tier: 1M chars/month)
+- **Google Cloud TTS Neural2/Journey:** $16.00/M chars (free tier: 1M chars/month)
+- **Azure Neural TTS:** $15.00/M chars (free tier: 0.5M chars/month)
+- **ElevenLabs (Scale plan):** $180.00/M chars — highest quality but 10-45x more expensive
+- **ElevenLabs (Pro plan):** $240.00/M chars
+- **Gemini TTS:** Included with Gemini API usage, minimal additional cost
+
+**Phase 1 cost estimate:**
+- Average devotional: ~2,000 characters
+- 2 devotionals/day × 4 languages = ~16,000 chars/day = ~480,000 chars/month
+- At AWS Polly Neural: ~$7.70/month
+- At Google Cloud WaveNet: ~$7.70/month
+- At ElevenLabs Scale: ~$86/month
+- **Recommendation:** Start with AWS Polly or Google Cloud TTS for cost efficiency. ElevenLabs as premium option for English-only or key content if budget allows. Test voice quality across providers during Week 5-6.
+
+**Phase 1.5 Backfill cost note:**
+- ~1,200 days of archived devotionals × 2 types × 4 languages × ~2,000 chars = ~19.2M characters
+- At AWS Polly Neural: ~$307 one-time
+- At ElevenLabs Scale: ~$3,456 one-time
+- This is why Backfill timing is budget-dependent.
+
+**S3 storage:** ~$0.023/GB/month — negligible
 
 ---
 
@@ -414,7 +443,7 @@ Each platform entry stores:
 
 Scope:
 - Content entry UI for Daily Devotional and Daybreak Devotional (adapt from the-global-voice)
-- Daybreak supports structured sections (Overview, Background, Amplified Outline, Closer Look, Conclusion)
+- Daybreak supports structured sections (Overview, Background, Amplified Outline, Closer Look, Conclusion). Note: whether to translate section-by-section or as a whole document is a technical decision to be made during implementation.
 - Webflow CMS API integration (create/update collection items)
 - Content ↔ Webflow mapping table
 - Translation pipeline (English → ES, FR, KO) with beta auto-approve
@@ -433,6 +462,18 @@ Success criteria:
 - Both Daily and Daybreak handled through the same workflow
 
 See **Phase 1 Timeline** section above for detailed schedule.
+
+### Phase 1.5: Content Backfill (Optional, After Phase 1 GA)
+**Goal:** Migrate historical devotional content into the platform
+
+This phase can run anytime after Phase 1 reaches GA. It is not a prerequisite for Phase 2. Timing depends on budget availability, since batch-translating and generating TTS for years of archived content has significant API costs (see cost estimates below).
+
+Scope:
+- Import past Daily Devotionals (archive back to Nov 2022) into platform DB
+- Import past Daybreak Devotionals
+- Generate translations and TTS for historical content (batch processing)
+- Map imported content to existing Webflow pages
+- Optional: re-generate Webflow pages from platform for consistency
 
 ### Phase 2: Sunday School / Curriculum
 **Goal:** Weekly lesson publishing automated
@@ -462,18 +503,7 @@ Additional scope:
 - Calendar integration
 - Photo/media gallery management
 
-### Phase 5: Content Backfill
-**Goal:** Migrate historical content into the platform
-
-Scope:
-- Import past Daily Devotionals (archive back to Nov 2022) into platform DB
-- Import past Daybreak Devotionals
-- Import past magazine articles and volumes
-- Generate translations and TTS for historical content (batch processing)
-- Map imported content to existing Webflow pages
-- Optional: re-generate Webflow pages from platform for consistency
-
-### Phase 6: Full Platform (Webflow Replacement)
+### Phase 5: Full Platform (Webflow Replacement)
 **Goal:** Our platform serves the public website directly
 
 Additional scope:
@@ -510,7 +540,7 @@ Additional scope:
 - **Webflow plan/API access:** CMS API requires CMS plan ($23/mo) or higher. If apostolicfaith.org is on Starter/Basic, a plan upgrade is needed — potential budget blocker. Mitigation: verify plan in Week 1, request upgrade approval early if needed.
 - **Webflow API limitations:** Rate limits, field type restrictions, or feature gates could block integration. Mitigation: audit API early (Week 1-2), confirm capabilities before committing.
 - **Translation quality:** AI translations may have theological inaccuracies. Mitigation: theological guardrail catches major issues; beta label sets expectations; feedback loop improves quality over time.
-- **TTS voice quality:** All audio (including English) will be TTS-generated. May sound unnatural in certain languages. Mitigation: test multiple TTS providers and voices; data model supports future manual audio override (swap TTS with human recording per entry) but override UI is not in Phase 1 scope.
+- **TTS voice quality:** All audio (including English) will be TTS-generated. Cloud TTS (Polly/Google) is cheaper but may sound less natural than ElevenLabs. Mitigation: test multiple providers during Week 5-6; choose per-language best option; data model supports future manual audio override but override UI is not in Phase 1 scope.
 - **Webflow site structure changes:** If the Publishing Team changes Webflow page structure, sync may break. Mitigation: mapping table makes dependencies explicit; monitoring alerts on sync failures.
 
 ### Operational Risks
@@ -522,7 +552,7 @@ Additional scope:
 ### Resource Risks
 
 - **Development capacity:** ITAC members have other responsibilities. Mitigation: realistic timeline with buffer; Phase 1 scoped tightly.
-- **API costs:** Translation and TTS have per-use costs. Mitigation: costs are low for Phase 1 volume (2 devotionals/day × 4 languages × 2 services = ~$5-10/day); monitor and project before scaling.
+- **API costs:** Translation and TTS have per-use costs. Mitigation: use cloud TTS (AWS Polly/Google Cloud at ~$8/month) instead of ElevenLabs (~$86/month) for Phase 1. ElevenLabs quality is premium but 10-45x more expensive. Backfill (Phase 1.5) has significant one-time cost — defer until budget is confirmed.
 
 ---
 
