@@ -4,6 +4,10 @@
 > Status: Draft (high-level)
 > Purpose: Map who does what, how often, and where automation can reduce manual effort
 
+## TL;DR
+
+Running the AFC website takes at least 8 different roles — editors, translators, media producers, curriculum coordinators, and more. Every day, someone spends 1.5-2.5 hours just copy-pasting two devotionals into Webflow and attaching audio. Every week, 6+ Sunday school documents get manually uploaded. Every quarter, a magazine issue means creating 10-15 article pages, then repeating that in up to 9 languages. Translation alone could mean 8,000-10,000 content items per year if they fully served all languages. Right now, every step — writing, translating, recording audio, publishing, distributing — is a manual handoff with no unified system connecting them.
+
 ---
 
 ## Roles & Permissions

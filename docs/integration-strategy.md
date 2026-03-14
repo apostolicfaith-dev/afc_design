@@ -4,6 +4,10 @@
 > Status: Draft
 > Related: [website-structure-analysis.md](./website-structure-analysis.md), [maintenance-use-cases.md](./maintenance-use-cases.md)
 
+## TL;DR
+
+Instead of replacing the entire AFC website at once (risky and slow), we're building a behind-the-scenes platform where content goes in once and automatically gets translated into 3 languages, turned into audio, and published to the current Webflow website via API. We start with just the Daily Devotional, prove it works, then expand to Daybreak, Sunday school, magazine, and so on. Each new feature goes through a release process — first only the team can see it (Shadow), then a small group tests it (Dogfood), then it goes out with a "beta" label, and finally it becomes the official way. Eventually, the platform replaces Webflow entirely.
+
 ---
 
 ## Vision
@@ -43,6 +47,57 @@ Build an internal content management platform ("AFC Platform") that becomes the 
 4. **Change detection triggers pipeline** — When source content changes, re-run translation → audio → publish
 5. **Incremental rollout** — One content type at a time, starting with Daily Devotional
 6. **Translation: beta mode first** — 3 languages, auto-approve with beta label, expand later
+
+---
+
+## Release Process — Shadow → Dogfood → Beta → GA
+
+Every phase follows a 4-stage release process before going live. No unvalidated content reaches the public.
+
+```
+Shadow ──→ Dogfood ──→ Beta ──→ GA
+(team only)  (small group)  (public, labeled)  (public, official)
+```
+
+### Shadow (Internal Only)
+- Platform generates content and syncs to a **shadow environment** (separate Webflow staging site or hidden collection)
+- Only the development and content team can see the output
+- Purpose: verify pipeline correctness — are translations accurate? Does audio sound right? Does Webflow sync work?
+- Duration: until the team is confident in output quality
+- Access: private URL, not linked from the live site
+
+### Dogfood (Controlled Group)
+- Expand access to a small trusted group (e.g., select ministers, editorial staff, bilingual volunteers)
+- They use the platform-generated content as if it were live and provide feedback
+- Side-by-side comparison: platform output vs. current manual output
+- Purpose: catch edge cases, get real-user feedback on translation quality and UX
+- Duration: 1-2 weeks minimum per content type
+- Feedback mechanism: simple form or inline "report issue" button
+
+### Beta (Public with Label)
+- Content goes live on the actual website (apostolicfaith.org)
+- Translated content marked with a visible **"Beta Translation"** indicator
+- Users can report translation issues via feedback link
+- Theological guardrail still flags (but doesn't block) potential issues
+- English content has no beta label (it's authored by humans)
+- Purpose: real-world validation at scale
+- Duration: until quality metrics meet threshold (e.g., <2% reported issues)
+
+### GA (General Availability)
+- Beta label removed
+- Platform-generated content is the official process
+- Old manual workflow retired for that content type
+- Monitoring continues (quality dashboards, error alerts)
+- Rollback plan: can revert to manual Webflow publishing if critical issues arise
+
+### Per-Phase Release Targets
+
+- **Phase 1 (Daily Devotional):** Shadow → Dogfood → Beta → GA
+- **Phase 2 (Daybreak):** Same cycle, but faster — pipeline is proven
+- **Phase 3 (Curriculum):** Shadow → Dogfood → Beta → GA (new content model, needs full cycle)
+- **Phase 4 (Magazine):** Shadow → Dogfood → Beta → GA (high-visibility, quarterly cadence)
+- **Phase 5 (Events):** Shadow → Beta → GA (less translation-dependent, simpler cycle)
+- **Phase 6 (Full Replacement):** Extended Beta with A/B testing before full DNS cutover
 
 ---
 

@@ -4,6 +4,12 @@
 > Platform: Webflow CMS
 > Domain: https://apostolicfaith.org/
 
+## TL;DR
+
+The Apostolic Faith Church website (apostolicfaith.org) is built on Webflow and covers a lot: daily devotionals, a quarterly magazine, Sunday school lessons for different age groups, world news from churches in 60+ countries, sermons, podcasts, and camp meeting registration. They support 9 foreign languages, but every single page — devotional, article, lesson — has to be manually created in Webflow by copy-pasting content, uploading images, and attaching audio files. There's no automation, no API, and no pipeline connecting content creation to publishing. That's the problem we're solving.
+
+---
+
 ## Site Overview
 
 The Apostolic Faith Church (HQ Portland, OR) website serves as the primary digital presence for the denomination. It covers church information, devotional content, educational resources, media, event management, and global reporting across 60+ countries and 3000+ churches.
