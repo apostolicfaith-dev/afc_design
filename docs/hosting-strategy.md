@@ -7,15 +7,17 @@
 
 ## Summary
 
-**Recommendation: Cloud-first (Azure or GCP) with nonprofit credits.** ITAC members all have day jobs — minimizing ops burden is the priority. Nonprofit credits cover most or all costs for the foreseeable future. Self-hosting reserved for dev/staging and GPU workloads only.
+**Recommendation: Cloud-first with nonprofit credits.** ITAC members all have day jobs — minimizing ops burden is the priority. Nonprofit credits cover most or all costs for the foreseeable future. Self-hosting reserved for dev/staging and GPU workloads only.
 
 **Key numbers:**
-- Google Cloud nonprofit credit: up to $10,000/year (highest)
-- Azure nonprofit credit: ~$3,500/year
+- Google Cloud nonprofit credit: up to $10,000/year
+- Azure nonprofit credit: ~$3,500/year (+ M365 Business Basic: 300 licenses free)
 - AWS nonprofit credit: ~$2,000/year
-- Estimated monthly spend (all ITAC initiatives): $50–150/mo initially → well within GCP credit range
+- Estimated monthly spend (all ITAC initiatives): $50–150/mo initially → within credit range for any provider
 
-**Recommendation: GCP as primary.** See evaluation below.
+**Context:** AFC is already adopting Microsoft 365 nonprofit organization-wide. This is a significant factor — the cloud compute platform decision should align with (or at minimum not conflict with) the church's broader IT direction.
+
+**Open decision: Azure vs. GCP for cloud compute.** Both are viable. See comparison below — ITAC should review and decide.
 
 ---
 
@@ -88,49 +90,60 @@ Production on cloud, dev/staging + GPU workloads on self-hosted.
 
 ### Azure
 
-**For ITAC:**
+**Nonprofit offering:**
 - M365 Business Basic: up to 300 licenses free (email, Teams, SharePoint)
-- Azure nonprofit credit: ~$3,500/year
-- Azure Container Apps (serverless containers) — good fit for our workloads
-- Azure Database for PostgreSQL — managed, free tier covers small workloads
-- Azure Blob Storage — for audio/assets
+- Azure credit: ~$3,500/year
+- 501(c)(3) eligible, well-documented application process
+
+**Compute stack:**
+- Azure Container Apps (serverless containers) — web apps + workers
+- Azure Database for PostgreSQL — managed DB
+- Azure Blob Storage — audio/assets
 - Azure Functions — event-driven tasks (Twilio webhooks, scheduled jobs)
 
 **Advantages:**
-- M365 licenses are a huge bonus (professional email, Teams for ITAC collaboration)
+- **AFC is already adopting M365 nonprofit** — Azure aligns with church-wide IT direction
+- Entra ID (Azure AD) for SSO — natural fit if church moves to Entra for identity
 - Good nonprofit program, well-documented
 - Container Apps is straightforward for deploying web apps + workers
-- Active Directory integration if SSO needed later
 
 **Disadvantages:**
 - Azure portal UX can be overwhelming
-- Container Apps less mature than Cloud Run
+- Container Apps less mature than GCP's Cloud Run
+- Lower cloud compute credit ($3,500/yr) — but M365 value offsets this
 
 ### Google Cloud Platform (GCP)
 
-**For ITAC:**
-- Google Workspace: free for nonprofits (custom domain email, Drive, Meet)
-- Google Cloud: up to $10,000/year nonprofit credit (+ $250/mo Google Maps credit)
-- Cloud Run — excellent serverless container platform
+**Nonprofit offering:**
+- Google Cloud: up to $10,000/year credit
+- Google Maps Platform: $250/mo credit
+- 501(c)(3) eligible, via Google for Nonprofits
+
+**Compute stack:**
+- Cloud Run — serverless containers for web apps + workers
 - Cloud SQL (PostgreSQL) — managed DB
-- Cloud Storage — for audio/assets
+- Cloud Storage — audio/assets
 - Cloud Functions — event-driven tasks
 
 **Advantages:**
-- Cloud Run is arguably the best serverless container platform (simpler than Azure Container Apps)
-- Google Workspace is very polished (email, calendar, Drive)
+- Highest cloud compute credit ($10,000/yr) — most headroom for growth
+- Cloud Run is simpler and more mature than Azure Container Apps
 - Gemini AI integration is native (already using Gemini for translation)
-- Firebase Auth available for SSO later
+- Firebase Auth available for SSO
+- Simpler developer experience overall
 
 **Disadvantages:**
-- Nonprofit credit amount less transparent (varies)
-- Fewer enterprise features vs Azure
+- **Church is going M365, not Google Workspace** — adds a second ecosystem
+- Fewer enterprise identity features vs Azure Entra ID
+- Two vendor relationships to manage instead of one
 
 ### AWS
 
-**For ITAC:**
-- $2,000/year nonprofit credit (via TechSoup)
+**Nonprofit offering:**
+- $2,000/year credit (via TechSoup)
 - Free tier: 12 months for many services
+
+**Compute stack:**
 - ECS/Fargate or App Runner — container hosting
 - RDS PostgreSQL — managed DB
 - S3 — gold standard for object storage
@@ -138,139 +151,155 @@ Production on cloud, dev/staging + GPU workloads on self-hosted.
 **Advantages:**
 - Most services, most documentation, most Stack Overflow answers
 - S3 is the best object storage
-- Already using AWS Polly for TTS consideration
+- Already considering AWS Polly for TTS
 
 **Disadvantages:**
-- Lowest nonprofit credit ($2,000 vs Azure's $3,500)
-- No free email/collaboration suite
+- Lowest nonprofit credit ($2,000)
+- No collaboration suite
 - Most complex to configure
-- App Runner is limited vs Cloud Run
+- App Runner is limited vs Cloud Run / Container Apps
 
 ---
 
-## Recommendation: GCP as Primary
+## Azure vs. GCP — ITAC Decision Required
 
-**Why GCP over Azure:**
+Both are strong options. The key tradeoff:
 
-1. **Cloud Run** is simpler and more mature for our use case (containerized web apps + background workers)
-2. **Google Workspace** covers collaboration needs (email, Drive, Meet) — equivalent to Azure's M365 advantage
-3. **Gemini integration** — we're already using Gemini for translation. Native GCP integration reduces friction
-4. **Simpler developer experience** — GCP console is more intuitive than Azure portal
-5. **Cloud Run + Cloud SQL + Cloud Storage** is a clean, minimal stack that covers all four workloads
+**Case for Azure:**
+- AFC is already going M365 nonprofit → one vendor ecosystem, one billing relationship
+- Entra ID gives church-wide SSO potential (not just ITAC apps)
+- M365 + Azure under one nonprofit account = simpler administration
+- $3,500/yr cloud credit is enough for projected workloads ($360–840/yr estimated)
 
-**Why not Azure:** M365 is attractive but ITAC doesn't need 300 email licenses. Azure's strength is enterprise — we're a small team with lightweight workloads.
+**Case for GCP:**
+- $10,000/yr credit vs $3,500/yr — 3x headroom for growth or unexpected costs
+- Cloud Run is a better developer experience for our serverless container workloads
+- Native Gemini integration (already using Gemini for translation pipeline)
+- M365 for collaboration + GCP for compute is a valid split (many orgs do this)
 
-**Why not AWS:** Lowest nonprofit credit, no free collaboration suite, most complex setup.
+**Not recommended: AWS.** Lowest credit, no collaboration suite, most complex. Individual AWS services (S3, Polly) can be used standalone regardless of primary cloud choice.
 
-**Use AWS for:** S3 storage (if GCP Storage pricing isn't competitive) and AWS Polly (if chosen as TTS provider). These are standalone services that don't require migrating the whole stack.
+**Key question for ITAC:** Does the organizational alignment of "everything Microsoft" outweigh GCP's technical and credit advantages for compute? There's no wrong answer — both work. This is a strategic alignment decision more than a technical one.
 
 ---
 
-## Proposed Architecture
+## Proposed Architecture (Provider-Agnostic)
+
+The architecture is the same regardless of Azure or GCP. Service names differ but the pattern is identical: serverless containers + managed Postgres + object storage.
 
 ```
-                    ┌─────────────────────────────────────┐
-                    │         Google Cloud (GCP)           │
-                    │         Nonprofit Credits            │
-                    │                                      │
-                    │  ┌──────────┐  ┌──────────────────┐  │
-                    │  │Cloud Run │  │  Cloud Run        │  │
-                    │  │(Web Apps)│  │  (Workers)        │  │
-                    │  │          │  │                   │  │
-                    │  │• AFC     │  │• Translation      │  │
-                    │  │  Platform│  │• TTS Generation   │  │
-                    │  │• Camp    │  │• Webflow Sync     │  │
-                    │  │  Meeting │  │• Scheduled Jobs   │  │
-                    │  │• Comms   │  │                   │  │
-                    │  │  API     │  │                   │  │
-                    │  └────┬─────┘  └────────┬──────────┘  │
-                    │       │                 │             │
-                    │       ▼                 ▼             │
-                    │  ┌──────────┐  ┌──────────────────┐  │
-                    │  │Cloud SQL │  │  Cloud Storage    │  │
-                    │  │(Postgres)│  │  (Audio, Assets)  │  │
-                    │  └──────────┘  └──────────────────┘  │
-                    │                                      │
-                    │  ┌──────────────────────────────────┐ │
-                    │  │  Shared Services                 │ │
-                    │  │  • Firebase Auth (SSO)           │ │
-                    │  │  • Cloud Tasks (job queue)       │ │
-                    │  │  • Secret Manager                │ │
-                    │  │  • Cloud Monitoring              │ │
-                    │  └──────────────────────────────────┘ │
-                    └─────────────────────────────────────┘
-                                    │
-                    ┌───────────────┼───────────────┐
-                    ▼               ▼               ▼
-              ┌──────────┐  ┌───────────┐  ┌─────────────┐
-              │ Webflow  │  │ Twilio    │  │ External    │
-              │ CMS API  │  │           │  │ AI APIs     │
-              └──────────┘  └───────────┘  │ (Gemini,    │
-                                           │  Polly/TTS) │
-                                           └─────────────┘
+                    ┌──────────────────────────────────────┐
+                    │     Cloud Platform (Azure or GCP)     │
+                    │         Nonprofit Credits             │
+                    │                                       │
+                    │  ┌───────────┐  ┌──────────────────┐  │
+                    │  │ Container │  │  Container        │  │
+                    │  │ Services  │  │  Workers          │  │
+                    │  │ (Web Apps)│  │                   │  │
+                    │  │           │  │• Translation      │  │
+                    │  │• AFC      │  │• TTS Generation   │  │
+                    │  │  Platform │  │• Webflow Sync     │  │
+                    │  │• Camp     │  │• Scheduled Jobs   │  │
+                    │  │  Meeting  │  │                   │  │
+                    │  │• Comms API│  │                   │  │
+                    │  └─────┬─────┘  └────────┬─────────┘  │
+                    │        │                 │            │
+                    │        ▼                 ▼            │
+                    │  ┌───────────┐  ┌──────────────────┐  │
+                    │  │ Managed   │  │  Object Storage   │  │
+                    │  │ Postgres  │  │  (Audio, Assets)  │  │
+                    │  └───────────┘  └──────────────────┘  │
+                    │                                       │
+                    │  ┌──────────────────────────────────┐  │
+                    │  │  Shared Services                 │  │
+                    │  │  • Auth / SSO                    │  │
+                    │  │  • Job Queue                     │  │
+                    │  │  • Secrets Management            │  │
+                    │  │  • Monitoring & Alerts           │  │
+                    │  └──────────────────────────────────┘  │
+                    └──────────────────────────────────────┘
+                                     │
+                     ┌───────────────┼───────────────┐
+                     ▼               ▼               ▼
+              ┌──────────┐   ┌───────────┐   ┌─────────────┐
+              │ Webflow  │   │ Twilio    │   │ External    │
+              │ CMS API  │   │           │   │ AI APIs     │
+              └──────────┘   └───────────┘   │ (Gemini,    │
+                                             │  Polly/TTS) │
+                                             └─────────────┘
 ```
+
+**Service mapping (either provider works):**
+
+**Azure →** Container Apps, Azure Database for PostgreSQL, Blob Storage, Entra ID, Azure Functions, Key Vault, Azure Monitor
+
+**GCP →** Cloud Run, Cloud SQL, Cloud Storage, Firebase Auth, Cloud Tasks, Secret Manager, Cloud Monitoring
 
 ### Per-Workload Mapping
 
 **Global Voice / AFC Platform:**
-- Cloud Run (web app) — content entry UI, admin dashboard
-- Cloud Run (workers) — translation, TTS, Webflow sync pipelines
-- Cloud SQL — content DB, Webflow mapping, translation records
-- Cloud Storage — audio files, generated assets
+- Container service (web app) — content entry UI, admin dashboard
+- Container service (workers) — translation, TTS, Webflow sync pipelines
+- Managed Postgres — content DB, Webflow mapping, translation records
+- Object storage — audio files, generated assets
 
 **Camp Meeting:**
-- Cloud Run (web app) — registration form, admin panel
-- Cloud SQL — shared DB, separate schema
-- Cloud Tasks — email notifications
+- Container service (web app) — registration form, admin panel
+- Managed Postgres — shared instance, separate schema
+- Job queue — email notifications
 
 **Communication System:**
-- Cloud Run (API) — Twilio webhook handlers
-- Cloud SQL — contacts, message logs
-- Cloud Scheduler — automated message triggers
+- Container service (API) — Twilio webhook handlers
+- Managed Postgres — contacts, message logs
+- Scheduled jobs — automated message triggers
 
 **Shared Infrastructure:**
-- Firebase Auth — unified authentication across all apps
-- Cloud SQL — single managed instance, separate databases per service
-- Secret Manager — API keys, credentials
-- Cloud Monitoring + Alerting — uptime, error tracking
+- Auth service — unified authentication across all apps (Entra ID or Firebase Auth)
+- Managed Postgres — single instance, separate databases per service
+- Secrets management — API keys, credentials
+- Monitoring + alerting — uptime, error tracking
 
 ---
 
 ## Cost Estimate (Monthly)
 
-| Service | Estimate | Notes |
-|---------|----------|-------|
-| Cloud Run (3 services) | $10–30 | Serverless, pay per use. Low traffic = low cost |
-| Cloud SQL (1 instance) | $15–30 | Smallest managed Postgres instance |
-| Cloud Storage | $2–5 | Audio files, assets |
-| Cloud Tasks / Scheduler | <$1 | Low volume |
-| Firebase Auth | $0 | Free for <50K MAU |
-| Secret Manager | <$1 | |
-| Monitoring | $0 | Free tier covers our needs |
-| **Subtotal (GCP)** | **$30–70/mo** | |
-| External: Webflow CMS | $23/mo | Required for API access |
-| External: AI/TTS APIs | $10–15/mo | Gemini translation + TTS provider |
-| **Total** | **$65–110/mo** | Well within nonprofit credit range |
+Cloud compute costs are similar on Azure and GCP for this scale of workload:
 
-**Nonprofit credit coverage:** GCP portion ($30–70/mo = $360–840/yr) is comfortably within GCP's $10,000/yr nonprofit credits — using under 10% of the annual allowance. External costs (Webflow, AI APIs) are paid separately but small.
+- Container services (3 apps + workers): $10–30/mo — serverless, pay per use
+- Managed Postgres (1 instance): $15–30/mo — smallest tier
+- Object storage: $2–5/mo — audio files, assets
+- Job queue / scheduler: <$1/mo
+- Auth service: $0 — free tier
+- Secrets / monitoring: <$1/mo
+- **Cloud subtotal: $30–70/mo** ($360–840/yr)
+
+External costs (regardless of cloud provider):
+- Webflow CMS plan: $23/mo (required for API access)
+- AI/TTS APIs (Gemini, Polly, etc.): $10–15/mo
+
+**Total: $65–110/mo**
+
+**Credit coverage:**
+- Azure ($3,500/yr): covers cloud portion comfortably, ~10–24% utilization
+- GCP ($10,000/yr): covers cloud portion with large headroom, ~4–8% utilization
+- Both providers: external costs (Webflow, AI APIs) paid separately, ~$35–40/mo
 
 ---
 
 ## Migration Path
 
 **Phase 1 (Now → June 2026):**
-1. Apply for Google Cloud nonprofit credits (requires 501(c)(3) verification)
-2. Apply for Google Workspace nonprofit (free email/collaboration)
-3. Set up GCP project with proper IAM for ITAC members
-4. Deploy Global Voice / AFC Platform on Cloud Run
-5. Set up Cloud SQL (shared instance)
-6. Configure CI/CD (GitHub Actions → Cloud Run)
+1. ITAC decides on primary cloud provider (Azure vs. GCP)
+2. Apply for nonprofit credits on chosen provider (requires 501(c)(3))
+3. Set up cloud project/subscription with proper access for ITAC members
+4. Deploy Global Voice / AFC Platform (container service + managed DB)
+5. Configure CI/CD (GitHub Actions → chosen platform)
 
 **Phase 2 (Post-GA):**
-7. Deploy Camp Meeting registration on same infrastructure
-8. Deploy Communication System
-9. Implement Firebase Auth as shared SSO
-10. Evaluate: migrate DNS to Cloud DNS if needed
+6. Deploy Camp Meeting registration on same infrastructure
+7. Deploy Communication System
+8. Implement shared auth/SSO (Entra ID or Firebase Auth)
+9. Evaluate secondary provider credits for backup/cost optimization
 
 ---
 
@@ -286,12 +315,12 @@ VibeVoice (English-only open-source TTS) requires GPU. If ITAC decides to use Vi
 
 ## Action Items
 
-- [ ] Verify AFC 501(c)(3) status documentation is ready for nonprofit applications
-- [ ] Apply for Google Cloud for Nonprofits (via Google for Nonprofits / Goodstack)
-- [ ] Apply for Google Workspace for Nonprofits
-- [ ] Also apply for Azure nonprofit (M365 + Azure credits) as backup / secondary
-- [ ] Set up GCP project and IAM roles for ITAC members
-- [ ] ITAC review and approve this strategy
+- [ ] ITAC review this document and decide: Azure or GCP as primary cloud
+- [ ] Verify AFC 501(c)(3) documentation is ready for nonprofit applications
+- [ ] Apply for nonprofit credits on chosen primary provider
+- [ ] Apply for nonprofit credits on secondary provider (backup / cost optimization)
+- [ ] Set up cloud project with access roles for ITAC members
+- [ ] Prototype deployment of one service to validate the platform choice
 
 ---
 
