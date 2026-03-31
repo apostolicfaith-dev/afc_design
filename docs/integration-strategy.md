@@ -32,7 +32,7 @@
   - Hosting (Vercel/AWS free tiers): $0–20/mo
   - S3 storage: negligible
   - **Total: ~$35–55/mo**
-- A formal TTS quality comparison (cloud TTS vs. ElevenLabs vs. open-source options) is planned before final provider selection.
+- A formal TTS quality comparison (cloud TTS vs. ElevenLabs vs. open-source options) is planned before final provider selection. See [cost details](./webflow-api-setup.md#tts-provider-cost-comparison-per-1-million-characters).
 
 **Open Decisions:**
 - Target languages for Phase 1 (TBD)
@@ -42,100 +42,38 @@
 
 ---
 
-## Summary
-
-Instead of replacing the entire AFC website at once (risky and slow), we're building a behind-the-scenes platform where content goes in once and automatically gets translated, turned into audio, and published to the current Webflow website via API. We start with both daily devotionals (Daily + Daybreak) — targeting Beta by mid-June 2026 — then expand to Sunday school, magazine, and so on. All audio (including English) is generated via TTS by default. Each new feature goes through a release process: first only the team can see it (Shadow), then a small group tests it (Dogfood), then it goes out with a "beta" label, and finally it becomes the official way. This document needs alignment from ITAC, the Publishing Team, and HQ leadership before development begins.
-
----
-
 ## Stakeholders & Approval Chain
-
-This strategy requires alignment and approval before implementation can proceed. The following action items must be completed in order.
 
 ### Key Stakeholders
 
 - **Bro. Sola Adosope** — Superintendent General, AF HQ Portland. Final approval authority.
 - **Bro. John Musgrave** — Treasurer, AF HQ Portland. Budget and resource approval.
-- **Sis. Catey Hinkle** — Publishing Team Lead, AF HQ Portland. Content workflow owner. Her team will be the primary daily users of the platform.
-- **ITAC** (Apostolic Faith IT Advancement Committee) — Provides IT direction and recommendations to HQ. This project's scope is co-owned by ITAC.
+- **Sis. Catey Hinkle** — Publishing Team Lead, AF HQ Portland. Content workflow owner and primary daily user of the platform.
+- **ITAC** (Apostolic Faith IT Advancement Committee) — IT direction and recommendations. This project's scope is co-owned by ITAC.
 
-### Action Items
+### Approval Steps
 
 ```
-Step 1: ITAC Strategic Review
-   │  - Review this document for technical feasibility, risks, and priorities
-   │  - Align on Phase 1 scope and timeline
-   │  - Identify resource needs (dev, infrastructure, API access)
-   │  - Produce recommendation memo for HQ
-   │  - Owner: ITAC
-   │  - Target: By end of March 2026
-   │
+Step 1: ITAC Strategic Review ─── Target: End of March 2026
    ▼
-Step 2: Publishing Team Workflow Review
-   │  - Present current-vs-future workflow comparison to Publishing Team
-   │  - Sis. Hinkle and team review what changes for their daily work
-   │  - Collect feedback: pain points we missed, concerns, must-haves
-   │  - Document agreed workflow changes
-   │  - Owner: ITAC + Publishing Team
-   │  - Target: First two weeks of April 2026
-   │
+Step 2: Publishing Team Workflow Review ─── Target: First two weeks of April
    ▼
-Step 3: HQ Leadership Approval
-   │  - Present strategy + ITAC recommendation + Publishing Team feedback
-   │  - Bro. Adosope: strategic alignment approval
-   │  - Bro. Musgrave: budget/resource approval (hosting costs, API services, dev time)
-   │  - Owner: ITAC
-   │  - Target: Mid-April 2026
-   │
+Step 3: HQ Leadership Approval ─── Target: Mid-April 2026
    ▼
-Step 4: Development Begins
-   │  - Webflow API access secured (see Webflow Setup section below)
-   │  - Development environment stood up
-   │  - Phase 1 implementation starts
-   │  - Owner: ITAC (development)
-   │  - Target: Late April 2026
-   │
+Step 4: Development Begins ─── Target: Late April 2026
    ▼
-Step 5: Shadow + Dogfood Validation
-   │  - Publishing Team validates output quality
-   │  - Bilingual volunteers test translations
-   │  - Owner: ITAC + Publishing Team
-   │  - Target: May–June 2026
-   │
+Step 5: Shadow + Dogfood Validation ─── Target: May–June 2026
    ▼
-Step 6: Beta Launch (Phase 1)
-     - Daily + Daybreak Devotionals go live with platform-generated content
-     - Translated content marked "Beta Translation"
-     - Owner: ITAC + Publishing Team
-     - Target: Mid-June 2026
+Step 6: Beta Launch (Phase 1) ─── Target: Mid-June 2026
 ```
 
-### What Each Stakeholder Needs to Do
-
-**ITAC:**
-- Review and refine this strategy document
-- Assess technical risks (Webflow API limitations, translation quality, TTS reliability)
-- Provide recommendation to HQ with risk assessment
-- Lead development and integration work
-- Support Publishing Team during transition
-
-**Publishing Team (Sis. Hinkle):**
-- Review the "What Changes for the Publishing Team" section below
-- Provide feedback on workflow gaps or concerns
-- Designate 1-2 team members for Dogfood testing
-- Continue current manual workflow during Shadow/Dogfood (no disruption until Beta)
-
-**HQ Leadership (Bro. Adosope, Bro. Musgrave):**
-- Review ITAC recommendation and Publishing Team feedback
-- Approve strategic direction
-- Approve budget for infrastructure (estimated: hosting, AI API costs, cloud storage)
-- No action needed until Step 3
+**ITAC:** Review strategy, assess risks, produce recommendation, lead development.
+**Publishing Team:** Review workflow changes, designate Dogfood testers, continue manual process until Beta.
+**HQ Leadership:** Approve direction and budget after Steps 1-2. No action until Step 3.
 
 ---
 
 ## What Changes for the Publishing Team
-
-This section is specifically for the Publishing Team to understand what the platform means for their daily work.
 
 ### Daily + Daybreak Devotionals — Before vs. After
 
@@ -153,30 +91,23 @@ This section is specifically for the Publishing Team to understand what the plat
 **After (with platform):**
 1. Enter devotional content in the platform (similar editor, but purpose-built)
 2. Click "Publish"
-3. Platform automatically: translates to 3 languages, generates TTS audio in all 4 languages (including English), creates/updates Webflow pages, publishes to email subscription and RSS feed
+3. Platform automatically: translates, generates TTS audio (all languages incl. English), syncs to Webflow, publishes to email subscription and RSS feed
 4. **Time: ~15-20 minutes per devotional** (content entry only — everything else is automated)
 
-**What stays the same:**
-- The editorial process for writing devotionals doesn't change
-- The apostolicfaith.org website looks the same to visitors
-- The Publishing Team still controls what gets published and when
+**What stays the same:** editorial process, website appearance, Publishing Team controls what/when to publish.
 
-**What's new:**
-- Both Daily and Daybreak devotionals handled through the same platform
-- A dashboard showing pipeline status (translation progress, sync status)
-- Ability to update content and have changes automatically propagate
-- Audio generated automatically via TTS for all languages (including English)
+**What's new:** unified platform for both devotionals, status dashboard, automatic change propagation, TTS audio for all languages.
 
 **Phase 1 scope boundaries:**
-- **In scope:** Main devotional content (title, scripture, body text), translations, TTS audio, Webflow sync
-- **Out of scope:** Supplementary study materials (Bible Book, Introduction, Outline, Maps, Timeline) — these continue to be managed manually in Webflow during Phase 1
-- **Out of scope (future):** Manual audio override — the ability to replace TTS audio with a human recording for selected entries. Not in Phase 1, but the data model should accommodate this.
+- **In scope:** Main devotional content, translations, TTS audio, Webflow sync, email/RSS
+- **Out of scope:** Supplementary study materials (Bible Book, Outline, Maps, Timeline) — manual in Webflow during Phase 1
+- **Out of scope (future):** Manual audio override (data model supports it, UI deferred)
 
 ---
 
-## Vision
+## Vision & Core Principles
 
-Build an internal content management platform ("AFC Platform") that becomes the single source of truth for all AFC content. Webflow remains the public-facing rendering layer initially, fed by our system via API. Over time, the platform absorbs more responsibilities until Webflow can be fully replaced.
+Build an internal content management platform ("AFC Platform") that becomes the single source of truth for all AFC content. Webflow remains the public-facing rendering layer initially, fed via API. Over time, the platform absorbs more responsibilities until Webflow can be fully replaced.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -201,433 +132,179 @@ Build an internal content management platform ("AFC Platform") that becomes the 
    └──────────┘    └───────────┘    └───────────────┘
 ```
 
----
-
-## Core Principles
-
+**Core Principles:**
 1. **Platform is the source of truth** — Content lives in our DB, not Webflow
-2. **Webflow as rendering layer** — Push content to Webflow via CMS API, don't manage content there
-3. **Content-Webflow mapping** — Every platform entry stores its Webflow collection item ID for sync
-4. **Change detection triggers pipeline** — When source content changes, re-run translation → audio → publish
-5. **Incremental rollout** — One content type at a time, starting with Daily + Daybreak Devotionals
-6. **Translation: beta mode first** — target languages TBD, auto-approve with beta label, expand later
-7. **TTS-first audio** — All audio (including English) generated via TTS by default; manual audio override as a future option
+2. **Webflow as rendering layer** — Push via CMS API, don't manage content there
+3. **Content-Webflow mapping** — Every entry stores its Webflow collection item ID
+4. **Change detection triggers pipeline** — Content change → re-translate → re-generate audio → re-sync
+5. **Incremental rollout** — One content type at a time
+6. **Translation: beta mode first** — target languages TBD, auto-approve with beta label
+7. **TTS-first audio** — All languages (including English) via TTS by default
 
 ---
 
-## Phase 1 Timeline — Daily + Daybreak Devotionals (Target: Mid-June 2026)
+## Phase 1 — Scope & Timeline
 
-Working backward from a Beta launch target of June 15, 2026. Both devotionals share the same pipeline — the Daybreak has more structured sections but the translation/TTS/sync flow is identical.
+### Scope
 
-### Week 1–2: Mar 17 – Mar 28 — Stakeholder Alignment
+**Goal:** Both devotionals enter the platform once → auto-publish to Webflow in English + translated languages with TTS audio, plus email/RSS distribution.
 
-- [ ] ITAC reviews this strategy document
-- [ ] ITAC produces risk assessment and recommendation memo
-- [ ] Webflow API access requested (see Webflow Setup below)
-- [ ] Confirm Webflow plan is CMS ($23/mo) or higher (required for API access)
-- [ ] Audit existing Webflow CMS collections for both Daily and Daybreak Devotional structure
-- **Gate:** ITAC alignment complete before proceeding
+- Content entry UI for Daily Devotional and Daybreak Devotional (adapt from the-global-voice)
+- Daybreak supports structured sections (Overview, Background, Amplified Outline, Closer Look, Conclusion)
+- Webflow CMS API integration — see [setup guide](./webflow-api-setup.md)
+- Content ↔ Webflow mapping table
+- Translation pipeline (target languages TBD, likely ES/FR/KO) with beta auto-approve
+- TTS audio generation for all languages including English — provider TBD pending [quality comparison](./webflow-api-setup.md#tts-provider-cost-comparison-per-1-million-characters)
+- Email subscription / RSS publish workflow migration
+- Change detection: content update → re-translate → re-generate audio → re-sync
+- Admin dashboard: pipeline status, sync status per entry
 
-### Week 3–4: Mar 31 – Apr 11 — Publishing Team Review + HQ Approval
+**Out of scope:** Supplementary study materials, manual audio override UI, historical backfill (see Phase 1.5).
 
-- [ ] Present strategy and workflow changes to Sis. Hinkle and Publishing Team
-- [ ] Collect and incorporate Publishing Team feedback
+**Success criteria:** Editor types devotional once → appears on apostolicfaith.org in all languages with TTS audio and email/RSS distribution. Content updates trigger automatic re-processing.
+
+### Timeline (Target: Beta by Mid-June 2026)
+
+**Week 1–2 (Mar 17–28) — Stakeholder Alignment**
+- [ ] ITAC reviews strategy, produces recommendation memo
+- [ ] Webflow API access requested; confirm CMS plan ($23/mo+)
+- [ ] Audit Webflow CMS collections for both devotional types
+- **Gate:** ITAC alignment complete
+
+**Week 3–4 (Mar 31–Apr 11) — Publishing Team Review + HQ Approval**
+- [ ] Present workflow changes to Sis. Hinkle and Publishing Team
 - [ ] Internal prototype review (~Apr 15)
 - [ ] Present to Bro. Adosope and Bro. Musgrave for approval
-- [ ] Finalize Phase 1 scope based on all feedback
-- **Gate:** HQ approval before development begins
+- **Gate:** HQ approval before development
 
-### Week 5–6: Apr 14 – Apr 25 — Architecture & Foundation
+**Week 5–6 (Apr 14–25) — Architecture & Foundation**
+- [ ] Finalize data model (devotional schema, Webflow mapping, translation records)
+- [ ] Set up dev environment (database, hosting, CI/CD)
+- [ ] Implement Webflow API client; build content entry UI
+- [ ] Verify API-created pages match current site format
 
-- [ ] Finalize data model (devotional schema for both Daily and Daybreak, Webflow mapping, translation records)
-- [ ] Design audio model to support TTS-generated audio with future manual override capability
-- [ ] Set up development environment (database, hosting, CI/CD)
-- [ ] Implement Webflow API client (auth, create/update/publish items)
-- [ ] Build content entry UI for both devotional types (adapt from the-global-voice)
-- [ ] Verify Webflow API can create devotional pages matching current site format
+**Week 7–8 (Apr 28–May 9) — Core Pipeline**
+- [ ] Integrate translation pipeline (Gemini AI)
+- [ ] TTS quality comparison: cloud TTS vs. ElevenLabs vs. VibeVoice (English)
+- [ ] Integrate TTS generation (provider TBD based on comparison)
+- [ ] Implement content ↔ Webflow sync + change detection
+- [ ] Build admin dashboard
 
-### Week 7–8: Apr 28 – May 9 — Core Pipeline
-
-- [ ] Integrate translation pipeline (Gemini AI, target languages TBD)
-- [ ] TTS quality comparison: cloud TTS (Polly/Google) vs. ElevenLabs vs. VibeVoice (English)
-- [ ] Integrate TTS generation for all languages including English (provider TBD based on comparison)
-- [ ] Implement content ↔ Webflow mapping and sync for both Daily and Daybreak collections
-- [ ] Implement change detection (content hash → re-translate → re-generate → re-sync)
-- [ ] Build admin dashboard (pipeline status, sync status per entry)
-
-### Week 9–10: May 12 – May 23 — Shadow Deployment
-
-- [ ] Deploy to staging environment
-- [ ] Process 1-2 weeks of both daily devotionals through full pipeline
-- [ ] ITAC reviews: translation quality, TTS audio quality, Webflow page accuracy
-- [ ] Publishing Team compares platform output vs. manually published pages
-- [ ] Fix issues, iterate
+**Week 9–10 (May 12–23) — Shadow**
+- [ ] Process 1-2 weeks of devotionals through full pipeline
+- [ ] Team reviews translation/TTS/sync quality
 - **Gate:** Team confident in output quality
 
-### Week 11–12: May 26 – Jun 6 — Dogfood
+**Week 11–12 (May 26–Jun 6) — Dogfood**
+- [ ] Expand to Publishing Team + bilingual volunteers
+- [ ] Side-by-side comparison, collect feedback
+- **Gate:** Publishing Team signs off
 
-- [ ] Expand access to Publishing Team + select bilingual volunteers
-- [ ] Side-by-side comparison with current manual process
-- [ ] Collect feedback via simple form
-- [ ] Address critical feedback
-- **Gate:** Publishing Team signs off on quality
+**Week 13 (Jun 9–15) — Beta Launch**
+- [ ] Switch to platform-generated publishing
+- [ ] "Beta Translation" label on translated content
+- [ ] Rollback plan ready
 
-### Week 13: Jun 9 – Jun 15 — Beta Launch
-
-- [ ] Switch Daily + Daybreak publishing to platform-generated
-- [ ] Translated content displays "Beta Translation" label
-- [ ] Feedback link visible on translated pages
-- [ ] Publishing Team monitors daily
-- [ ] Rollback plan ready (revert to manual if critical issues)
-
-### Post-Beta: Jun 16+ — Monitoring & GA Transition
-
-- [ ] Monitor quality metrics (reported issues, translation accuracy, TTS feedback)
-- [ ] Iterate on translation prompts based on feedback
+**Post-Beta (Jun 16+)**
+- [ ] Monitor quality, iterate on translation prompts
 - [ ] When stable (<2% reported issues): remove Beta label → GA
-- [ ] Begin Phase 2 (Sunday School / Curriculum) planning
 
 ---
 
-## Release Process — Shadow → Dogfood → Beta → GA
+## Release Process
 
-Every phase follows a 4-stage release process before going live. No unvalidated content reaches the public.
+Every phase follows: **Shadow → Dogfood → Beta → GA**. No unvalidated content reaches the public.
 
-```
-Shadow ──→ Dogfood ──→ Beta ──→ GA
-(team only)  (small group)  (public, labeled)  (public, official)
-```
-
-### Shadow (Internal Only)
-- Platform generates content and syncs to a **shadow environment** (separate Webflow staging site or hidden collection)
-- Only the development and content team can see the output
-- Purpose: verify pipeline correctness — are translations accurate? Does audio sound right? Does Webflow sync work?
-- Duration: until the team is confident in output quality
-- Access: private URL, not linked from the live site
-
-### Dogfood (Controlled Group)
-- Expand access to a small trusted group (e.g., select ministers, editorial staff, bilingual volunteers)
-- They use the platform-generated content as if it were live and provide feedback
-- Side-by-side comparison: platform output vs. current manual output
-- Purpose: catch edge cases, get real-user feedback on translation quality and UX
-- Duration: 1-2 weeks minimum per content type
-- Feedback mechanism: simple form or inline "report issue" button
-
-### Beta (Public with Label)
-- Content goes live on the actual website (apostolicfaith.org)
-- Translated content marked with a visible **"Beta Translation"** indicator
-- Users can report translation issues via feedback link
-- Theological guardrail still flags (but doesn't block) potential issues
-- English content has no beta label (it's authored by humans)
-- Purpose: real-world validation at scale
-- Duration: until quality metrics meet threshold (e.g., <2% reported issues)
-
-### GA (General Availability)
-- Beta label removed
-- Platform-generated content is the official process
-- Old manual workflow retired for that content type
-- Monitoring continues (quality dashboards, error alerts)
-- Rollback plan: can revert to manual Webflow publishing if critical issues arise
-
-### Per-Phase Release Targets
-
-- **Phase 1 (Daily + Daybreak Devotionals):** Shadow → Dogfood → Beta → GA
-- **Phase 1.5 (Content Backfill):** Optional after Phase 1 GA — batch-migrate historical devotionals (cost-dependent)
-- **Phase 2 (Curriculum):** Shadow → Dogfood → Beta → GA (new content model, needs full cycle)
-- **Phase 3 (Magazine):** Shadow → Dogfood → Beta → GA (high-visibility, quarterly cadence)
-- **Phase 4 (World Report & Events):** Shadow → Beta → GA (less translation-dependent, simpler cycle)
-- **Phase 5 (Full Replacement):** Extended Beta with A/B testing before full DNS cutover
+- **Shadow:** Team-only testing against a staging environment. Verify pipeline correctness.
+- **Dogfood:** Expand to small trusted group (ministers, bilingual volunteers). Side-by-side comparison with manual output. 1-2 weeks minimum.
+- **Beta:** Live on apostolicfaith.org with "Beta Translation" label. Feedback link visible. Runs until <2% reported issues.
+- **GA:** Beta label removed. Platform becomes the official process. Old manual workflow retired.
 
 ---
 
-## Webflow CMS API — Setup & Integration
+## Future Phases
 
-### What the API Can Do
-
-Based on Webflow's Data API:
-
-- **Collections**: List, create, get details, manage fields
-- **Items (Staged/Draft)**: Create, update, delete, publish — bulk operations (up to 100 items)
-- **Items (Live/Published)**: Create, update, unpublish — bulk operations
-- **Multi-locale**: Create items across multiple locales via `cmsLocaleIds`
-- **Webhooks**: Get notified on item create/update/delete/publish/unpublish
-- **Rich text fields**: Supported (HTML content)
-
-Key capabilities for our use:
-- Programmatically create a devotional page with title, content (rich text), audio URL, date, scripture reference
-- Update existing pages when content changes
-- Publish/unpublish programmatically
-- Handle multilingual versions via Webflow's locale system or separate collections per language
-
-### Webflow Plan Requirement
-
-CMS API access requires **Webflow CMS plan ($23/mo) or higher**. The Starter and Basic plans do not include API access.
-
-- **CMS plan ($23/mo):** 2,000 CMS items, 60 requests/minute — sufficient for Phase 1
-- **Business plan ($39/mo):** 20,000 CMS items, 120 requests/minute — needed if scaling to all content types
-- **Action item:** Confirm apostolicfaith.org is on CMS plan or higher. If on Basic/Starter, a plan upgrade is needed before API integration can begin. This is a **potential blocker** — must be verified in Week 1.
-
-### Who Needs to Do What
-
-**Step 0: Verify Webflow Plan (Owner: Publishing Team / Site Admin)**
-- Check current Webflow plan at Dashboard → Account Settings → Billing
-- If on Starter or Basic: upgrade to CMS plan ($23/mo) minimum — requires Bro. Musgrave's approval
-- If already on CMS or Business: proceed to Step 1
-
-**Step 1: Get Webflow API Access (Owner: Publishing Team / Site Admin)**
-- Someone with Webflow admin access to apostolicfaith.org must generate an API token
-- Go to Webflow Dashboard → Site Settings → Integrations → API Access → Generate API Token
-- The token needs CMS read/write permissions at minimum
-- Share the token securely with ITAC (not via email — use a password manager or secure channel)
-
-**Step 2: Audit Existing Collections (Owner: ITAC)**
-- Using the API token, list all CMS collections on the site
-- Identify the collections used for both Daily and Daybreak Devotionals (fields, structure, slugs)
-- Document the field mapping: which Webflow fields map to which platform fields
-- Check if Webflow multi-locale is enabled on the site
-- Check if foreign-language devotionals use separate collections or locale variants
-
-**Step 3: Set Up Staging (Owner: ITAC)**
-- Option A: Create a hidden/draft collection in the live Webflow site for shadow testing
-- Option B: Duplicate the Webflow site to a staging subdomain (preferred if Webflow plan allows)
-- Test creating, updating, and publishing a devotional page via API
-
-**Step 4: Validate Field Mapping (Owner: ITAC + Publishing Team)**
-- Create a test devotional page via API
-- Publishing Team compares it against a manually created page
-- Confirm: formatting matches, audio player works, images display, links are correct
-- Iterate until API-created pages are indistinguishable from manual ones
-
-### API Rate Limits & Costs
-
-**Webflow CMS API:**
-- 60 RPM on CMS plan, 120 RPM on Business plan
-- For Phase 1 (2 devotionals/day × 4 languages = 8 items + publish calls): well within limits
-
-**AI Translation (Gemini):**
-- ~$0.01-0.05 per translation — negligible at Phase 1 volume
-
-**TTS — Provider Cost Comparison (per 1 million characters):**
-
-- **AWS Polly Standard:** $4.00/M chars (free tier: 5M chars/month for 12 months)
-- **AWS Polly Neural:** $16.00/M chars (free tier: 1M chars/month for 12 months)
-- **Google Cloud TTS Standard:** $4.00/M chars (free tier: 4M chars/month)
-- **Google Cloud TTS WaveNet:** $16.00/M chars (free tier: 1M chars/month)
-- **Google Cloud TTS Neural2/Journey:** $16.00/M chars (free tier: 1M chars/month)
-- **Azure Neural TTS:** $15.00/M chars (free tier: 0.5M chars/month)
-- **ElevenLabs (Scale plan):** $180.00/M chars — highest quality but 10-45x more expensive
-- **ElevenLabs (Pro plan):** $240.00/M chars
-- **Gemini TTS:** Included with Gemini API usage, minimal additional cost
-- **VibeVoice (Microsoft, open-source):** $0 license (MIT), self-hosted. English only officially supported; other languages experimental. Requires GPU hardware for inference. Potential option if self-hosting infrastructure becomes available.
-
-A formal quality comparison across these providers is planned before final TTS selection. The comparison will evaluate voice naturalness, multilingual quality, latency, and total cost of ownership.
-
-**Phase 1 cost estimate:**
-- Average devotional: ~2,000 characters
-- 2 devotionals/day × 4 languages = ~16,000 chars/day = ~480,000 chars/month
-- At AWS Polly Neural: ~$7.70/month
-- At Google Cloud WaveNet: ~$7.70/month
-- At ElevenLabs Scale: ~$86/month
-- **Recommendation:** Start with AWS Polly or Google Cloud TTS for cost efficiency. ElevenLabs as premium option for English-only or key content if budget allows. Test voice quality across providers during Week 5-6.
-
-**Phase 1.5 Backfill cost note:**
-- ~1,200 days of archived devotionals × 2 types × 4 languages × ~2,000 chars = ~19.2M characters
-- At AWS Polly Neural: ~$307 one-time
-- At ElevenLabs Scale: ~$3,456 one-time
-- This is why Backfill timing is budget-dependent.
-
-**S3 storage:** ~$0.023/GB/month — negligible
-
----
-
-## Content Change → Re-pipeline Flow
-
-```
-Editor updates English devotional in Platform
-        │
-        ▼
-Platform detects change (diff against previous version)
-        │
-        ├── Content changed? ──→ Re-run translation for all languages
-        │                              │
-        │                              ▼
-        │                     Re-run TTS for changed translations
-        │                              │
-        │                              ▼
-        │                     Update Webflow pages (English + all languages)
-        │
-        ├── Metadata only? ──→ Update Webflow page metadata only
-        │   (date, scripture ref)
-        │
-        └── No meaningful change ──→ No action
-```
-
-Each platform entry stores:
-- `webflowItemId` — the Webflow CMS collection item ID
-- `webflowCollectionId` — which Webflow collection it belongs to
-- `lastSyncedAt` — timestamp of last successful Webflow sync
-- `syncStatus` — `synced` | `pending` | `error`
-- `contentHash` — hash of content for change detection
-
----
-
-## Phased Rollout
-
-### Phase 0: Foundation (Current)
+### Phase 0: Foundation (Done)
 - [x] Translation pipeline prototype (the-global-voice)
 - [x] AI translation with theological guardrails (Gemini)
 - [x] TTS generation (ElevenLabs / Gemini)
-- [x] Role-based access (Admin, Editor, Volunteer)
 - [x] Website structure analysis
 
-### Phase 1: Daily + Daybreak Devotional Integration
-**Goal:** Both devotionals enter our platform once → auto-publish to Webflow in English + 3 languages with TTS audio
-
-Scope:
-- Content entry UI for Daily Devotional and Daybreak Devotional (adapt from the-global-voice)
-- Daybreak supports structured sections (Overview, Background, Amplified Outline, Closer Look, Conclusion). Note: whether to translate section-by-section or as a whole document is a technical decision to be made during implementation.
-- Webflow CMS API integration (create/update collection items)
-- Content ↔ Webflow mapping table
-- Translation pipeline (target languages TBD, likely ES/FR/KO) with beta auto-approve
-- TTS audio generation for all 4 languages (including English)
-- Email subscription / RSS publish workflow migration: current devotionals are distributed daily via email subscription and RSS feed — the platform must generate and publish to these channels as part of the pipeline (not just Webflow)
-- Change detection: content update → re-translate → re-generate audio → re-sync Webflow
-- Admin dashboard: pipeline status, sync status per entry
-
-Explicitly out of scope for Phase 1:
-- Supplementary study materials (Bible Book, Introduction, Outline, Maps, Timeline) — continue manual Webflow management
-- Manual audio override (replace TTS with human recording) — data model should support it, but UI/workflow deferred
-- Historical content backfill — only new devotionals going forward
-
-Success criteria:
-- Editor types devotional once → it appears on apostolicfaith.org in 4 languages with TTS audio, and is distributed via email subscription and RSS feed
-- Content update triggers automatic re-processing and Webflow update
-- Both Daily and Daybreak handled through the same workflow
-
-See **Phase 1 Timeline** section above for detailed schedule.
-
 ### Phase 1.5: Content Backfill (Optional, After Phase 1 GA)
-**Goal:** Migrate historical devotional content into the platform
-
-This phase can run anytime after Phase 1 reaches GA. It is not a prerequisite for Phase 2. Timing depends on budget availability, since batch-translating and generating TTS for years of archived content has significant API costs (see cost estimates below).
-
-Scope:
-- Import past Daily Devotionals (archive back to Nov 2022) into platform DB
-- Import past Daybreak Devotionals
-- Generate translations and TTS for historical content (batch processing)
-- Map imported content to existing Webflow pages
-- Optional: re-generate Webflow pages from platform for consistency
+Migrate historical devotionals into the platform. Timing depends on budget — batch TTS for ~19.2M characters has significant cost. See [cost estimates](./webflow-api-setup.md#phase-15-backfill-cost-estimate).
 
 ### Phase 2: Sunday School / Curriculum
-**Goal:** Weekly lesson publishing automated
-
-Additional scope:
-- Age-group variants (Primary Pals, Answer, Search)
-- Student/Teacher edition management
-- PDF generation from structured content
-- "This Week's Lessons" page auto-update
-- Devotional supplementary study materials (Bible Book, Maps, Timeline) — moved from manual Webflow to platform
+Age-group variants (Primary Pals, Answer, Search), student/teacher editions, PDF generation, supplementary study materials moved from manual Webflow to platform.
 
 ### Phase 3: Magazine (The Apostolic Faith)
-**Goal:** Quarterly magazine issue building and multilingual publishing
-
-Additional scope:
-- Issue builder (group articles into volume)
-- Volume landing page auto-generation
-- Article-level translation and audio
-- Archive management
+Quarterly issue builder, volume landing pages, article-level translation and audio, archive management.
 
 ### Phase 4: World Report & Events
-**Goal:** Regional reporting and event management
-
-Additional scope:
-- Regional editor submissions
-- Camp Meeting registration system
-- Calendar integration
-- Photo/media gallery management
+Regional editor submissions, Camp Meeting registration, calendar integration, photo/media galleries.
 
 ### Phase 5: Full Platform (Webflow Replacement)
-**Goal:** Our platform serves the public website directly
-
-Additional scope:
-- Public-facing frontend (Next.js or similar)
-- SEO migration strategy
-- Custom domain and DNS transition
-- Legacy URL redirects
-- Full CMS for all page types
-- Manual audio override UI (replace TTS with human recordings for selected entries)
+Public-facing frontend (Next.js or similar), SEO migration, DNS transition, legacy URL redirects, full CMS, manual audio override UI.
 
 ---
 
 ## Translation Strategy
 
-### Beta Mode (Phases 1-2)
-- Target languages TBD (likely Spanish, French, Korean)
-- Auto-approve AI translations (no volunteer review gate)
-- Mark translated content with "Beta Translation" indicator
-- Collect feedback mechanism for translation quality
-- Theological guardrail still runs (flag issues but don't block)
+**Beta Mode (Phases 1-2):** Target languages TBD (likely Spanish, French, Korean). Auto-approve AI translations with "Beta Translation" indicator. Theological guardrail flags issues but doesn't block. Feedback mechanism for quality.
 
-### Production Mode (Phase 3+)
-- Expand to all 9 languages (Arabic, Italian, Portuguese, Russian, Romanian, Vietnamese + Indian languages)
-- Optional volunteer review for high-visibility content (magazine articles)
-- Quality metrics tracking per language
-- Translator feedback loop to improve AI prompts
+**Production Mode (Phase 3+):** Expand to all 9 languages (Arabic, Italian, Portuguese, Russian, Romanian, Vietnamese + Indian languages). Optional volunteer review for high-visibility content. Quality metrics tracking per language.
 
 ---
 
 ## Risk Assessment
 
 ### Technical Risks
-
-- **Webflow plan/API access:** CMS API requires CMS plan ($23/mo) or higher. If apostolicfaith.org is on Starter/Basic, a plan upgrade is needed — potential budget blocker. Mitigation: verify plan in Week 1, request upgrade approval early if needed.
-- **Webflow API limitations:** Rate limits, field type restrictions, or feature gates could block integration. Mitigation: audit API early (Week 1-2), confirm capabilities before committing.
-- **Translation quality:** AI translations may have theological inaccuracies. Mitigation: theological guardrail catches major issues; beta label sets expectations; feedback loop improves quality over time.
-- **TTS voice quality:** All audio (including English) will be TTS-generated. Cloud TTS (Polly/Google) is cheaper but may sound less natural than ElevenLabs. Open-source options (VibeVoice) exist but are English-only for now. Mitigation: formal quality comparison planned (cloud vs. ElevenLabs vs. open-source) before final selection; data model supports future manual audio override but override UI is not in Phase 1 scope.
-- **Webflow site structure changes:** If the Publishing Team changes Webflow page structure, sync may break. Mitigation: mapping table makes dependencies explicit; monitoring alerts on sync failures.
+- **Webflow plan/API access:** CMS plan required. Potential blocker if on Starter/Basic. Verify in Week 1.
+- **Webflow API limitations:** Rate limits or feature gates could block integration. Audit early.
+- **Translation quality:** AI may have theological inaccuracies. Mitigation: guardrails, beta label, feedback loop.
+- **TTS voice quality:** Quality comparison planned before final selection. Data model supports future manual override.
+- **Webflow structure changes:** Sync may break if page structure changes. Mitigation: explicit mapping table, monitoring alerts.
 
 ### Operational Risks
-
-- **Publishing Team adoption:** Team may resist workflow change or find the platform harder to use. Mitigation: involve them early (Step 2), dogfood period for hands-on experience, ensure the platform is genuinely easier than Webflow.
-- **Dual workflow burden:** During transition, team may need to maintain both manual and platform processes. Mitigation: Shadow/Dogfood phases run in parallel without requiring Publishing Team to change anything; switch only at Beta.
-- **Scope creep:** Pressure to add more content types before Phase 1 is solid. Mitigation: strict phase gates; Phase 1 must reach GA before expanding scope.
+- **Publishing Team adoption:** Involve early, dogfood period, ensure platform is genuinely easier.
+- **Dual workflow burden:** Shadow/Dogfood run in parallel without disrupting current process. Switch only at Beta.
+- **Scope creep:** Strict phase gates. Phase 1 must reach GA before expanding.
 
 ### Resource Risks
-
-- **Development capacity:** ITAC members have other responsibilities. Mitigation: realistic timeline with buffer; Phase 1 scoped tightly. Agentic AI coding tools effectively eliminate traditional software development costs — ITAC leads donate AI service subscriptions (~$100/mo per person) to cover tooling.
-- **API costs:** Translation and TTS have per-use costs. Mitigation: use cloud TTS (AWS Polly/Google Cloud at ~$8/month) instead of ElevenLabs (~$86/month) for Phase 1. ElevenLabs quality is premium but 10-45x more expensive. Open-source VibeVoice is $0 but English-only and requires self-hosting hardware. Backfill (Phase 1.5) has significant one-time cost — defer until budget is confirmed.
+- **Development capacity:** Agentic AI tools handle implementation. ITAC leads donate AI subscriptions (~$100/mo/person).
+- **API costs:** Cloud TTS ~$8/mo vs ElevenLabs ~$86/mo. Backfill deferred until budget confirmed.
 
 ---
 
-## Key Design Decisions to Make
+## Key Design Decisions
 
 1. **Evolve the-global-voice or build new?**
-   - TGV is a solid prototype with working pipeline
-   - Could refactor to add Webflow integration, or start fresh with lessons learned
-   - Recommendation: Evolve — the core pipeline logic is proven
+   Recommendation: Evolve — the core pipeline logic is proven.
 
 2. **Webflow locale system vs. separate collections per language?**
-   - Webflow supports multi-locale CMS items
-   - But AFC may have language-specific pages in different URL structures
-   - Need to audit current Webflow setup for foreign language content
-   - **Action item:** Sis. Catey Hinkle should confirm how foreign language content is currently structured in Webflow (locale-based or separate collections). This decision affects the API integration approach.
+   Need to audit current setup. Sis. Catey Hinkle should confirm how foreign language content is currently structured in Webflow. This affects the API integration approach.
 
 3. **Where does the platform run?**
-   - Vercel (current TGV setup) — good for Next.js, serverless
-   - AWS (already using S3) — more control, could consolidate
-   - Azure / M365 — enterprise integration option
-   - Self-hosting — potential for failsafe/beta environments; could also run local GPU workloads (e.g., VibeVoice TTS) if hardware specs allow
-   - A consolidated hosting platform comparison (Azure, Google Cloud, self-hosting) is being evaluated as a parallel workstream across all ITAC initiatives. This will be documented separately.
+   Options: Vercel, AWS, Azure/M365, self-hosting (failsafe/beta + local GPU for VibeVoice TTS). A consolidated hosting comparison is being evaluated as a parallel workstream across all ITAC initiatives — separate document.
 
-4. **Content entry format — trade-offs**
-   - **Markdown / rich text editor** (TipTap, already in TGV): Free-form text input gives flexibility, but the person entering content owns the risk of formatting errors, missing fields, or structural inconsistencies. Rendering requires a markdown-to-HTML pipeline, which is straightforward but adds a layer. Best for long-form prose content (devotionals, articles).
-   - **Structured JSON** (form-based entry): Each field is a discrete input (title, scripture, body, etc.), reducing data entry errors. But every content type needs a purpose-built form, which means more UI development and maintenance. Rendering is more predictable since the structure is enforced. Best for content with fixed sections (curriculum, Daybreak devotional sections).
-   - **Recommendation:** Rich text for devotionals/articles, structured forms for curriculum. The Daybreak Devotional (with its fixed sections: Overview, Background, Amplified Outline, Closer Look, Conclusion) may benefit from a hybrid approach — structured fields for section labels, rich text within each section.
+4. **Content entry format**
+   Rich text (TipTap) for free-form prose — flexible but data entry person owns formatting risk. Structured JSON forms for fixed-section content — less error-prone but more UI maintenance. Recommendation: rich text for devotionals/articles, structured forms for curriculum. Daybreak (fixed sections) may benefit from a hybrid.
 
 5. **Authentication**
-   - TGV has its own auth (NextAuth)
-   - For Phase 1, use email-based authentication: user enters email, receives a passcode, logs in. Session persists for 30 days. Simple, no third-party dependency.
-   - Long-term: evaluate single SSO for all AFC digital services (platform, minister portal, app)
+   Phase 1: email-based auth (passcode via email, 30-day session). Long-term: evaluate SSO for all AFC digital services.
+
+---
+
+## Content Change Re-pipeline
+
+```
+Editor updates English devotional in Platform
+        │
+        ├── Content changed? ──→ Re-translate → Re-generate TTS → Update Webflow
+        ├── Metadata only? ──→ Update Webflow metadata only
+        └── No meaningful change ──→ No action
+```
+
+Each platform entry stores: `webflowItemId`, `webflowCollectionId`, `lastSyncedAt`, `syncStatus`, `contentHash`.
 
 ---
 
@@ -635,6 +312,7 @@ Additional scope:
 
 - the-global-voice repo: `apostolicfaith-dev/the-global-voice` (translation pipeline prototype)
 - afcgeomap repo: `apostolicfaith-dev/afcgeomap` (magazine article geographic map)
-- Webflow CMS API: https://developers.webflow.com/data/reference/cms
+- Webflow CMS API setup & cost details: [webflow-api-setup.md](./webflow-api-setup.md)
+- Webflow CMS API docs: https://developers.webflow.com/data/reference/cms
 - Current website: https://apostolicfaith.org/
 - Design docs site: https://apostolicfaith-dev.github.io/afc_design/
