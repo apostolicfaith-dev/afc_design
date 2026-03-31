@@ -16,7 +16,7 @@
 
 **Roadmap:**
 - Phase 0: Foundation — done (the-global-voice prototype)
-- Phase 1: Daily + Daybreak Devotionals
+- Phase 1: Daily + Daybreak Devotionals (target Beta mid-June 2026)
 - Phase 1.5: Content Backfill (optional, cost-dependent)
 - Phase 2: Sunday School / Curriculum
 - Phase 3: Magazine
@@ -24,7 +24,7 @@
 - Phase 5: Full Webflow Replacement
 
 **Budget:**
-- Development: traditional dev costs (~$12K est.) eliminated by agentic AI coding tools. ITAC leads donate AI service subscriptions (~$100/mo per person) to cover tooling.
+- Development: ~~traditional dev costs ($12K est.)~~ → eliminated by agentic AI coding tools. ITAC leads donate AI service subscriptions ($100/mo per person) to cover tooling.
 - Operations (Phase 1 monthly estimate):
   - Webflow CMS plan: $23/mo (required for API access)
   - Cloud TTS (AWS Polly / Google Cloud): ~$8/mo
