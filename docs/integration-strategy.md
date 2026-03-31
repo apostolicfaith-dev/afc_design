@@ -1,13 +1,50 @@
 # AFC Platform — Incremental Integration Strategy
 
 > - Created: 2026-03-14
-> - Last Updated: 2026-03-14
-> - Status: Draft — Pending ITAC Review
+> - Last Updated: 2026-03-31
+> - Status: Draft — Post-ITAC Review, Pending HQ Approval
 > - Related: [website-structure-analysis.md](./website-structure-analysis.md), [maintenance-use-cases.md](./maintenance-use-cases.md)
+
+## Executive Summary
+
+**Direction:** Build an internal platform where devotional content goes in once and automatically gets translated, turned into audio, and published to apostolicfaith.org via Webflow API — plus email subscription and RSS feeds. Start with Daily + Daybreak devotionals, then expand phase by phase until the platform can fully replace Webflow.
+
+**Phase 1 Scope (Daily + Daybreak Devotionals):**
+- Content entry → AI translation (target languages TBD) → TTS audio (all languages incl. English) → Webflow publish + email/RSS
+- Target: internal prototype review by mid-April, Beta launch by mid-June 2026
+- Release process: Shadow → Dogfood → Beta → GA
+
+**Roadmap:**
+- Phase 0: Foundation — done (the-global-voice prototype)
+- Phase 1: Daily + Daybreak Devotionals
+- Phase 1.5: Content Backfill (optional, cost-dependent)
+- Phase 2: Sunday School / Curriculum
+- Phase 3: Magazine
+- Phase 4: World Report & Events
+- Phase 5: Full Webflow Replacement
+
+**Budget:**
+- Development: traditional dev costs (~$12K est.) eliminated by agentic AI coding tools. ITAC leads donate AI service subscriptions (~$100/mo per person) to cover tooling.
+- Operations (Phase 1 monthly estimate):
+  - Webflow CMS plan: $23/mo (required for API access)
+  - Cloud TTS (AWS Polly / Google Cloud): ~$8/mo
+  - AI translation (Gemini): <$5/mo
+  - Hosting (Vercel/AWS free tiers): $0–20/mo
+  - S3 storage: negligible
+  - **Total: ~$35–55/mo**
+- A formal TTS quality comparison (cloud TTS vs. ElevenLabs vs. open-source options) is planned before final provider selection.
+
+**Open Decisions:**
+- Target languages for Phase 1 (TBD)
+- TTS provider (pending quality comparison)
+- Hosting platform (cloud vs. self-hosting evaluation in progress — separate document)
+- Webflow locale setup (pending Publishing Team confirmation)
+
+---
 
 ## Summary
 
-Instead of replacing the entire AFC website at once (risky and slow), we're building a behind-the-scenes platform where content goes in once and automatically gets translated into 3 languages, turned into audio, and published to the current Webflow website via API. We start with both daily devotionals (Daily + Daybreak) — targeting Beta by mid-June 2026 — then expand to Sunday school, magazine, and so on. All audio (including English) is generated via TTS by default. Each new feature goes through a release process: first only the team can see it (Shadow), then a small group tests it (Dogfood), then it goes out with a "beta" label, and finally it becomes the official way. This document needs alignment from ITAC, the Publishing Team, and HQ leadership before development begins.
+Instead of replacing the entire AFC website at once (risky and slow), we're building a behind-the-scenes platform where content goes in once and automatically gets translated, turned into audio, and published to the current Webflow website via API. We start with both daily devotionals (Daily + Daybreak) — targeting Beta by mid-June 2026 — then expand to Sunday school, magazine, and so on. All audio (including English) is generated via TTS by default. Each new feature goes through a release process: first only the team can see it (Shadow), then a small group tests it (Dogfood), then it goes out with a "beta" label, and finally it becomes the official way. This document needs alignment from ITAC, the Publishing Team, and HQ leadership before development begins.
 
 ---
 
@@ -173,7 +210,7 @@ Build an internal content management platform ("AFC Platform") that becomes the 
 3. **Content-Webflow mapping** — Every platform entry stores its Webflow collection item ID for sync
 4. **Change detection triggers pipeline** — When source content changes, re-run translation → audio → publish
 5. **Incremental rollout** — One content type at a time, starting with Daily + Daybreak Devotionals
-6. **Translation: beta mode first** — 3 languages, auto-approve with beta label, expand later
+6. **Translation: beta mode first** — target languages TBD, auto-approve with beta label, expand later
 7. **TTS-first audio** — All audio (including English) generated via TTS by default; manual audio override as a future option
 
 ---
@@ -195,6 +232,7 @@ Working backward from a Beta launch target of June 15, 2026. Both devotionals sh
 
 - [ ] Present strategy and workflow changes to Sis. Hinkle and Publishing Team
 - [ ] Collect and incorporate Publishing Team feedback
+- [ ] Internal prototype review (~Apr 15)
 - [ ] Present to Bro. Adosope and Bro. Musgrave for approval
 - [ ] Finalize Phase 1 scope based on all feedback
 - **Gate:** HQ approval before development begins
@@ -210,8 +248,9 @@ Working backward from a Beta launch target of June 15, 2026. Both devotionals sh
 
 ### Week 7–8: Apr 28 – May 9 — Core Pipeline
 
-- [ ] Integrate translation pipeline (Gemini AI, English → ES/FR/KO)
-- [ ] Integrate TTS generation for all 4 languages including English (ElevenLabs/Gemini)
+- [ ] Integrate translation pipeline (Gemini AI, target languages TBD)
+- [ ] TTS quality comparison: cloud TTS (Polly/Google) vs. ElevenLabs vs. VibeVoice (English)
+- [ ] Integrate TTS generation for all languages including English (provider TBD based on comparison)
 - [ ] Implement content ↔ Webflow mapping and sync for both Daily and Daybreak collections
 - [ ] Implement change detection (content hash → re-translate → re-generate → re-sync)
 - [ ] Build admin dashboard (pipeline status, sync status per entry)
@@ -379,6 +418,9 @@ CMS API access requires **Webflow CMS plan ($23/mo) or higher**. The Starter and
 - **ElevenLabs (Scale plan):** $180.00/M chars — highest quality but 10-45x more expensive
 - **ElevenLabs (Pro plan):** $240.00/M chars
 - **Gemini TTS:** Included with Gemini API usage, minimal additional cost
+- **VibeVoice (Microsoft, open-source):** $0 license (MIT), self-hosted. English only officially supported; other languages experimental. Requires GPU hardware for inference. Potential option if self-hosting infrastructure becomes available.
+
+A formal quality comparison across these providers is planned before final TTS selection. The comparison will evaluate voice naturalness, multilingual quality, latency, and total cost of ownership.
 
 **Phase 1 cost estimate:**
 - Average devotional: ~2,000 characters
@@ -446,7 +488,7 @@ Scope:
 - Daybreak supports structured sections (Overview, Background, Amplified Outline, Closer Look, Conclusion). Note: whether to translate section-by-section or as a whole document is a technical decision to be made during implementation.
 - Webflow CMS API integration (create/update collection items)
 - Content ↔ Webflow mapping table
-- Translation pipeline (English → ES, FR, KO) with beta auto-approve
+- Translation pipeline (target languages TBD, likely ES/FR/KO) with beta auto-approve
 - TTS audio generation for all 4 languages (including English)
 - Email subscription / RSS publish workflow migration: current devotionals are distributed daily via email subscription and RSS feed — the platform must generate and publish to these channels as part of the pipeline (not just Webflow)
 - Change detection: content update → re-translate → re-generate audio → re-sync Webflow
@@ -520,7 +562,7 @@ Additional scope:
 ## Translation Strategy
 
 ### Beta Mode (Phases 1-2)
-- 3 target languages: Spanish, French, Korean
+- Target languages TBD (likely Spanish, French, Korean)
 - Auto-approve AI translations (no volunteer review gate)
 - Mark translated content with "Beta Translation" indicator
 - Collect feedback mechanism for translation quality
@@ -541,7 +583,7 @@ Additional scope:
 - **Webflow plan/API access:** CMS API requires CMS plan ($23/mo) or higher. If apostolicfaith.org is on Starter/Basic, a plan upgrade is needed — potential budget blocker. Mitigation: verify plan in Week 1, request upgrade approval early if needed.
 - **Webflow API limitations:** Rate limits, field type restrictions, or feature gates could block integration. Mitigation: audit API early (Week 1-2), confirm capabilities before committing.
 - **Translation quality:** AI translations may have theological inaccuracies. Mitigation: theological guardrail catches major issues; beta label sets expectations; feedback loop improves quality over time.
-- **TTS voice quality:** All audio (including English) will be TTS-generated. Cloud TTS (Polly/Google) is cheaper but may sound less natural than ElevenLabs. Mitigation: test multiple providers during Week 5-6; choose per-language best option; data model supports future manual audio override but override UI is not in Phase 1 scope.
+- **TTS voice quality:** All audio (including English) will be TTS-generated. Cloud TTS (Polly/Google) is cheaper but may sound less natural than ElevenLabs. Open-source options (VibeVoice) exist but are English-only for now. Mitigation: formal quality comparison planned (cloud vs. ElevenLabs vs. open-source) before final selection; data model supports future manual audio override but override UI is not in Phase 1 scope.
 - **Webflow site structure changes:** If the Publishing Team changes Webflow page structure, sync may break. Mitigation: mapping table makes dependencies explicit; monitoring alerts on sync failures.
 
 ### Operational Risks
@@ -552,8 +594,8 @@ Additional scope:
 
 ### Resource Risks
 
-- **Development capacity:** ITAC members have other responsibilities. Mitigation: realistic timeline with buffer; Phase 1 scoped tightly.
-- **API costs:** Translation and TTS have per-use costs. Mitigation: use cloud TTS (AWS Polly/Google Cloud at ~$8/month) instead of ElevenLabs (~$86/month) for Phase 1. ElevenLabs quality is premium but 10-45x more expensive. Backfill (Phase 1.5) has significant one-time cost — defer until budget is confirmed.
+- **Development capacity:** ITAC members have other responsibilities. Mitigation: realistic timeline with buffer; Phase 1 scoped tightly. Agentic AI coding tools effectively eliminate traditional software development costs — ITAC leads donate AI service subscriptions (~$100/mo per person) to cover tooling.
+- **API costs:** Translation and TTS have per-use costs. Mitigation: use cloud TTS (AWS Polly/Google Cloud at ~$8/month) instead of ElevenLabs (~$86/month) for Phase 1. ElevenLabs quality is premium but 10-45x more expensive. Open-source VibeVoice is $0 but English-only and requires self-hosting hardware. Backfill (Phase 1.5) has significant one-time cost — defer until budget is confirmed.
 
 ---
 
@@ -573,7 +615,9 @@ Additional scope:
 3. **Where does the platform run?**
    - Vercel (current TGV setup) — good for Next.js, serverless
    - AWS (already using S3) — more control, could consolidate
-   - Hybrid: Vercel for app, AWS for storage/processing
+   - Azure / M365 — enterprise integration option
+   - Self-hosting — potential for failsafe/beta environments; could also run local GPU workloads (e.g., VibeVoice TTS) if hardware specs allow
+   - A consolidated hosting platform comparison (Azure, Google Cloud, self-hosting) is being evaluated as a parallel workstream across all ITAC initiatives. This will be documented separately.
 
 4. **Content entry format — trade-offs**
    - **Markdown / rich text editor** (TipTap, already in TGV): Free-form text input gives flexibility, but the person entering content owns the risk of formatting errors, missing fields, or structural inconsistencies. Rendering requires a markdown-to-HTML pipeline, which is straightforward but adds a layer. Best for long-form prose content (devotionals, articles).

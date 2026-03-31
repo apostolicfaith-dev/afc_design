@@ -28,6 +28,15 @@ The master plan. Platform as source of truth, Webflow as rendering layer, 6-phas
 
 Updates are listed newest-first.
 
+**2026-03-31 — Post-ITAC review update**
+- Added Executive Summary (1-pager with direction, roadmap, budget)
+- Added budget breakdown: dev costs covered by AI subscription donations, ops ~$35-55/mo
+- Added VibeVoice (Microsoft, open-source) to TTS provider comparison
+- Added formal TTS quality comparison as roadmap milestone
+- Hosting platform evaluation noted as parallel workstream (separate doc)
+- Language targets softened to TBD (pending confirmation)
+- Added internal prototype review target (~Apr 15) to timeline
+
 **2026-03-14 — Phase 1 scope refinements & design decisions**
 - Added email subscription / RSS publish workflow to Phase 1 scope
 - Expanded Key Design Decisions: content entry format trade-offs (markdown vs structured JSON), email-based auth for Phase 1, Webflow locale confirmation action item for Sis. Hinkle
