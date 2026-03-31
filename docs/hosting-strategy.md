@@ -15,7 +15,7 @@
 - AWS nonprofit credit: ~$2,000/year
 - Estimated monthly spend (all ITAC initiatives): $50–150/mo initially → within credit range for any provider
 
-**Context:** AFC is already adopting Microsoft 365 nonprofit organization-wide. This is a significant factor — the cloud compute platform decision should align with (or at minimum not conflict with) the church's broader IT direction.
+**Context:** AFC is currently pursuing Microsoft 365 nonprofit organization-wide. This is a significant factor — the cloud compute platform decision should align with (or at minimum not conflict with) the church's broader IT direction.
 
 **Open decision: Azure vs. GCP for cloud compute.** Both are viable. See comparison below — ITAC should review and decide.
 
@@ -102,7 +102,7 @@ Production on cloud, dev/staging + GPU workloads on self-hosted.
 - Azure Functions — event-driven tasks (Twilio webhooks, scheduled jobs)
 
 **Advantages:**
-- **AFC is already adopting M365 nonprofit** — Azure aligns with church-wide IT direction
+- **AFC is currently pursuing M365 nonprofit** — Azure aligns with church-wide IT direction
 - Entra ID (Azure AD) for SSO — natural fit if church moves to Entra for identity
 - Good nonprofit program, well-documented
 - Container Apps is straightforward for deploying web apps + workers
@@ -133,7 +133,7 @@ Production on cloud, dev/staging + GPU workloads on self-hosted.
 - Simpler developer experience overall
 
 **Disadvantages:**
-- **Church is going M365, not Google Workspace** — adds a second ecosystem
+- **Church is pursuing M365, not Google Workspace** — would add a second ecosystem
 - Fewer enterprise identity features vs Azure Entra ID
 - Two vendor relationships to manage instead of one
 
@@ -166,7 +166,7 @@ Production on cloud, dev/staging + GPU workloads on self-hosted.
 Both are strong options. The key tradeoff:
 
 **Case for Azure:**
-- AFC is already going M365 nonprofit → one vendor ecosystem, one billing relationship
+- AFC is pursuing M365 nonprofit → one vendor ecosystem, one billing relationship
 - Entra ID gives church-wide SSO potential (not just ITAC apps)
 - M365 + Azure under one nonprofit account = simpler administration
 - $3,500/yr cloud credit is enough for projected workloads ($360–840/yr estimated)
