@@ -6,3 +6,4 @@
   - [Maintenance Use Cases](maintenance-use-cases.md)
   - [Integration Strategy](integration-strategy.md)
   - [Webflow API Setup & Costs](webflow-api-setup.md)
+  - [Hosting Strategy](hosting-strategy.md)

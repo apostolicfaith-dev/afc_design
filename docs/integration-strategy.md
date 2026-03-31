@@ -37,7 +37,7 @@
 **Open Decisions:**
 - Target languages for Phase 1 (TBD)
 - TTS provider (pending quality comparison)
-- Hosting platform (cloud vs. self-hosting evaluation in progress — separate document)
+- Hosting platform — see [Hosting Strategy](./hosting-strategy.md) (recommendation: GCP cloud-first with nonprofit credits)
 - Webflow locale setup (pending Publishing Team confirmation)
 
 ---
@@ -284,7 +284,7 @@ Public-facing frontend (Next.js or similar), SEO migration, DNS transition, lega
    Need to audit current setup. Sis. Catey Hinkle should confirm how foreign language content is currently structured in Webflow. This affects the API integration approach.
 
 3. **Where does the platform run?**
-   Options: Vercel, AWS, Azure/M365, self-hosting (failsafe/beta + local GPU for VibeVoice TTS). A consolidated hosting comparison is being evaluated as a parallel workstream across all ITAC initiatives — separate document.
+   Recommendation: GCP cloud-first with nonprofit credits. See [Hosting Strategy](./hosting-strategy.md) for full evaluation (Azure, GCP, AWS compared). Self-hosted GPU reserved for VibeVoice experiments only.
 
 4. **Content entry format**
    Rich text (TipTap) for free-form prose — flexible but data entry person owns formatting risk. Structured JSON forms for fixed-section content — less error-prone but more UI maintenance. Recommendation: rich text for devotionals/articles, structured forms for curriculum. Daybreak (fixed sections) may benefit from a hybrid.
