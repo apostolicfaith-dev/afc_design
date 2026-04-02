@@ -5,6 +5,28 @@
 > - Status: Draft — Pending ITAC Review
 > - Related: [integration-strategy.md](./integration-strategy.md)
 
+---
+
+## Provider Comparison — At a Glance
+
+The decision is **Azure vs. GCP**. AWS is included for completeness but is not recommended.
+
+| Factor | Azure | GCP | ~~AWS~~ |
+|---|---|---|---|
+| **Nonprofit credit/year** | $3,500 | $10,000 | $2,000 |
+| **Credit utilization (projected)** | ~10–24% | ~4–8% | ~43–100%+ |
+| **M365 alignment** | Same vendor (AFC adopting M365) | Separate vendor (valid split) | No |
+| **Serverless containers** | Container Apps — good | Cloud Run — mature, simpler | App Runner — limited |
+| **GitHub Actions CI/CD** | Good | Better (Workload Identity Federation) | Good |
+| **Identity / SSO** | Entra ID (enterprise-grade) | Firebase Auth | IAM only |
+| **Native AI integration** | Standard | Gemini (already in use) | Polly (TTS only) |
+| **Collaboration suite** | M365 included | No | No |
+| **Recommendation** | If org alignment is the priority | If credit headroom + dev experience is the priority | ~~Not recommended~~ |
+
+> **ITAC decision required.** Both are viable — this is a strategic alignment question, not a technical one. Full analysis below.
+
+---
+
 ## Summary
 
 **Recommendation: Cloud-first with nonprofit credits.** ITAC members all have day jobs — minimizing ops burden is the priority. Nonprofit credits cover most or all costs for the foreseeable future. Self-hosting reserved for dev/staging and GPU workloads only.
@@ -15,7 +37,7 @@
 - AWS nonprofit credit: ~$2,000/year
 - Estimated monthly spend (all ITAC initiatives): $50–150/mo initially → within credit range for any provider
 
-**Context:** AFC is currently pursuing Microsoft 365 nonprofit organization-wide. This is a significant factor — the cloud compute platform decision should align with (or at minimum not conflict with) the church's broader IT direction.
+**Context:** AFC is adopting Microsoft 365 nonprofit organization-wide — the process is underway through administrative channels. This is a significant factor: once M365 is in place, Azure consolidates cloud compute and org productivity under one vendor, with no switching risk. GCP + M365 is a valid split that many organizations use, but it means two vendor ecosystems long-term.
 
 **Open decision: Azure vs. GCP for cloud compute.** Both are viable. See comparison below — ITAC should review and decide.
 
@@ -38,10 +60,11 @@ All current and planned initiatives that need hosting:
 - Email notifications
 - Priority: Medium — timeline TBD
 
-**3. Communication System (Twilio-based)**
-- API server (Twilio webhook handlers)
-- Database (contacts, message logs)
-- Scheduled jobs (automated messages)
+**3. Visitor Management System**
+- Web app (visitor registration, messaging interface, admin dashboard)
+- API integration (Twilio for SMS/messaging)
+- Database (visitor records, contacts, message logs)
+- Scheduled jobs (automated messages, follow-ups)
 - Priority: Medium — timeline TBD
 
 **4. Shared Infrastructure**
@@ -102,7 +125,7 @@ Production on cloud, dev/staging + GPU workloads on self-hosted.
 - Azure Functions — event-driven tasks (Twilio webhooks, scheduled jobs)
 
 **Advantages:**
-- **AFC is currently pursuing M365 nonprofit** — Azure aligns with church-wide IT direction
+- **AFC is adopting M365 nonprofit** — Azure consolidates cloud compute + org productivity under one vendor; no future migration risk when M365 lands
 - Entra ID (Azure AD) for SSO — natural fit if church moves to Entra for identity
 - Good nonprofit program, well-documented
 - Container Apps is straightforward for deploying web apps + workers
@@ -130,10 +153,11 @@ Production on cloud, dev/staging + GPU workloads on self-hosted.
 - Cloud Run is simpler and more mature than Azure Container Apps
 - Gemini AI integration is native (already using Gemini for translation)
 - Firebase Auth available for SSO
+- GitHub Actions CI/CD integration is more mature (Workload Identity Federation simplifies deployment setup)
 - Simpler developer experience overall
 
 **Disadvantages:**
-- **Church is pursuing M365, not Google Workspace** — would add a second ecosystem
+- **Church is adopting M365, not Google Workspace** — GCP + M365 means two vendor ecosystems long-term (valid, but more to manage)
 - Fewer enterprise identity features vs Azure Entra ID
 - Two vendor relationships to manage instead of one
 
@@ -166,7 +190,7 @@ Production on cloud, dev/staging + GPU workloads on self-hosted.
 Both are strong options. The key tradeoff:
 
 **Case for Azure:**
-- AFC is pursuing M365 nonprofit → one vendor ecosystem, one billing relationship
+- AFC is adopting M365 nonprofit (in progress) → Azure consolidates both under one vendor; no switching risk when M365 lands
 - Entra ID gives church-wide SSO potential (not just ITAC apps)
 - M365 + Azure under one nonprofit account = simpler administration
 - $3,500/yr cloud credit is enough for projected workloads ($360–840/yr estimated)
@@ -179,7 +203,7 @@ Both are strong options. The key tradeoff:
 
 **Not recommended: AWS.** Lowest credit, no collaboration suite, most complex. Individual AWS services (S3, Polly) can be used standalone regardless of primary cloud choice.
 
-**Key question for ITAC:** Does the organizational alignment of "everything Microsoft" outweigh GCP's technical and credit advantages for compute? There's no wrong answer — both work. This is a strategic alignment decision more than a technical one.
+**Key question for ITAC:** AFC will be on M365 — does consolidating cloud compute under Azure now outweigh GCP's larger credit and better developer experience? There's no wrong answer — both work. This is a strategic alignment decision more than a technical one.
 
 ---
 
@@ -188,45 +212,43 @@ Both are strong options. The key tradeoff:
 The architecture is the same regardless of Azure or GCP. Service names differ but the pattern is identical: serverless containers + managed Postgres + object storage.
 
 ```
-                    ┌──────────────────────────────────────┐
+                    ┌───────────────────────────────────────┐
                     │     Cloud Platform (Azure or GCP)     │
                     │         Nonprofit Credits             │
                     │                                       │
                     │  ┌───────────┐  ┌──────────────────┐  │
-                    │  │ Container │  │  Container        │  │
-                    │  │ Services  │  │  Workers          │  │
-                    │  │ (Web Apps)│  │                   │  │
-                    │  │           │  │• Translation      │  │
-                    │  │• AFC      │  │• TTS Generation   │  │
-                    │  │  Platform │  │• Webflow Sync     │  │
-                    │  │• Camp     │  │• Scheduled Jobs   │  │
-                    │  │  Meeting  │  │                   │  │
-                    │  │• Comms API│  │                   │  │
+                    │  │ Container │  │  Container       │  │
+                    │  │ Services  │  │  Workers         │  │
+                    │  │ (Web Apps)│  │                  │  │
+                    │  │           │  │• Translation     │  │
+                    │  │• AFC      │  │• TTS Generation  │  │
+                    │  │  Platform │  │• Webflow Sync    │  │
+                    │  │• Camp     │  │• Scheduled Jobs  │  │
+                    │  │  Meeting  │  │                  │  │
+                    │  │• Visitor  │  │                  │  │
                     │  └─────┬─────┘  └────────┬─────────┘  │
                     │        │                 │            │
                     │        ▼                 ▼            │
                     │  ┌───────────┐  ┌──────────────────┐  │
-                    │  │ Managed   │  │  Object Storage   │  │
-                    │  │ Postgres  │  │  (Audio, Assets)  │  │
+                    │  │ Managed   │  │  Object Storage  │  │
+                    │  │ Postgres  │  │  (Audio, Assets) │  │
                     │  └───────────┘  └──────────────────┘  │
                     │                                       │
-                    │  ┌──────────────────────────────────┐  │
-                    │  │  Shared Services                 │  │
-                    │  │  • Auth / SSO                    │  │
-                    │  │  • Job Queue                     │  │
-                    │  │  • Secrets Management            │  │
-                    │  │  • Monitoring & Alerts           │  │
-                    │  └──────────────────────────────────┘  │
-                    └──────────────────────────────────────┘
+                    │  ┌──────────────────────────────────┐ │
+                    │  │  Shared Services                 │ │
+                    │  │  • Auth / SSO                    │ │
+                    │  │  • Job Queue                     │ │
+                    │  │  • Secrets Management            │ │
+                    │  │  • Monitoring & Alerts           │ │
+                    │  └──────────────────────────────────┘ │
+                    └───────────────────────────────────────┘
                                      │
                      ┌───────────────┼───────────────┐
                      ▼               ▼               ▼
-              ┌──────────┐   ┌───────────┐   ┌─────────────┐
-              │ Webflow  │   │ Twilio    │   │ External    │
-              │ CMS API  │   │           │   │ AI APIs     │
-              └──────────┘   └───────────┘   │ (Gemini,    │
-                                             │  Polly/TTS) │
-                                             └─────────────┘
+              ┌────────────┐  ┌────────────┐  ┌─────────────────┐
+              │  Webflow   │  │   Twilio   │  │   External AI   │
+              │  CMS API   │  │            │  │ (Gemini, Polly) │
+              └────────────┘  └────────────┘  └─────────────────┘
 ```
 
 **Service mapping (either provider works):**
@@ -248,10 +270,11 @@ The architecture is the same regardless of Azure or GCP. Service names differ bu
 - Managed Postgres — shared instance, separate schema
 - Job queue — email notifications
 
-**Communication System:**
-- Container service (API) — Twilio webhook handlers
-- Managed Postgres — contacts, message logs
-- Scheduled jobs — automated message triggers
+**Visitor Management System:**
+- Container service (web app) — visitor registration, messaging interface, admin dashboard
+- Container service (API) — Twilio integration layer (SMS/messaging)
+- Managed Postgres — visitor records, contacts, message logs
+- Scheduled jobs — automated message triggers, follow-ups
 
 **Shared Infrastructure:**
 - Auth service — unified authentication across all apps (Entra ID or Firebase Auth)
@@ -297,7 +320,7 @@ External costs (regardless of cloud provider):
 
 **Phase 2 (Post-GA):**
 6. Deploy Camp Meeting registration on same infrastructure
-7. Deploy Communication System
+7. Deploy Visitor Management System
 8. Implement shared auth/SSO (Entra ID or Firebase Auth)
 9. Evaluate secondary provider credits for backup/cost optimization
 
@@ -321,6 +344,7 @@ VibeVoice (English-only open-source TTS) requires GPU. If ITAC decides to use Vi
 - [ ] Apply for nonprofit credits on secondary provider (backup / cost optimization)
 - [ ] Set up cloud project with access roles for ITAC members
 - [ ] Prototype deployment of one service to validate the platform choice
+- [ ] Confirm data residency requirements for AFC member data (attendee, contact, visitor PII) — both Azure and GCP can comply, but cloud region selection should be deliberate
 
 ---
 
