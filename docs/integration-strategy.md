@@ -143,6 +143,79 @@ Build an internal content management platform ("AFC Platform") that becomes the 
 
 ---
 
+## Why Devotionals First
+
+> Added 2026-04-09. This section addresses the question of why daily devotionals are the best starting point for the translation system, particularly in response to concerns about workload, upcoming content revisions, and alternative starting points.
+
+### The Goal Is the System, Not the Artifacts
+
+The primary objective is not to produce translated devotional texts — it's to build a translation system that understands our doctrine, aligns with the voice and tone of each target language, and can be continuously refined. The translated devotionals are a byproduct of training and validating that system.
+
+Once the system is calibrated, **any content can be processed** — devotionals, the magazine, the 교역자 매뉴얼 (Minister's Manual), Sunday School materials. Starting with devotionals doesn't lock us in; it gives us the fastest path to a production-ready translation engine.
+
+### Why Devotionals Win on Feedback Loop Speed
+
+| Factor | Daily Devotional | Magazine | 교역자 매뉴얼 |
+|---|---|---|---|
+| New content frequency | Daily (365/yr) | 28 articles/yr | Rarely updated |
+| Average length | 300-500 words | 2,000-5,000 words | 10,000+ words |
+| Reviewer time per piece | 5-10 minutes | 30-60 minutes | Hours |
+| Feedback loop speed | Daily | Monthly | Yearly |
+| Pipeline validation | Every day | Once a month | Once |
+
+**Key insight:** With devotionals, we discover translation problems *every day* and fix them *every day*. With the magazine, we discover problems once a month and wait another month to verify fixes. The system improves 30x faster with daily content.
+
+### Revisions Are a Feature, Not a Problem
+
+Concern: "Daybreak is about to undergo a major revision. Should we wait?"
+
+Answer: **Revisions are exactly why the system needs to exist.** When content is revised:
+1. Editor updates the English text in the platform
+2. Click "Re-translate All Languages" — one button
+3. System automatically re-translates, re-generates audio, re-publishes
+4. Total time: minutes, not weeks
+
+The question isn't "will there be revisions?" — there will always be revisions. The question is "how painful are revisions?" With the system in place, they're trivial. Without it, every revision means manually re-translating into every language.
+
+### Reviewer Workload: Short Content = Light Reviews
+
+Concern: "365 devotionals per year is too many to review."
+
+Response: Consider the actual review experience:
+
+- **Devotional (400 words):** Reviewer reads side-by-side with English. 5-10 minutes. Can give feedback like "use '사도의 신앙 교회' instead of 'Apostolic Faith Church'" and the system learns it permanently.
+- **Magazine article (3,000 words):** Reviewer needs to carefully check doctrinal nuances across dozens of paragraphs. 30-60 minutes. Every correction is specific to that article.
+- **교역자 매뉴얼 chapter (10,000+ words):** Requires expert theological review. Hours per chapter. Corrections may conflict across sections.
+
+Additionally, the review process is designed to be **cumulative, not repetitive**:
+- Feedback becomes translation reference notes (per language)
+- System learns from corrections ("this term should always be translated as X")
+- Each review improves all future translations
+- Over time, reviews become lighter as the system gets smarter
+
+### The UX of Giving Feedback
+
+Reviewers don't need to manually edit translated text. They can provide feedback in natural language:
+
+- **Style:** "Korean should use 하십시오체 (formal polite) consistently"
+- **Doctrine:** "'Sanctification' must be translated as '성화', never '거룩하게 됨'"
+- **Culture:** "This American metaphor doesn't work in French — add a brief contextual note"
+
+These notes are stored per language and automatically injected into future translations. The reviewer teaches the system once; it remembers forever.
+
+### What About 교역자 매뉴얼?
+
+Starting with 교역자 매뉴얼 was suggested because ministers would be "more forgiving of bumps." This is true, but:
+
+1. 교역자 매뉴얼 is also undergoing revision (global committee review), so the same revision concern applies
+2. The content is long and doctrinally dense — review workload is much heavier per piece
+3. Feedback loops are slow (manual rarely updated → can't iterate quickly)
+4. If the translation system makes a doctrinal error in a minister's manual, the consequences are more serious than in a daily devotional
+
+Devotionals are the safer, faster proving ground. Once the system is calibrated on devotionals, expanding to 교역자 매뉴얼 is straightforward — same pipeline, same language notes, same quality controls.
+
+---
+
 ## Phase 1 — Scope & Timeline
 
 ### Scope
