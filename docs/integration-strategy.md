@@ -222,12 +222,77 @@ Every phase follows: **Shadow → Dogfood → Beta → GA**. No unvalidated cont
 
 ---
 
+## Alternative Path: TGV as Standalone Multilingual Site
+
+> Added 2026-04-09. The original strategy assumes Webflow API integration (Phases 1-4) before the platform can serve content publicly. However, the-global-voice prototype has advanced significantly beyond "prototype" status and may already be viable as a standalone public-facing site — bypassing the need for Webflow API integration entirely.
+
+### What TGV Already Has (as of April 2026)
+
+| Capability | Status |
+|---|---|
+| 6-language support (en, es, fr, ko, ja, yo) | ✅ Production |
+| AI translation pipeline (Gemini, structured output) | ✅ Production |
+| TTS audio in 5 languages (Cloud TTS Neural2, 0.8x) | ✅ Production |
+| Bible verse lookup (5 translations via getbible.net + local nkrv) | ✅ Production |
+| Structured Daybreak fields (background, outline, closer look, conclusion) | ✅ Production |
+| Daily + Daybreak devotional pages with audio player | ✅ Production |
+| Universal task queue (auto-translation, auto-TTS after ingest) | ✅ Production |
+| Admin dashboard (queue monitor, translation editor, settings) | ✅ Production |
+| Public pages: Our Faith, Portland, Calendar, Camp Meeting, etc. | ✅ Production |
+| Content ingestion from email (daily cron) | ✅ Production |
+| RSS ingestion route (ready, pending feed reliability) | ✅ Ready |
+
+### The Alternative
+
+Instead of building Webflow API integration (Phase 1 core work), TGV could:
+
+1. **Consume content from apostolicfaith.org** — via email or RSS, no API access needed
+2. **Translate + generate audio automatically** — the pipeline already does this
+3. **Serve directly at a subdomain** — e.g., `global.apostolicfaith.org` or standalone domain
+4. **Skip Phases 1-4 entirely** — go straight to Phase 5 (TGV as the public site)
+
+```
+Current Strategy:
+  Platform → Webflow API → apostolicfaith.org (public)
+  [Phase 1-4 needed]
+
+Alternative:
+  apostolicfaith.org (email/RSS) → TGV → TGV serves directly (public)
+  [Already working]
+```
+
+### Trade-offs
+
+**Pros:**
+- No Webflow CMS plan needed ($23/mo saved)
+- No Webflow API integration work (Weeks 5-8 eliminated)
+- Already deployed and functional on Vercel
+- Faster time to value — multilingual devotionals are live TODAY
+- Publishing Team workflow is simpler (content enters via existing email, platform handles the rest)
+
+**Cons:**
+- Not integrated with apostolicfaith.org main site (separate URL)
+- Doesn't replace Webflow — runs alongside it
+- SEO: separate domain means building authority from scratch
+- Dependent on email/RSS ingestion (not direct content entry by Publishing Team)
+- No Webflow CMS mapping — content lives in two places
+
+### Recommendation
+
+**Start with the Alternative Path for Phase 1.** TGV is already serving multilingual devotionals with audio. Deploy it publicly and gather real user feedback while the Webflow API integration is evaluated separately.
+
+If the standalone site proves sufficient, Phases 1-4 can be deprioritized or eliminated. If Webflow integration is still desired (e.g., for SEO continuity or unified site management), it can proceed in parallel without blocking the multilingual launch.
+
+This is not an either/or — it's a **"launch now, integrate later"** approach.
+
+---
+
 ## Future Phases
 
 ### Phase 0: Foundation (Done)
 - [x] Translation pipeline prototype (the-global-voice)
 - [x] AI translation with theological guardrails (Gemini)
-- [x] TTS generation (ElevenLabs / Gemini)
+- [x] TTS generation (ElevenLabs / Gemini → Cloud TTS)
 - [x] Website structure analysis
 
 ### Phase 1.5: Content Backfill (Optional, After Phase 1 GA)
@@ -244,6 +309,8 @@ Regional editor submissions, Camp Meeting registration, calendar integration, ph
 
 ### Phase 5: Full Platform (Webflow Replacement)
 Public-facing frontend (Next.js or similar), SEO migration, DNS transition, legacy URL redirects, full CMS, manual audio override UI.
+
+> **Note:** With the Alternative Path, Phase 5 is essentially what TGV already is. The remaining work would be DNS transition, SEO migration, and legacy URL redirects.
 
 ---
 
