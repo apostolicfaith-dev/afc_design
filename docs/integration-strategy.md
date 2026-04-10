@@ -214,6 +214,25 @@ Starting with 교역자 매뉴얼 was suggested because ministers would be "more
 
 Devotionals are the safer, faster proving ground. Once the system is calibrated on devotionals, expanding to 교역자 매뉴얼 is straightforward — same pipeline, same language notes, same quality controls.
 
+### Agentic Development: Rapid Iteration at Near-Zero Cost
+
+A key enabler of this project is **agentic AI-assisted development** — AI agents that write, test, and deploy code with human oversight. This fundamentally changes the cost-benefit calculus:
+
+**Speed of change:** When a reviewer says "Korean translations should use 하십시오체 (formal polite)," we don't file a ticket and wait for a developer. The AI agent updates the translation prompt, tests it, and deploys — often within the same conversation. The change is live in minutes.
+
+**Cost of new features:** Adding a new content type (e.g., 교역자 매뉴얼) doesn't require weeks of development. The structured fields, parsing logic, translation templates, and TTS configuration can be added in a single session. The pipeline architecture is designed to be content-type agnostic.
+
+**What this means concretely:**
+- "We need Yoruba support" → added in one session (locale files, DB, translation pipeline, admin UI)
+- "The Bible verse format is wrong in Korean" → prompt updated, all future translations fixed
+- "We want to start translating magazine articles" → new content type, same pipeline, same day
+- "The TTS speaks too fast" → speaking rate changed from 1.0x to 0.8x, all audio regenerated in an hour
+- "Daybreak needs structured sections" → 5 new DB fields + edit form + rendering + TTS templates, built and deployed in one session
+
+**This is not theoretical.** Every example above actually happened during the development of The Global Voice. The system is designed to be modified as easily as it is used — because the same AI tools that built it can extend it on demand.
+
+This means the Publishing Team's feedback doesn't go into a backlog. It becomes a system improvement the same week — sometimes the same day.
+
 ---
 
 ## Phase 1 — Scope & Timeline
