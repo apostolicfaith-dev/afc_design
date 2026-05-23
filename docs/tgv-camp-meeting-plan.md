@@ -60,7 +60,7 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 | Language | Reviewer | Feedback |
 |---|---|---|
 | Japanese | Pastor from Japan | Positive (~90% satisfaction, based on limited review) |
-| Korean | TP (native speaker) | Positive initial impression, further testing needed |
+| Korean | TP (native speaker); coordination with Korean church leaders in progress | Positive initial impression, further testing needed |
 | Spanish | Sister Katie | Shared for distribution to pastors, feedback pending |
 
 **Infrastructure**
@@ -99,16 +99,16 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 
 | Tier | Language | Target | Review / Coordination | TTS | Status |
 |---|---|---|---|---|---|
-| 1 | Japanese | Camp Meeting (July 2026) | Japan pastor (positive early feedback) | Cloud TTS Neural2 | Most advanced; limited review completed |
-| 2 | Korean | Post-Camp Meeting | Korean church leaders + existing voluntary translation team | Cloud TTS Neural2 | Leaders contacted; coordinating (summer schedules causing delay; reminders within days) |
-| 2 | Filipino | Post-Camp Meeting | Filipino church leaders + existing voluntary translation team | Cloud TTS Neural2 | Leaders contacted; coordinating (same as Korean) |
+| 1 | Japanese | Camp Meeting (July 2026) | Japan pastor (positive early feedback) | Cloud TTS Neural2 | Most advanced; initial feedback received |
+| 2 | Korean | Post-Camp Meeting | Korean church leaders + voluntary translation team (reported) | Cloud TTS Neural2 | Leaders contacted; coordinating (summer schedules causing delay; reminders within days) |
+| 2 | Filipino | Post-Camp Meeting | Filipino church leaders + voluntary translation team (reported) | Cloud TTS Neural2 | Leaders contacted; coordinating (same as Korean) |
 | 3 | Spanish | 2026 H2 | Regional editorial team (TBD, per SG direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
 | 3 | French | 2026 H2 | Regional editorial team (TBD, per SG direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
 | 3 | Portuguese | 2026 H2 | Regional editorial team (TBD, per SG direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
 
 **Tier rationale:**
-- **Tier 1 (Japanese):** Most concrete validation to date. Pastor reviewed and reported satisfaction.
-- **Tier 2 (Korean, Filipino):** Both have existing voluntary translation teams in-country. AI translation can augment these teams — handling the initial draft so translators focus on review and refinement rather than translating from scratch. Leaders are contacted; timeline depends on their availability.
+- **Tier 1 (Japanese):** Most concrete feedback to date. Pastor reviewed and reported positive feedback.
+- **Tier 2 (Korean, Filipino):** Both are reported to have voluntary translation teams in-country. AI translation can augment these teams — handling the initial draft so translators focus on review and refinement rather than translating from scratch. Leaders are contacted; timeline depends on their availability.
 - **Tier 3 (Spanish, French, Portuguese):** Editorial team coordination depends on SG's follow-up with regional contacts. This is an external dependency outside ITAC's direct control.
 
 > **Note on Yoruba:** Yoruba has established translation teams within the church. AI-assisted translation adds less incremental value here. Not prioritized in Phase 1 but can be revisited based on editorial team interest.
