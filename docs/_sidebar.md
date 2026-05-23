@@ -8,5 +8,8 @@
   - [Webflow API Setup & Costs](webflow-api-setup.md)
   - [Hosting Strategy](hosting-strategy.md)
 
+- **Plans**
+  - [TGV Camp Meeting Plan](tgv-camp-meeting-plan.md)
+
 - **Meeting Notes**
   - [2026-04-10 — TGV Translation & Beta](meeting-2026-04-10.md)
