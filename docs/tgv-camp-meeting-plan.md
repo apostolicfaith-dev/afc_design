@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-The Global Voice (TGV) is a deployed multilingual platform that auto-translates AFC devotional content and generates text-to-speech audio. It currently supports 11 languages with 9 TTS voices, running on GCP Cloud Run at ~$50/mo.
+The Global Voice (TGV) is a deployed multilingual platform that auto-translates AFC devotional content and generates text-to-speech audio. It currently supports 11 languages with 9 TTS voices, running on GCP Cloud Run at $50/mo.
 
 **Camp Meeting plan:**
 
@@ -70,7 +70,7 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 | Hosting | Google Cloud Run (us-west1), auto-scaling 0–3 instances |
 | Database | GCP Cloud SQL (PostgreSQL) |
 | Audio Storage | AWS S3 |
-| Monthly Cost | ~$50/mo for 11 languages (~$3–4 per language for AI translation + TTS; remainder is fixed hosting/DB) |
+| Monthly Cost | $50/mo for 11 languages ($3–4 per language for AI translation + TTS; remainder is fixed hosting/DB) |
 
 ---
 
@@ -127,9 +127,9 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 
 | Provider | Cost (per 1M chars) | Quality vs. Cloud TTS | Multi-language | Status |
 |---|---|---|---|---|
-| Google Cloud TTS Neural2 | ~$16 | Baseline (natural, clear) | 9 languages | **Current provider** |
-| Google Cloud TTS WaveNet | ~$16 | Comparable | Used for ro, nb | Active |
-| ElevenLabs | ~$165 | Better (more natural) | Limited languages | Evaluated, cost prohibitive (~10x) |
+| Google Cloud TTS Neural2 | $16 | Baseline (natural, clear) | 9 languages | **Current provider** |
+| Google Cloud TTS WaveNet | $16 | Comparable | Used for ro, nb | Active |
+| ElevenLabs | $165 | Better (more natural) | Limited languages | Evaluated, cost prohibitive (~10x) |
 | Gemini TTS | Free (API) | Comparable | Experimental | Tested, potential backup |
 | Facebook MMS | Free (open-source) | Lower | Yoruba only | Disabled (quality issues) |
 
@@ -174,13 +174,13 @@ TP has been nominated as GCP champion (May 2 meeting).
 |---|---|---|
 | Google Cloud Run | $0–20 | Covered by nonprofit credits |
 | GCP Cloud SQL | $0–15 | Covered by nonprofit credits |
-| Google Cloud TTS | ~$8 | ~$3–4 per language (currently 9 TTS languages) |
+| Google Cloud TTS | $8 | $3–4 per language (currently 9 TTS languages) |
 | Gemini AI translation | <$5 | Scales with language count |
 | AWS S3 audio storage | <$2 | Grows slowly |
-| **Total (current, 11 languages)** | **~$50/mo** | Based on actual spend |
-| **Total (with nonprofit credits)** | **~$15/mo** | Hosting/DB covered by credits |
+| **Total (current, 11 languages)** | **$50/mo** | Based on actual spend |
+| **Total (with nonprofit credits)** | **$15/mo** | Hosting/DB covered by credits |
 
-Per-language variable cost (translation + TTS): approximately **$3–4/mo per language**. Reducing to 5 languages would bring the variable portion to ~$15–20/mo.
+Per-language variable cost (translation + TTS): approximately **$3–4/mo per language**. Reducing to 5 languages would bring the variable portion to $15–20/mo.
 
 ---
 
