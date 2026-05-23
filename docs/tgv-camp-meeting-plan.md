@@ -15,204 +15,171 @@ This document defines what The Global Voice (TGV) will deliver by Camp Meeting (
 
 ## Current State (as of May 2026)
 
-TGV is a working multilingual content platform deployed on Google Cloud Run. The following capabilities are **live and operational** — not planned, not prototyped.
+TGV is a multilingual content platform deployed on Google Cloud Run.
 
-**Translation Pipeline**
-- 11 languages active: English, Spanish, French, Korean, Japanese, Yoruba, Romanian, Norwegian, Twi, Filipino, Vietnamese
-- AI translation via Google Gemini 2.5-Flash with structured output
-- AI revision pass for fluency and natural tone
-- Theological glossary integration (consistent doctrinal terminology across languages)
-- Bible verse auto-lookup in official translations per language
+| Area | Capability | Status |
+|---|---|---|
+| **Translation** | 11 languages (en, es, fr, ko, ja, yo, ro, nb, ak, fil, vi) | Deployed |
+| | AI translation via Gemini 2.5-Flash with structured output | Deployed |
+| | AI revision pass for fluency and natural tone | Deployed |
+| | Theological glossary (consistent doctrinal terms across languages) | Deployed |
+| | Bible verse auto-lookup in official translations per language | Deployed |
+| **TTS Audio** | 9 languages with audio (en, es, fr, ko, ja, ro, nb, fil, vi) | Deployed |
+| | Google Cloud TTS Neural2/WaveNet at 0.8x speaking rate | Deployed |
+| | Automated: translation → TTS → audio upload to S3 | Deployed |
+| **Content Pipeline** | Task queue with retry, dead-letter handling, stuck recovery | Deployed |
+| | Content ingestion from email (daily cron) | Deployed |
+| | RSS ingestion route | Built, pending feed testing |
+| | Change detection → re-translate → re-generate audio | Deployed |
+| **Admin & Review** | Dashboard: queue monitor, translation editor, settings | Deployed |
+| | Volunteer review UI: side-by-side comparison with inline editing | Deployed |
+| | Role-based access (Admin, Editor, Volunteer, Viewer) | Deployed |
+| | Public feedback form per devotional per language | Deployed |
 
-**Text-to-Speech (TTS)**
-- 9 languages with TTS audio: en, es, fr, ko, ja, ro, nb, fil, vi
-- Google Cloud TTS Neural2/WaveNet voices at 0.8x speaking rate
-- Automated: translation completes → TTS generates → audio uploaded to S3
+**Early Quality Feedback**
 
-**Content Pipeline**
-- Task queue with automatic retry, dead-letter handling, and stuck recovery
-- Content ingestion from email (daily cron) — operational
-- RSS ingestion route — built, pending feed reliability confirmation
-- Change detection: content update → re-translate → re-generate audio
-
-**Admin & Review**
-- Admin dashboard: queue monitor, translation editor, system settings
-- Volunteer review UI: side-by-side comparison with inline editing
-- Role-based access: Admin, Editor, Volunteer, Viewer
-- Public feedback form per devotional per language
-
-**Quality Validation**
-- Japanese: reviewed by pastor from Japan, reported 90%+ satisfaction
-- Korean: reviewed by TP (native speaker), quality confirmed
-- Spanish: shared with Sister Katie for distribution to Spanish-speaking pastors (feedback pending)
-- Yoruba: translation functional, TTS disabled (open-source model quality insufficient)
+| Language | Reviewer | Feedback |
+|---|---|---|
+| Japanese | Pastor from Japan | Positive (reported ~90% satisfaction, based on limited review) |
+| Korean | TP (native speaker) | Positive initial impression, further testing needed |
+| Spanish | Sister Katie | Shared for distribution to pastors, feedback pending |
 
 **Infrastructure**
-- Deployed on Google Cloud Run (us-west1), auto-scaling 0-3 instances
-- PostgreSQL database on GCP Cloud SQL
-- Audio files on AWS S3
-- Monthly operational cost: ~$35-55
+
+| Component | Detail |
+|---|---|
+| Hosting | Google Cloud Run (us-west1), auto-scaling 0–3 instances |
+| Database | GCP Cloud SQL (PostgreSQL) |
+| Audio Storage | AWS S3 |
+| Monthly Cost | ~$50/mo for 11 languages (~$3–4 per language for AI translation + TTS; remainder is fixed hosting/DB) |
 
 ---
 
 ## Camp Meeting Goal
 
-**Objective:** Launch Japanese and Korean public beta by Camp Meeting, with a live demo showcasing the full pipeline to world leaders.
+**Objective:** Target Japanese and Korean for limited beta by Camp Meeting, with a live demo showcasing the pipeline to world leaders.
 
 **Why Japanese and Korean first:**
-- Both are "low-resource" languages — no existing translation team, highest value-add from AI
-- Japanese: already validated by the pastor from Japan (90%+ satisfaction)
-- Korean: validated by TP (native speaker and developer)
-- Both represent the Asia strategy TP discussed with Bro. Bill McKibben
-- Success here demonstrates the model for expanding to other low-resource languages
 
-**What "public beta" means:**
-- Live site accessible to church members in Japan and Korea
+| Factor | Japanese | Korean |
+|---|---|---|
+| Translation team exists? | No — high value-add from AI | No — high value-add from AI |
+| Early feedback | Pastor from Japan (~90%, limited review) | TP (native speaker, initial review) |
+| Asia strategy alignment | Yes (Bro. Bill McKibben engagement) | Yes |
+| Further testing needed | Yes — shadow period + expanded review | Yes — shadow period + expanded review |
+
+**What "limited beta" means:**
+- Site accessible to a small group of church members in Japan and Korea
 - Daily and Daybreak devotionals auto-translated with TTS audio
 - "Beta Translation" label on all translated content
 - Feedback link visible — readers can flag issues
-- Rollback plan ready (revert to English-only if critical issues arise)
+- Rollback plan in place (revert to English-only if critical issues arise)
 
 **Camp Meeting showcase:**
-- Live demo: enter English devotional → watch it translate + generate audio in real time
+- Live demo: enter English devotional → translate + generate audio
 - Show Japanese and Korean pages with audio playback
 - Present feedback dashboard — how reader corrections improve the system
-- Invite world leaders to nominate their languages for the next phase
+- Invite world leaders to express interest for their languages
 
 ---
 
 ## Phase 1 Language Expansion Plan
 
-Based on SG's direction (April 29 ad-hoc meeting), Phase 1 targets 6 languages covering ~73-80% of global church membership.
+Based on SG's direction (April 29 ad-hoc), Phase 1 targets languages covering ~73–80% of global church membership.
 
-**Tier 1 — Beta at Camp Meeting (July 2026)**
-- Japanese — validated, ready
-- Korean — validated, ready
+| Tier | Language | Target | Editorial Review | TTS | Notes |
+|---|---|---|---|---|---|
+| 1 | Japanese | Camp Meeting (July 2026) | TP + Japanese pastor | Cloud TTS Neural2 | Positive early feedback |
+| 1 | Korean | Camp Meeting (July 2026) | TP (native speaker) | Cloud TTS Neural2 | Initial review done, more testing needed |
+| 2 | Spanish | End of 2026 | Regional team (TBD, per SG direction) | Cloud TTS Neural2 | Sister Katie coordinating |
+| 2 | French | End of 2026 | Regional team (TBD, per SG direction) | Cloud TTS Neural2 | West Africa + France contacts needed |
+| 2 | Portuguese | End of 2026 | Regional team (TBD, per SG direction) | Cloud TTS Neural2 | Brazil/Portugal contacts needed |
 
-**Tier 2 — Beta by end of 2026**
-- Spanish — Sister Katie + regional editorial team (DR, NY, Spain)
-- French — regional editorial team (West Africa, France)
-- Yoruba — editorial team (Lagos/WECA), TTS provider upgrade needed
-- Portuguese — regional editorial team (Brazil, Portugal)
+> **Note on Yoruba:** Yoruba is a high-resource language with existing translation teams in the church. AI-assisted translation adds less value here compared to low-resource languages. Yoruba is not prioritized in Phase 1 but can be revisited based on editorial team interest.
 
 **Editorial Review Model (per SG direction):**
-- Regional editorial teams review translations, not centralized HQ
+- Regional editorial teams review translations — not centralized HQ
 - Reviewers provide feedback in natural language (style, doctrine, culture)
-- Feedback stored per language and auto-injected into future translations
-- System learns cumulatively — reviews get lighter over time
-- TGV volunteer review UI already supports this workflow
+- Feedback stored per language and applied to future translations
+- System improves cumulatively — reviews should get lighter over time
+- TGV volunteer review UI supports this workflow
 
 ---
 
-## TTS Quality Assessment
+## TTS Provider Comparison
 
-| Provider | Cost (per 1M chars) | English Quality | Multi-language | Status |
+| Provider | Cost (per 1M chars) | Quality vs. Cloud TTS | Multi-language | Status |
 |---|---|---|---|---|
-| Google Cloud TTS Neural2 | ~$16 | Good (natural, clear) | 9 languages active | **Current provider** |
-| Google Cloud TTS WaveNet | ~$16 | Good | Used for ro, nb | Active |
-| ElevenLabs | ~$165 | Excellent (most natural) | Limited languages | Evaluated, cost prohibitive |
-| Gemini TTS | Free (API) | Good | Experimental | Tested, viable backup |
-| Facebook MMS | Free (open-source) | N/A | Yoruba only | Disabled (quality issues) |
+| Google Cloud TTS Neural2 | ~$16 | Baseline (natural, clear) | 9 languages | **Current provider** |
+| Google Cloud TTS WaveNet | ~$16 | Comparable | Used for ro, nb | Active |
+| ElevenLabs | ~$165 | Better (more natural) | Limited languages | Evaluated, cost prohibitive (~10x) |
+| Gemini TTS | Free (API) | Comparable | Experimental | Tested, potential backup |
+| Facebook MMS | Free (open-source) | Lower | Yoruba only | Disabled (quality issues) |
 
-**Recommendation:** Continue with Google Cloud TTS Neural2 as the primary provider. The quality is strong across all supported languages, and the cost is ~10% of ElevenLabs. Audio samples are available for committee review upon request.
-
-**Open item:** Yoruba TTS requires either a paid provider (Cloud TTS doesn't support Yoruba) or waiting for open-source model improvements.
+**Recommendation:** Continue with Google Cloud TTS Neural2. Quality is reasonable across supported languages at ~10% of ElevenLabs cost. Audio samples available for committee review upon request.
 
 ---
 
 ## Timeline
 
-### Now → May 23 (ITAC Meeting)
-
-- [x] Draft this plan document
-- [ ] Committee reviews and approves beta language selection (Japanese + Korean)
-- [ ] Committee confirms editorial review model (regional teams per SG direction)
-
-### May 26 → June 6 — Shadow (Internal Validation)
-
-- [ ] Process 2 weeks of daily devotionals through full pipeline (all languages)
-- [ ] TP validates Korean output daily
-- [ ] Request Japanese pastor to validate Japanese output daily
-- [ ] Stabilize content ingestion (email/RSS) for unattended daily operation
-- [ ] Fix any pipeline issues discovered during shadow period
-- [ ] Prepare TTS audio samples for committee review
-
-### June 9 → June 20 — Dogfood (Expanded Review)
-
-- [ ] Share with Sister Katie + Publishing Team for side-by-side comparison
-- [ ] Share with 2-3 bilingual ministers per beta language
-- [ ] Collect feedback via TGV feedback UI
-- [ ] Incorporate feedback into translation prompts
-- [ ] Gate: Publishing Team and language reviewers sign off on quality
-
-### June 23 → July — Beta Launch + Camp Meeting Prep
-
-- [ ] Deploy public beta (accessible URL, "Beta Translation" label)
-- [ ] Prepare camp meeting demo script and presentation materials
-- [ ] Set up email subscription for beta languages (if feasible)
-- [ ] Document rollback procedure
-
-### July — Camp Meeting
-
-- [ ] Live demo to world leaders
-- [ ] Collect interest from other language groups
-- [ ] Gather feedback to prioritize Tier 2 languages
+| Phase | Dates | Key Activities | Gate |
+|---|---|---|---|
+| **ITAC Review** | May 23 | Committee reviews this plan; approves beta languages and editorial model | Alignment on scope and approach |
+| **Shadow** | May 26 – Jun 6 | Process 2 weeks of devotionals through full pipeline; TP reviews Korean daily; request Japanese pastor to review Japanese; stabilize content ingestion; prepare TTS samples | Team confident in output quality |
+| **Dogfood** | Jun 9 – Jun 20 | Share with Sister Katie + Publishing Team; share with 2–3 bilingual ministers per language; collect feedback via TGV UI; incorporate into translation prompts | Language reviewers comfortable with quality |
+| **Beta Prep** | Jun 23 – Jul | Deploy beta (accessible URL, "Beta Translation" label); prepare demo script and presentation; set up email subscription if feasible; document rollback procedure | Ready for camp meeting |
+| **Camp Meeting** | July | Live demo to world leaders; collect interest from other language groups; gather feedback for Tier 2 prioritization | — |
 
 ---
 
 ## GCP Infrastructure
 
-TP has been nominated as GCP champion (May 2 meeting). Current status:
+TP has been nominated as GCP champion (May 2 meeting).
 
-- TGV is already running on GCP Cloud Run (us-west1)
-- Database migrated from Neon to GCP Cloud SQL (April 2026)
-- Nonprofit credit application ($10K/yr) — **to be initiated**
-- Goal: consolidate all ITAC initiatives under a single GCP nonprofit account
+| Item | Status |
+|---|---|
+| TGV on Cloud Run (us-west1) | Running |
+| Database on Cloud SQL | Migrated (April 2026) |
+| GCP for Nonprofits application ($10K/yr credit) | To be initiated |
+| Consolidate ITAC projects under single GCP account | Planned |
 
-**Action:** TP to initiate GCP for Nonprofits application. Requirements: church EIN, organization details (same as Twilio registration). Coordinate with FO/SF who are already gathering these for Twilio.
+**Action:** TP to initiate GCP for Nonprofits application. Requirements: church EIN, organization details (same documents as Twilio registration). Coordinate with FO/SF.
 
 ---
 
-## Budget (Phase 1 Monthly)
+## Budget
 
-| Item | Cost |
-|---|---|
-| Google Cloud Run hosting | $0-20 (nonprofit credits) |
-| GCP Cloud SQL (PostgreSQL) | $0-15 (nonprofit credits) |
-| Google Cloud TTS | ~$8 |
-| Gemini AI translation | <$5 |
-| AWS S3 audio storage | <$2 |
-| **Total** | **~$30-50/mo** |
+| Item | Monthly Cost | Notes |
+|---|---|---|
+| Google Cloud Run | $0–20 | Covered by nonprofit credits |
+| GCP Cloud SQL | $0–15 | Covered by nonprofit credits |
+| Google Cloud TTS | ~$8 | ~$3–4 per language (currently 9 TTS languages) |
+| Gemini AI translation | <$5 | Scales with language count |
+| AWS S3 audio storage | <$2 | Grows slowly |
+| **Total (current, 11 languages)** | **~$50/mo** | Based on actual spend |
+| **Total (with nonprofit credits)** | **~$15/mo** | Hosting/DB covered by credits |
 
-With GCP nonprofit credits ($10K/yr), hosting and database costs drop to $0. Effective cost: ~$15/mo for AI and storage services.
+Per-language variable cost (translation + TTS): approximately **$3–4/mo per language**. Reducing to 5 languages would bring the variable portion to ~$15–20/mo.
 
 ---
 
 ## Risks and Mitigations
 
-**Translation quality concerns**
-- Mitigation: "Beta Translation" label, feedback UI, regional editorial review, rollback plan
-- Evidence: Japanese pastor already validated quality at 90%+
-
-**Content ingestion reliability**
-- Mitigation: email ingestion is proven; RSS is backup; manual entry always available
-- Shadow period will stress-test automated ingestion
-
-**Editorial team availability**
-- Mitigation: Tier 1 (ja, ko) doesn't need external editorial teams — TP validates Korean, Japanese pastor validates Japanese
-- Tier 2 depends on SG's follow-up with regional contacts
-
-**Camp meeting timeline pressure**
-- Mitigation: Tier 1 scope is intentionally small (2 languages already validated)
-- If shadow/dogfood reveals issues, beta can launch with Japanese only
+| Risk | Likelihood | Mitigation |
+|---|---|---|
+| Translation quality not sufficient for beta | Medium | "Beta Translation" label, feedback UI, rollback plan. Japanese pastor's early feedback is encouraging but more testing is needed. |
+| Content ingestion unreliable | Low | Email ingestion tested and working; RSS as backup; manual entry always available. Shadow period will stress-test. |
+| Editorial reviewers not available for Tier 1 | Low | Tier 1 (ja, ko) relies on TP and Japanese pastor — no external editorial team needed. |
+| Editorial teams not available for Tier 2 | Medium | Depends on SG's follow-up with regional contacts. Tier 2 timeline (end of 2026) provides buffer. |
+| Camp meeting timeline too tight | Medium | Tier 1 scope is intentionally small (2 languages with early positive feedback). If issues arise, beta can start with Japanese only. |
 
 ---
 
 ## Decisions Needed (May 23 Meeting)
 
-1. **Approve Japanese + Korean as Tier 1 beta languages** — both are validated, ready for shadow phase
+1. **Approve Japanese + Korean as Tier 1 beta candidates** — both have received positive early feedback; shadow phase would confirm readiness
 2. **Confirm regional editorial team model** — per SG's direction from April 29
-3. **Approve camp meeting showcase plan** — live demo + world leader engagement
+3. **Approve camp meeting showcase approach** — live demo + invite world leaders to express interest
 4. **GCP nonprofit application** — TP to lead; need HQ organization details (EIN, etc.)
 
 ---
