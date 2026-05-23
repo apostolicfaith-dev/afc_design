@@ -7,9 +7,28 @@
 
 ---
 
+## Executive Summary
+
+The Global Voice (TGV) is a deployed multilingual platform that auto-translates AFC devotional content and generates text-to-speech audio. It currently supports 11 languages with 9 TTS voices, running on GCP Cloud Run at ~$50/mo.
+
+**Camp Meeting plan:**
+
+| | Detail |
+|---|---|
+| **Tier 1 beta** | Japanese — positive early feedback from Japan pastor (~90% satisfaction) |
+| **Tier 2 beta** | Korean, Filipino — church leaders contacted, coordination with existing voluntary translation teams in progress (summer schedules delaying response; reminders going out within days) |
+| **Tier 3** | Spanish, French, Portuguese — dependent on SG connecting regional editorial teams |
+| **Camp Meeting showcase** | Live demo is ready regardless of beta timeline — the platform is deployed and functional at afc-dev.org |
+
+**Key context on timeline:** Each country and region has its own schedule and capacity constraints (summer conferences, camp meetings, etc.). The formal Shadow → Dogfood → Beta phases may be condensed or adjusted per region as coordination with local leaders progresses. This is expected — the system is ready, and the pace is driven by people, not technology. The demo site is live and can be showcased at Camp Meeting independent of the beta rollout timeline.
+
+**Decisions needed May 23:** Approve tier structure and language targets, confirm editorial review model (regional teams per SG), approve camp meeting showcase plan, authorize GCP nonprofit credit application.
+
+---
+
 ## Purpose
 
-This document defines what The Global Voice (TGV) will deliver by Camp Meeting (July 2026), how we get there, and what the committee needs to decide at the May 23 meeting.
+This document defines what TGV will deliver by Camp Meeting (July 2026), how we get there, and what the committee needs to decide at the May 23 meeting.
 
 ---
 
@@ -40,7 +59,7 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 
 | Language | Reviewer | Feedback |
 |---|---|---|
-| Japanese | Pastor from Japan | Positive (reported ~90% satisfaction, based on limited review) |
+| Japanese | Pastor from Japan | Positive (~90% satisfaction, based on limited review) |
 | Korean | TP (native speaker) | Positive initial impression, further testing needed |
 | Spanish | Sister Katie | Shared for distribution to pastors, feedback pending |
 
@@ -57,19 +76,10 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 
 ## Camp Meeting Goal
 
-**Objective:** Target Japanese and Korean for limited beta by Camp Meeting, with a live demo showcasing the pipeline to world leaders.
-
-**Why Japanese and Korean first:**
-
-| Factor | Japanese | Korean |
-|---|---|---|
-| Translation team exists? | No — high value-add from AI | No — high value-add from AI |
-| Early feedback | Pastor from Japan (~90%, limited review) | TP (native speaker, initial review) |
-| Asia strategy alignment | Yes (Bro. Bill McKibben engagement) | Yes |
-| Further testing needed | Yes — shadow period + expanded review | Yes — shadow period + expanded review |
+**Objective:** Target Japanese for limited beta by Camp Meeting. Korean and Filipino to follow as coordination with local leaders and translation teams progresses. Live demo of the full pipeline at Camp Meeting regardless of beta status.
 
 **What "limited beta" means:**
-- Site accessible to a small group of church members in Japan and Korea
+- Site accessible to a small group of church members in the target language
 - Daily and Daybreak devotionals auto-translated with TTS audio
 - "Beta Translation" label on all translated content
 - Feedback link visible — readers can flag issues
@@ -77,28 +87,35 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 
 **Camp Meeting showcase:**
 - Live demo: enter English devotional → translate + generate audio
-- Show Japanese and Korean pages with audio playback
+- Show working pages with audio playback
 - Present feedback dashboard — how reader corrections improve the system
 - Invite world leaders to express interest for their languages
 
+> **Note:** The demo site (afc-dev.org) is live and operational. The showcase does not depend on completing the beta rollout — it demonstrates the system's capabilities directly.
+
 ---
 
-## Phase 1 Language Expansion Plan
+## Language Tier Plan
 
-Based on SG's direction (April 29 ad-hoc), Phase 1 targets languages covering ~73–80% of global church membership.
-
-| Tier | Language | Target | Editorial Review | TTS | Notes |
+| Tier | Language | Target | Review / Coordination | TTS | Status |
 |---|---|---|---|---|---|
-| 1 | Japanese | Camp Meeting (July 2026) | TP + Japanese pastor | Cloud TTS Neural2 | Positive early feedback |
-| 1 | Korean | Camp Meeting (July 2026) | TP (native speaker) | Cloud TTS Neural2 | Initial review done, more testing needed |
-| 2 | Spanish | End of 2026 | Regional team (TBD, per SG direction) | Cloud TTS Neural2 | Sister Katie coordinating |
-| 2 | French | End of 2026 | Regional team (TBD, per SG direction) | Cloud TTS Neural2 | West Africa + France contacts needed |
-| 2 | Portuguese | End of 2026 | Regional team (TBD, per SG direction) | Cloud TTS Neural2 | Brazil/Portugal contacts needed |
+| 1 | Japanese | Camp Meeting (July 2026) | Japan pastor (positive early feedback) | Cloud TTS Neural2 | Most advanced; limited review completed |
+| 2 | Korean | Post-Camp Meeting | Korean church leaders + existing voluntary translation team | Cloud TTS Neural2 | Leaders contacted; coordinating (summer schedules causing delay; reminders within days) |
+| 2 | Filipino | Post-Camp Meeting | Filipino church leaders + existing voluntary translation team | Cloud TTS Neural2 | Leaders contacted; coordinating (same as Korean) |
+| 3 | Spanish | 2026 H2 | Regional editorial team (TBD, per SG direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
+| 3 | French | 2026 H2 | Regional editorial team (TBD, per SG direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
+| 3 | Portuguese | 2026 H2 | Regional editorial team (TBD, per SG direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
 
-> **Note on Yoruba:** Yoruba is a high-resource language with existing translation teams in the church. AI-assisted translation adds less value here compared to low-resource languages. Yoruba is not prioritized in Phase 1 but can be revisited based on editorial team interest.
+**Tier rationale:**
+- **Tier 1 (Japanese):** Most concrete validation to date. Pastor reviewed and reported satisfaction.
+- **Tier 2 (Korean, Filipino):** Both have existing voluntary translation teams in-country. AI translation can augment these teams — handling the initial draft so translators focus on review and refinement rather than translating from scratch. Leaders are contacted; timeline depends on their availability.
+- **Tier 3 (Spanish, French, Portuguese):** Editorial team coordination depends on SG's follow-up with regional contacts. This is an external dependency outside ITAC's direct control.
+
+> **Note on Yoruba:** Yoruba has established translation teams within the church. AI-assisted translation adds less incremental value here. Not prioritized in Phase 1 but can be revisited based on editorial team interest.
 
 **Editorial Review Model (per SG direction):**
-- Regional editorial teams review translations — not centralized HQ
+- Regional editorial teams and existing voluntary translation teams review AI translations — not centralized HQ
+- AI generates the initial draft; human reviewers refine and correct
 - Reviewers provide feedback in natural language (style, doctrine, culture)
 - Feedback stored per language and applied to future translations
 - System improves cumulatively — reviews should get lighter over time
@@ -124,11 +141,13 @@ Based on SG's direction (April 29 ad-hoc), Phase 1 targets languages covering ~7
 
 | Phase | Dates | Key Activities | Gate |
 |---|---|---|---|
-| **ITAC Review** | May 23 | Committee reviews this plan; approves beta languages and editorial model | Alignment on scope and approach |
-| **Shadow** | May 26 – Jun 6 | Process 2 weeks of devotionals through full pipeline; TP reviews Korean daily; request Japanese pastor to review Japanese; stabilize content ingestion; prepare TTS samples | Team confident in output quality |
-| **Dogfood** | Jun 9 – Jun 20 | Share with Sister Katie + Publishing Team; share with 2–3 bilingual ministers per language; collect feedback via TGV UI; incorporate into translation prompts | Language reviewers comfortable with quality |
-| **Beta Prep** | Jun 23 – Jul | Deploy beta (accessible URL, "Beta Translation" label); prepare demo script and presentation; set up email subscription if feasible; document rollback procedure | Ready for camp meeting |
-| **Camp Meeting** | July | Live demo to world leaders; collect interest from other language groups; gather feedback for Tier 2 prioritization | — |
+| **ITAC Review** | May 23 | Committee reviews this plan; approves tier structure and editorial model | Alignment on scope and approach |
+| **Shadow** | May 26 – Jun 6 | Process devotionals through full pipeline for Tier 1 language; coordinate with Korean and Filipino leaders on review engagement | Tier 1 quality acceptable |
+| **Dogfood** | Jun 9 – Jun 20 | Share with bilingual ministers for feedback; incorporate corrections into translation prompts | Reviewers comfortable with quality |
+| **Beta Prep** | Jun 23 – Jul | Deploy beta with "Beta Translation" label; prepare demo script and materials; document rollback procedure | Ready for camp meeting |
+| **Camp Meeting** | July | Live demo to world leaders; collect interest from other language groups; gather feedback for Tier 2/3 | — |
+
+> **Timeline flexibility:** Each region has its own schedule constraints (summer conferences, camp meetings, local church events). The Shadow → Dogfood → Beta phases may be condensed or adjusted as coordination with local leaders progresses. Tier 2 languages (Korean, Filipino) will enter the pipeline as their respective leaders and translation teams become available — this may extend beyond Camp Meeting. The system is ready; the pace is set by people, not technology.
 
 ---
 
@@ -167,19 +186,19 @@ Per-language variable cost (translation + TTS): approximately **$3–4/mo per la
 
 | Risk | Likelihood | Mitigation |
 |---|---|---|
-| Translation quality not sufficient for beta | Medium | "Beta Translation" label, feedback UI, rollback plan. Japanese pastor's early feedback is encouraging but more testing is needed. |
+| Translation quality not sufficient for beta | Medium | "Beta Translation" label, feedback UI, rollback plan. Early feedback from Japan pastor is encouraging but more testing needed. |
 | Content ingestion unreliable | Low | Email ingestion tested and working; RSS as backup; manual entry always available. Shadow period will stress-test. |
-| Editorial reviewers not available for Tier 1 | Low | Tier 1 (ja, ko) relies on TP and Japanese pastor — no external editorial team needed. |
-| Editorial teams not available for Tier 2 | Medium | Depends on SG's follow-up with regional contacts. Tier 2 timeline (end of 2026) provides buffer. |
-| Camp meeting timeline too tight | Medium | Tier 1 scope is intentionally small (2 languages with early positive feedback). If issues arise, beta can start with Japanese only. |
+| Tier 2 leader coordination delayed | Medium | Summer schedules are causing delays. Reminders going out within days. Tier 2 timeline is flexible — system is ready when leaders are. |
+| Editorial teams not available for Tier 3 | Medium | Depends on SG's follow-up with regional contacts. Tier 3 timeline (2026 H2) provides buffer. |
+| Camp meeting showcase not ready | Low | Demo site is live and functional today. Showcase does not depend on beta rollout completion. |
 
 ---
 
 ## Decisions Needed (May 23 Meeting)
 
-1. **Approve Japanese + Korean as Tier 1 beta candidates** — both have received positive early feedback; shadow phase would confirm readiness
-2. **Confirm regional editorial team model** — per SG's direction from April 29
-3. **Approve camp meeting showcase approach** — live demo + invite world leaders to express interest
+1. **Approve language tier structure** — Tier 1: Japanese, Tier 2: Korean + Filipino, Tier 3: Spanish + French + Portuguese
+2. **Confirm editorial review model** — regional teams and existing voluntary translation teams, per SG's direction from April 29
+3. **Approve camp meeting showcase approach** — live demo of deployed system + invite world leaders to express interest
 4. **GCP nonprofit application** — TP to lead; need HQ organization details (EIN, etc.)
 
 ---
