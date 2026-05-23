@@ -17,7 +17,7 @@ The Global Voice (TGV) is a deployed multilingual platform that auto-translates 
 |---|---|
 | **Tier 1 beta** | Japanese — positive early feedback from Japan pastor (~90% satisfaction) |
 | **Tier 2 beta** | Korean, Filipino — church leaders contacted, coordination with existing voluntary translation teams in progress (summer schedules delaying response; reminders going out within days) |
-| **Tier 3** | Spanish, French, Portuguese — dependent on SG connecting regional editorial teams |
+| **Tier 3** | Spanish, French, Portuguese — dependent on Bro. Sola Adesope (SG) connecting regional editorial teams |
 | **Camp Meeting showcase** | Live demo is ready regardless of beta timeline — the platform is deployed and functional at afc-dev.org |
 
 **Key context on timeline:** Each country and region has its own schedule and capacity constraints (summer conferences, camp meetings, etc.). The formal Shadow → Dogfood → Beta phases may be condensed or adjusted per region as coordination with local leaders progresses. This is expected — the system is ready, and the pace is driven by people, not technology. The demo site is live and can be showcased at Camp Meeting independent of the beta rollout timeline.
@@ -102,9 +102,9 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 | 1 | Japanese | Camp Meeting (July 2026) | Japan pastor (positive early feedback) | Cloud TTS Neural2 | Most advanced; initial feedback received |
 | 2 | Korean | Post-Camp Meeting | Korean church leaders + voluntary translation team (reported) | Cloud TTS Neural2 | Leaders contacted; coordinating (summer schedules causing delay; reminders within days) |
 | 2 | Filipino | Post-Camp Meeting | Filipino church leaders + voluntary translation team (reported) | Cloud TTS Neural2 | Leaders contacted; coordinating (same as Korean) |
-| 3 | Spanish | 2026 H2 | Regional editorial team (TBD, per SG direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
-| 3 | French | 2026 H2 | Regional editorial team (TBD, per SG direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
-| 3 | Portuguese | 2026 H2 | Regional editorial team (TBD, per SG direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
+| 3 | Spanish | 2026 H2 | Regional editorial team (TBD, per SG's direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
+| 3 | French | 2026 H2 | Regional editorial team (TBD, per SG's direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
+| 3 | Portuguese | 2026 H2 | Regional editorial team (TBD, per SG's direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
 
 **Tier rationale:**
 - **Tier 1 (Japanese):** Most concrete feedback to date. Pastor reviewed and reported positive feedback.
@@ -113,7 +113,7 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 
 > **Note on Yoruba:** Yoruba has established translation teams within the church. AI-assisted translation adds less incremental value here. Not prioritized in Phase 1 but can be revisited based on editorial team interest.
 
-**Editorial Review Model (per SG direction):**
+**Editorial Review Model (per SG's direction):**
 - Regional editorial teams and existing voluntary translation teams review AI translations — not centralized HQ
 - AI generates the initial draft; human reviewers refine and correct
 - Reviewers provide feedback in natural language (style, doctrine, culture)
@@ -134,6 +134,8 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 | Facebook MMS | Free (open-source) | Lower | Yoruba only | Disabled (quality issues) |
 
 **Recommendation:** Continue with Google Cloud TTS Neural2. Quality is reasonable across supported languages at ~10% of ElevenLabs cost. Audio samples available for committee review upon request.
+
+**Note on voice quality evaluation:** A meaningful TTS quality comparison depends on the target languages being confirmed. Once Tier 1 and Tier 2 languages are approved, we plan to collect voice quality feedback from native-speaker reviewers in those languages to determine whether the current provider meets the standard for public beta.
 
 ---
 
