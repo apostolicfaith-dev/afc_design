@@ -2,39 +2,50 @@
 
 > - Created: 2026-05-22
 > - Author: Bro. Taiwoo Park (TP)
-> - Status: Draft — For ITAC Review (May 23, 2026)
+> - Status: Living Document — Updated post May 23 ITAC meeting and May 25 HQ visit
 > - Related: [Integration Strategy](integration-strategy.md), [Hosting Strategy](hosting-strategy.md), [2026-04-10 Meeting Notes](meeting-2026-04-10.md)
+
+---
+
+## Revision Log
+
+| Date | Update |
+|---|---|
+| 2026-05-22 | Initial draft for May 23 ITAC review |
+| 2026-05-23 | ITAC meeting: tier structure approved; leader names confirmed; project naming discussion; English TTS quality noted |
+| 2026-05-25 | Portland HQ visit (Sis. Catey Hinkle): tier alignment confirmed; pre-camp announcement direction agreed; mobile app modality discussion; Swahili noted; active feedback cycle gap identified |
 
 ---
 
 ## Executive Summary
 
-The Global Voice (TGV) is a deployed multilingual platform that auto-translates AFC devotional content and generates text-to-speech audio. It currently supports 11 languages with 9 TTS voices, running on GCP Cloud Run at $50/mo.
+The Global Voice (TGV) — working name, branding TBD — is a deployed multilingual platform that auto-translates AFC devotional content and generates text-to-speech audio. It currently supports 11 languages with 9 TTS voices, running on GCP Cloud Run at $50/mo.
 
 **Camp Meeting plan:**
 
 | | Detail |
 |---|---|
-| **Tier 1 beta** | Japanese — positive early feedback from Japan pastor (~90% satisfaction) |
-| **Tier 2 beta** | Korean, Filipino — church leaders contacted, coordination with existing voluntary translation teams in progress (summer schedules delaying response; reminders going out within days) |
+| **Tier 1 beta** | Japanese (Bro. Yoshiki) — positive early feedback; congregation already using beta site; interest in translating additional materials |
+| **Tier 2 beta** | Korean (Bro. Jeongmin), Filipino (Bro. Rocky) — leaders contacted, coordinating; currently travelling for camp meeting / regional activities |
+| **Tier 2 candidate** | Swahili — no existing translation team; under consideration alongside Korean and Filipino |
 | **Tier 3** | Spanish, French, Portuguese — dependent on Bro. Sola Adesope (SG) connecting regional editorial teams |
-| **Camp Meeting showcase** | Live demo is ready regardless of beta timeline — the platform is deployed and functional at afc-dev.org |
+| **Camp Meeting showcase** | afc-dev.org demo is ready regardless of beta timeline; pre-camp announcement to relevant regional leadership recommended before public presentation |
 
-**Key context on timeline:** Each country and region has its own schedule and capacity constraints (summer conferences, camp meetings, etc.). The formal Shadow → Dogfood → Beta phases may be condensed or adjusted per region as coordination with local leaders progresses. This is expected — the system is ready, and the pace is driven by people, not technology. The demo site is live and can be showcased at Camp Meeting independent of the beta rollout timeline.
+**Key context on timeline:** Each country and region has its own schedule and capacity constraints. The formal Shadow → Dogfood → Beta phases may be condensed or adjusted per region. The system is ready; the pace is driven by people, not technology.
 
-**Decisions needed May 23:** Approve tier structure and language targets, confirm editorial review model (regional teams per SG), approve camp meeting showcase plan, authorize GCP nonprofit credit application.
+**Status as of May 25:** Tier 1/2 structure aligned with Sis. Catey Hinkle (Publishing Team Lead, Portland HQ). Pre-camp regional announcement approach agreed. Mobile app as delivery platform under review. Active translation feedback cycle not yet running — to be added.
 
 ---
 
 ## Purpose
 
-This document defines what TGV will deliver by Camp Meeting (July 2026), how we get there, and what the committee needs to decide at the May 23 meeting.
+This document defines what TGV will deliver by Camp Meeting (July 2026), how we get there, and the open decisions and action items that follow.
 
 ---
 
 ## Current State (as of May 2026)
 
-TGV is a multilingual content platform deployed on Google Cloud Run.
+TGV is a multilingual content platform deployed on Google Cloud Run. The demo site at afc-dev.org has been live and running continuously for approximately six weeks, automatically ingesting daily devotionals from headquarters each morning.
 
 | Area | Capability | Status |
 |---|---|---|
@@ -54,14 +65,16 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 | | Volunteer review UI: side-by-side comparison with inline editing | Deployed |
 | | Role-based access (Admin, Editor, Volunteer, Viewer) | Deployed |
 | | Public feedback form per devotional per language | Deployed |
+| **Known Gap** | Active translation feedback cycle (reader corrections → prompt updates) | Not yet implemented — planned |
 
 **Early Quality Feedback**
 
-| Language | Reviewer | Feedback |
+| Language | Key Contact | Feedback |
 |---|---|---|
-| Japanese | Pastor from Japan | Positive (~90% satisfaction, based on limited review) |
-| Korean | TP (native speaker); coordination with Korean church leaders in progress | Positive initial impression, further testing needed |
-| Spanish | Sister Katie | Shared for distribution to pastors, feedback pending |
+| Japanese | Bro. Yoshiki (Japan pastor) | Positive (~90% satisfaction, based on limited review); congregation already shared beta link; interest in magazine translation |
+| Korean | Bro. Jeongmin; TP (native speaker) | Positive initial impression; Bro. Jeongmin currently travelling, follow-up pending |
+| Filipino | Bro. Rocky | Contacted; currently travelling, follow-up pending |
+| Spanish | Sis. Catey Hinkle (coordinating) | Shared for distribution to pastors; feedback pending |
 
 **Infrastructure**
 
@@ -76,7 +89,7 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 
 ## Camp Meeting Goal
 
-**Objective:** Target Japanese for limited beta by Camp Meeting. Korean and Filipino to follow as coordination with local leaders and translation teams progresses. Live demo of the full pipeline at Camp Meeting regardless of beta status.
+**Objective:** Target Japanese for limited beta by Camp Meeting. Korean and Filipino to follow as coordination with local leaders and translation teams progresses. Live demo at Camp Meeting regardless of beta status.
 
 **What "limited beta" means:**
 - Site accessible to a small group of church members in the target language
@@ -86,30 +99,34 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 - Rollback plan in place (revert to English-only if critical issues arise)
 
 **Camp Meeting showcase:**
+- Share afc-dev.org — aligned with Sis. Catey Hinkle (May 25)
 - Live demo: enter English devotional → translate + generate audio
 - Show working pages with audio playback
-- Present feedback dashboard — how reader corrections improve the system
 - Invite world leaders to express interest for their languages
 
-> **Note:** The demo site (afc-dev.org) is live and operational. The showcase does not depend on completing the beta rollout — it demonstrates the system's capabilities directly.
+> **Pre-camp announcement (agreed May 25):** The camp meeting presentation will be a publicly available live stream or equivalent announcement. To avoid misunderstanding from regions that already operate translation teams, it is advisable to notify relevant regional leadership before the public presentation. TP to follow up with Sis. Catey Hinkle to coordinate the timing and scope of this pre-announcement.
 
 ---
 
 ## Language Tier Plan
 
+Tier structure aligned with Sis. Catey Hinkle (May 25 HQ visit).
+
 | Tier | Language | Target | Review / Coordination | TTS | Status |
 |---|---|---|---|---|---|
-| 1 | Japanese | Camp Meeting (July 2026) | Japan pastor (positive early feedback) | Cloud TTS Neural2 | Most advanced; initial feedback received |
-| 2 | Korean | Post-Camp Meeting | Korean church leaders + voluntary translation team (reported) | Cloud TTS Neural2 | Leaders contacted; coordinating (summer schedules causing delay; reminders within days) |
-| 2 | Filipino | Post-Camp Meeting | Filipino church leaders + voluntary translation team (reported) | Cloud TTS Neural2 | Leaders contacted; coordinating (same as Korean) |
-| 3 | Spanish | 2026 H2 | Regional editorial team (TBD, per SG's direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
+| 1 | Japanese | Camp Meeting (July 2026) | Bro. Yoshiki + congregation | Cloud TTS Neural2 | Beta underway; congregation sharing; interest in magazine |
+| 2 | Korean | Post-Camp Meeting | Bro. Jeongmin + voluntary translation team (reported) | Cloud TTS Neural2 | Follow-up pending (travelling) |
+| 2 | Filipino | Post-Camp Meeting | Bro. Rocky + voluntary translation team (reported) | Cloud TTS Neural2 | Follow-up pending (travelling) |
+| 2 (candidate) | Swahili | TBD | No existing translation team — AI-assisted approach may be well-suited | Cloud TTS (to verify) | Under consideration; easy to add technically |
+| 3 | Spanish | 2026 H2 | Regional editorial team (TBD, per SG's direction) | Cloud TTS Neural2 | Sis. Catey: flexibility to allow time for engagement before accelerating |
 | 3 | French | 2026 H2 | Regional editorial team (TBD, per SG's direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
 | 3 | Portuguese | 2026 H2 | Regional editorial team (TBD, per SG's direction) | Cloud TTS Neural2 | Depends on SG follow-up with regional contacts |
 
 **Tier rationale:**
-- **Tier 1 (Japanese):** Most concrete feedback to date. Pastor reviewed and reported positive feedback.
-- **Tier 2 (Korean, Filipino):** Both are reported to have voluntary translation teams in-country. AI translation can augment these teams — handling the initial draft so translators focus on review and refinement rather than translating from scratch. Leaders are contacted; timeline depends on their availability.
-- **Tier 3 (Spanish, French, Portuguese):** Editorial team coordination depends on SG's follow-up with regional contacts. This is an external dependency outside ITAC's direct control.
+- **Tier 1 (Japanese):** Most concrete feedback to date. Bro. Yoshiki has already distributed the beta link to the congregation.
+- **Tier 2 (Korean, Filipino):** Both are reported to have voluntary translation teams in-country. AI translation can augment these teams — handling the initial draft so translators focus on review and refinement. Leaders are contacted; timeline depends on their availability.
+- **Tier 2 candidate (Swahili):** No existing translation team; AI-assisted approach may be particularly well-suited. Easy to add technically. Being considered alongside Korean and Filipino for Tier 2.
+- **Tier 3 (Spanish, French, Portuguese):** For languages with relatively richer existing translation resources, Sis. Catey indicated there is flexibility to allow time for proper engagement with regional leaders before accelerating. External dependency on SG's regional contacts.
 
 > **Note on Yoruba:** Yoruba has established translation teams within the church. AI-assisted translation adds less incremental value here. Not prioritized in Phase 1 but can be revisited based on editorial team interest.
 
@@ -120,6 +137,26 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 - Feedback stored per language and applied to future translations
 - System improves cumulatively — reviews should get lighter over time
 - TGV volunteer review UI supports this workflow
+
+---
+
+## Service Modality (Under Review)
+
+*Direction discussed with Sis. Catey Hinkle, May 25, 2026.*
+
+The current implementation delivers content via web (afc-dev.org) and email subscription. During the May 25 HQ visit, Sis. Catey requested consideration of a **literature-focused mobile app** as a more effective delivery medium.
+
+**Proposed direction:**
+- A mobile app covering devotional, Sunday school, and magazine content
+- Per-user language and notification settings
+- Integration pathway: either within the existing AFC mobile app, or as a standalone app (to be decided)
+
+**Why mobile app over web + email:**
+- Push notifications are more effective than email for daily content
+- Language preference set once at account level, not per-visit
+- Eventual home for all AFC literature content across languages
+
+**Status:** Under review. No implementation commitment yet. Will inform Phase 2+ roadmap and the longer-term platform direction described in [Integration Strategy](integration-strategy.md).
 
 ---
 
@@ -135,7 +172,9 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 
 **Recommendation:** Continue with Google Cloud TTS Neural2. Quality is reasonable across supported languages at ~10% of ElevenLabs cost. Audio samples available for committee review upon request.
 
-**Note on voice quality evaluation:** A meaningful TTS quality comparison depends on the target languages being confirmed. Once Tier 1 and Tier 2 languages are approved, we plan to collect voice quality feedback from native-speaker reviewers in those languages to determine whether the current provider meets the standard for public beta.
+**Open item — English TTS quality:** Current English TTS voice is below the quality of existing HQ recordings (noted by BE at April 11 meeting; confirmed May 23). A side-by-side quality comparison is needed before expanding to additional languages. This will be conducted once Tier 1/2 language reviewers are engaged.
+
+**Note on voice quality evaluation:** A meaningful TTS quality comparison depends on the target languages being confirmed. Once Tier 1 and Tier 2 languages are active, voice quality feedback will be collected from native-speaker reviewers in those languages to determine whether the current provider meets the standard for public beta.
 
 ---
 
@@ -143,13 +182,14 @@ TGV is a multilingual content platform deployed on Google Cloud Run.
 
 | Phase | Dates | Key Activities | Gate |
 |---|---|---|---|
-| **ITAC Review** | May 23 | Committee reviews this plan; approves tier structure and editorial model | Alignment on scope and approach |
-| **Shadow** | May 26 – Jun 6 | Process devotionals through full pipeline for Tier 1 language; coordinate with Korean and Filipino leaders on review engagement | Tier 1 quality acceptable |
+| **ITAC Review** | May 23 ✓ | Tier structure approved; leader names confirmed | Done |
+| **HQ Alignment** | May 25 ✓ | Sis. Catey Hinkle: tiers confirmed; pre-camp announcement approach agreed; mobile app direction discussed | Done |
+| **Shadow** | May 26 – Jun 6 | Process devotionals through full pipeline for Tier 1; follow up with Bro. Jeongmin and Bro. Rocky; coordinate pre-camp announcement with Sis. Catey | Tier 1 quality acceptable |
 | **Dogfood** | Jun 9 – Jun 20 | Share with bilingual ministers for feedback; incorporate corrections into translation prompts | Reviewers comfortable with quality |
-| **Beta Prep** | Jun 23 – Jul | Deploy beta with "Beta Translation" label; prepare demo script and materials; document rollback procedure | Ready for camp meeting |
-| **Camp Meeting** | July | Live demo to world leaders; collect interest from other language groups; gather feedback for Tier 2/3 | — |
+| **Beta Prep** | Jun 23 – Jul | Deploy beta with "Beta Translation" label; send pre-camp regional announcement; prepare demo script and materials | Ready for camp meeting |
+| **Camp Meeting** | July 6 | Live demo; collect interest from world leaders; gather feedback for Tier 2/3 | — |
 
-> **Timeline flexibility:** Each region has its own schedule constraints (summer conferences, camp meetings, local church events). The Shadow → Dogfood → Beta phases may be condensed or adjusted as coordination with local leaders progresses. Tier 2 languages (Korean, Filipino) will enter the pipeline as their respective leaders and translation teams become available — this may extend beyond Camp Meeting. The system is ready; the pace is set by people, not technology.
+> **Timeline flexibility:** Each region has its own schedule constraints. The Shadow → Dogfood → Beta phases may be condensed or adjusted as coordination with local leaders progresses. Tier 2 languages will enter the pipeline as their respective leaders and translation teams become available — this may extend beyond Camp Meeting. The system is ready; the pace is set by people, not technology.
 
 ---
 
@@ -180,7 +220,7 @@ TP has been nominated as GCP champion (May 2 meeting).
 | **Total (current, 11 languages)** | **$50/mo** | Based on actual spend |
 | **Total (with nonprofit credits)** | **$15/mo** | Hosting/DB covered by credits |
 
-Per-language variable cost (translation + TTS): approximately **$3–4/mo per language**. Reducing to 5 languages would bring the variable portion to $15–20/mo.
+Per-language variable cost (translation + TTS): approximately **$3–4/mo per language**.
 
 ---
 
@@ -188,20 +228,33 @@ Per-language variable cost (translation + TTS): approximately **$3–4/mo per la
 
 | Risk | Likelihood | Mitigation |
 |---|---|---|
-| Translation quality not sufficient for beta | Medium | "Beta Translation" label, feedback UI, rollback plan. Early feedback from Japan pastor is encouraging but more testing needed. |
-| Content ingestion unreliable | Low | Email ingestion tested and working; RSS as backup; manual entry always available. Shadow period will stress-test. |
-| Tier 2 leader coordination delayed | Medium | Summer schedules are causing delays. Reminders going out within days. Tier 2 timeline is flexible — system is ready when leaders are. |
+| Translation quality not sufficient for beta | Medium | "Beta Translation" label, feedback UI, rollback plan. Bro. Yoshiki's early feedback is encouraging but more testing needed. |
+| Content ingestion unreliable | Low | Email ingestion tested and working; RSS as backup; manual entry available. Shadow period will stress-test. |
+| Tier 2 leader coordination delayed | Medium | Bro. Jeongmin and Bro. Rocky currently travelling. Follow-up scheduled within days. Tier 2 timeline is flexible. |
+| Active feedback cycle absent | Medium | Not yet implemented. Reader corrections are not currently feeding back into translation prompts. Planned for near-term development. |
+| Regional misunderstanding at camp meeting | Medium | Pre-camp announcement to relevant regional leadership agreed with Sis. Catey. TP to coordinate timing. |
+| English TTS quality below HQ standard | Medium | Side-by-side comparison planned before expanding languages. Current English audio acceptable for demo purposes. |
 | Editorial teams not available for Tier 3 | Medium | Depends on SG's follow-up with regional contacts. Tier 3 timeline (2026 H2) provides buffer. |
-| Camp meeting showcase not ready | Low | Demo site is live and functional today. Showcase does not depend on beta rollout completion. |
 
 ---
 
-## Decisions Needed (May 23 Meeting)
+## Open Action Items
 
-1. **Approve language tier structure** — Tier 1: Japanese, Tier 2: Korean + Filipino, Tier 3: Spanish + French + Portuguese
-2. **Confirm editorial review model** — regional teams and existing voluntary translation teams, per SG's direction from April 29
-3. **Approve camp meeting showcase approach** — live demo of deployed system + invite world leaders to express interest
-4. **GCP nonprofit application** — TP to lead; need HQ organization details (EIN, etc.)
+| Action | Owner | Due |
+|---|---|---|
+| Send bullet point summary to SF for camp meeting presentation | TP | This weekend (May 25) |
+| Follow up with Bro. Jeongmin (Korean) and Bro. Rocky (Filipino) | TP | Within days |
+| Coordinate pre-camp regional announcement with Sis. Catey | TP | Before camp meeting prep phase |
+| Implement active translation feedback cycle | TP | Near-term |
+| Initiate GCP for Nonprofits application | TP | Ongoing |
+| English TTS side-by-side quality comparison | TP | Before expanding to additional languages |
+| Evaluate Swahili as Tier 2 candidate | TP | With Tier 2 review |
+
+---
+
+## Project Naming
+
+"The Global Voice" is the current working code name. At the May 23 ITAC meeting, TS suggested renaming to "AF Global Voice" or "AFC Global Voice" to make the Apostolic Faith affiliation explicit. TP agreed the naming, domain, and public-facing branding will be revisited ahead of the public beta launch. No change to this document or the codebase until a name is confirmed.
 
 ---
 
