@@ -14,6 +14,7 @@
 | 2026-05-22 | Initial draft for May 23 ITAC review |
 | 2026-05-23 | ITAC meeting: tier structure approved; leader names confirmed; project naming discussion; English TTS quality noted |
 | 2026-05-25 | Portland HQ visit (Sis. Catey Hinkle): tier alignment confirmed; pre-camp announcement direction agreed; mobile app modality discussion; Swahili noted; active feedback cycle gap identified |
+| 2026-05-25 | Portland HQ visit (Sis. Rodica Musgrave): positive alignment on agentic church website migration approach |
 
 ---
 
@@ -183,7 +184,7 @@ The current implementation delivers content via web (afc-dev.org) and email subs
 | Phase | Dates | Key Activities | Gate |
 |---|---|---|---|
 | **ITAC Review** | May 23 ✓ | Tier structure approved; leader names confirmed | Done |
-| **HQ Alignment** | May 25 ✓ | Sis. Catey Hinkle: tiers confirmed; pre-camp announcement approach agreed; mobile app direction discussed | Done |
+| **HQ Alignment** | May 25 ✓ | Sis. Catey Hinkle: tiers confirmed; pre-camp announcement approach agreed; mobile app direction discussed. Sis. Rodica Musgrave: positive alignment on agentic website migration approach | Done |
 | **Shadow** | May 26 – Jun 6 | Process devotionals through full pipeline for Tier 1; follow up with Bro. Jeongmin and Bro. Rocky; coordinate pre-camp announcement with Sis. Catey | Tier 1 quality acceptable |
 | **Dogfood** | Jun 9 – Jun 20 | Share with bilingual ministers for feedback; incorporate corrections into translation prompts | Reviewers comfortable with quality |
 | **Beta Prep** | Jun 23 – Jul | Deploy beta with "Beta Translation" label; send pre-camp regional announcement; prepare demo script and materials | Ready for camp meeting |
