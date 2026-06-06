@@ -15,6 +15,7 @@
 | 2026-05-23 | ITAC meeting: tier structure approved; leader names confirmed; project naming discussion; English TTS quality noted |
 | 2026-05-25 | Portland HQ visit (Sis. Catey Hinkle): tier alignment confirmed; pre-camp announcement direction agreed; mobile app modality discussion; Swahili noted; active feedback cycle gap identified |
 | 2026-05-25 | Portland HQ visit (Sis. Rodica Musgrave): positive alignment on agentic church website migration approach |
+| 2026-06-06 | Update feedback from Japan (Bro. Yoshiki), Korea (Bro. Jeongmin), and Philippines (Bro. Rocky); updated action items and Tagalog TTS plan |
 
 ---
 
@@ -72,9 +73,9 @@ TGV is a multilingual content platform deployed on Google Cloud Run. The demo si
 
 | Language | Key Contact | Feedback |
 |---|---|---|
-| Japanese | Bro. Yoshiki (Japan pastor) | Positive (~90% satisfaction, based on limited review); congregation already shared beta link; interest in magazine translation |
-| Korean | Bro. Jeongmin; TP (native speaker) | Positive initial impression; Bro. Jeongmin currently travelling, follow-up pending |
-| Filipino | Bro. Rocky | Contacted; currently travelling, follow-up pending |
+| Japanese | Bro. Yoshiki (Japan pastor) | Very helpful (~90% satisfaction); shared via LINE; priority: doctrine & three deep experiences; requested mobile app integration (AFC app) for elderly accessibility; interest in Bible study, textbooks, and translated sermon audio |
+| Korean | Bro. Jeongmin; TP (native speaker) | Overall satisfied; confirmed willingness for continued collaboration |
+| Filipino | Bro. Rocky | Translation quality satisfactory; TTS audio has awkward intonation/accents in some parts (serious issue as it changes word meanings); needs testing of alternative TTS options keeping costs low |
 | Spanish | Sis. Catey Hinkle (coordinating) | Shared for distribution to pastors; feedback pending |
 
 **Infrastructure**
@@ -156,6 +157,7 @@ The current implementation delivers content via web (afc-dev.org) and email subs
 - Push notifications are more effective than email for daily content
 - Language preference set once at account level, not per-visit
 - Eventual home for all AFC literature content across languages
+- Aligns with feedback from Bro. Yoshiki (Japan): sharing link via LINE works but requires too many taps for elderly; direct integration into the AFC mobile app would resolve daily access friction.
 
 **Status:** Under review. No implementation commitment yet. Will inform Phase 2+ roadmap and the longer-term platform direction described in [Integration Strategy](integration-strategy.md).
 
@@ -174,6 +176,8 @@ The current implementation delivers content via web (afc-dev.org) and email subs
 **Recommendation:** Continue with Google Cloud TTS Neural2. Quality is reasonable across supported languages at ~10% of ElevenLabs cost. Audio samples available for committee review upon request.
 
 **Open item — English TTS quality:** Current English TTS voice is below the quality of existing HQ recordings (noted by BE at April 11 meeting; confirmed May 23). A side-by-side quality comparison is needed before expanding to additional languages. This will be conducted once Tier 1/2 language reviewers are engaged.
+
+**Open item — Filipino (Tagalog) TTS intonation/accents:** Feedback from Bro. Rocky indicates the current Tagalog TTS voice has awkward intonation and accents in places. In Filipino, incorrect accentuation can alter the meaning of words. Different Google Cloud TTS Tagalog voices/models and alternative low-cost providers must be evaluated in June to resolve this issue without significantly increasing operating costs.
 
 **Note on voice quality evaluation:** A meaningful TTS quality comparison depends on the target languages being confirmed. Once Tier 1 and Tier 2 languages are active, voice quality feedback will be collected from native-speaker reviewers in those languages to determine whether the current provider meets the standard for public beta.
 
@@ -235,6 +239,7 @@ Per-language variable cost (translation + TTS): approximately **$3–4/mo per la
 | Active feedback cycle absent | Medium | Not yet implemented. Reader corrections are not currently feeding back into translation prompts. Planned for near-term development. |
 | Regional misunderstanding at camp meeting | Medium | Pre-camp announcement to relevant regional leadership agreed with Sis. Catey. TP to coordinate timing. |
 | English TTS quality below HQ standard | Medium | Side-by-side comparison planned before expanding languages. Current English audio acceptable for demo purposes. |
+| Tagalog (Filipino) TTS intonation errors alter word meaning | High | Test alternative Google Cloud TTS Tagalog voices and other low-cost models. Perform basic audio quality tests across all target languages. |
 | Editorial teams not available for Tier 3 | Medium | Depends on SG's follow-up with regional contacts. Tier 3 timeline (2026 H2) provides buffer. |
 
 ---
@@ -244,7 +249,11 @@ Per-language variable cost (translation + TTS): approximately **$3–4/mo per la
 | Action | Owner | Due |
 |---|---|---|
 | Send bullet point summary to SF for camp meeting presentation | TP | This weekend (May 25) |
-| Follow up with Bro. Jeongmin (Korean) and Bro. Rocky (Filipino) | TP | Within days |
+| Follow up with Bro. Jeongmin (Korean) and Bro. Rocky (Filipino) | TP | Done (June 6) |
+| Ping Sis. Catey regarding TGV announcement to world leadership | TP | Coming week (mid-June) |
+| Conduct basic audio quality tests for target languages (JA, KO, FI) | TP | June 2026 |
+| Evaluate alternative Tagalog TTS voices to fix intonation issues (low-cost) | TP | June 2026 |
+| Complement/improve the feedback verification loop | TP | June 2026 |
 | Coordinate pre-camp regional announcement with Sis. Catey | TP | Before camp meeting prep phase |
 | Implement active translation feedback cycle | TP | Near-term |
 | Initiate GCP for Nonprofits application | TP | Ongoing |
