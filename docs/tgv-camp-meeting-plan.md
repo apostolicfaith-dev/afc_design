@@ -254,6 +254,7 @@ Per-language variable cost (translation + TTS): approximately **$3–4/mo per la
 | Conduct basic audio quality tests for target languages (JA, KO, FI) | TP | June 2026 |
 | Evaluate alternative Tagalog TTS voices to fix intonation issues (low-cost) | TP | June 2026 |
 | Complement/improve the feedback verification loop | TP | June 2026 |
+| Revisit naming, domain, and public-facing branding (AF/AFC Global Voice) | TP / TS | Before public beta launch |
 | Coordinate pre-camp regional announcement with Sis. Catey | TP | Before camp meeting prep phase |
 | Implement active translation feedback cycle | TP | Near-term |
 | Initiate GCP for Nonprofits application | TP | Ongoing |
